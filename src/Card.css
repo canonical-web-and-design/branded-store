@@ -1,8 +1,9 @@
 .Card {
   width: 230px;
+  padding: 20px 10px 0;
   border-radius: 2px;
   border: 1px solid #CDCDCD;
-  padding: 10px;
+  font-size: 16px;
   color: #333;
 }
 .Card-icon {
@@ -18,7 +19,6 @@
   font-weight: bold;
 }
 .Card-author {
-  font-size: 16px;
   color: #888;
 }
 .Card-rating {
@@ -26,7 +26,11 @@
   margin: 5px 0;
 }
 .Card-footer {
+  overflow: hidden;
   margin-top: 20px;
-  padding: 10px;
+  padding: 10px 15px;
   border-top: 1px solid #CDCDCD;
+}
+.Card-action {
+  float: right;
 }

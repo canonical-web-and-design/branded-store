@@ -3,18 +3,21 @@ import './CardsList.css'
 
 import Card from './Card'
 
-function CardsList(props) {
+function CardsList({ title, cards }) {
   return (
     <div className='CardsList'>
-      {props.cards.map((card, i) => (
-        <Card
-          key={i}
-          image={card.image}
-          name={card.name}
-          author={card.author}
-          action={card.action}
-        />
-      ))}
+      <div className='CardsList-title'>{title}</div>
+      <div className='CardsList-content'>
+        {cards.map((card, i) => (
+          <Card
+            key={i}
+            image={card.image}
+            name={card.name}
+            author={card.author}
+            action={card.action}
+          />
+        ))}
+      </div>
     </div>
   )
 }

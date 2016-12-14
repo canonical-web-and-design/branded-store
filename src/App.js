@@ -12,21 +12,29 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      cards: cards(43),
+      topCards: cards(4),
+      featuredCards: cards(8),
     }
   }
 
   render() {
-    const { cards } = this.state
+    const { topCards, featuredCards } = this.state
     return (
       <div className='App'>
         <Header />
         <main>
           <div className='App-content'>
-            <CardsList cards={cards} />
+            <CardsList
+              title='Top Rated'
+              cards={topCards}
+            />
+            <CardsList
+              title='Featured'
+              cards={featuredCards}
+            />
           </div>
-          <Footer />
         </main>
+        <Footer />
       </div>
     )
   }

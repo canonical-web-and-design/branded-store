@@ -1,13 +1,18 @@
 .Footer {
   overflow: hidden;
+  margin-top: 50px;
   padding: 20px 30px;
   font-size: 12px;
   border-top: 1px dotted #D2D2D2;
 }
-.Footer > div {
+.Footer-in {
+  max-width: 980px;
+  margin: 0 auto;
+}
+.Footer-infos {
   float: left;
 }
-.Footer .logo {
+.Footer-logo {
   float: right;
   margin-top: 20px;
 }
