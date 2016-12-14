@@ -1,4 +1,9 @@
 .App {
+}
+.App main {
   width: 800px;
-  margin: 50px auto;
+  margin: 0 auto;
+}
+.App-content {
+  min-height: 100px;
 }
