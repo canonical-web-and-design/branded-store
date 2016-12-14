@@ -1,8 +1,9 @@
 .App {
 }
 .App main {
-  max-width: 980px;
+  max-width: 1020px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 .App-content {
   min-height: 100px;
