@@ -1,4 +1,13 @@
 .Header {
-  padding: 50px;
-  background: #EEE;
+  overflow: hidden;
+  background: url(./Header/header-middle.png) repeat-x;
+  background-size: auto 50px;
+}
+
+.Header > header {
+  float: left;
+}
+
+.Header .header-right {
+  float: right;
 }
