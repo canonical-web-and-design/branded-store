@@ -1,0 +1,36 @@
+.Card {
+  width: 230px;
+  padding: 20px 10px 0;
+  border-radius: 2px;
+  border: 1px solid #CDCDCD;
+  font-size: 16px;
+  color: #333;
+}
+.Card-icon {
+  display: block;
+  margin: 0 auto 10px;
+}
+.Card p {
+  margin: 10px 0;
+  line-height: 20px;
+}
+.Card-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+.Card-author {
+  color: #888;
+}
+.Card-rating {
+  display: block;
+  margin: 5px 0;
+}
+.Card-footer {
+  overflow: hidden;
+  margin-top: 20px;
+  padding: 10px 15px;
+  border-top: 1px solid #CDCDCD;
+}
+.Card-action {
+  float: right;
+}
