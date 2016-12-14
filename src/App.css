@@ -1,9 +1,10 @@
 .App {
 }
 .App main {
-  width: 800px;
+  width: 980px;
   margin: 0 auto;
 }
 .App-content {
   min-height: 100px;
+  padding-top: 50px;
 }

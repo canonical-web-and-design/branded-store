@@ -1,0 +1,10 @@
+.CardsList {
+  overflow: hidden;
+  margin-left: -23px;
+}
+.CardsList .Card {
+  float: left;
+  width: 225px;
+  margin-bottom: 23px;
+  margin-left: 23px;
+}
