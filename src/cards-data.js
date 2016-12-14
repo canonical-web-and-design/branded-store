@@ -17,9 +17,7 @@ const images = [
   'paloalto',
   'purple',
   'snort',
-].map(img => (
-  `${process.env.PUBLIC_URL}/card-logos/${img}.png`
-))
+]
 
 const names = [
   'Docker',
