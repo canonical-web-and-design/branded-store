@@ -39,7 +39,7 @@ class App extends Component {
           searchResults: search(value),
           waitForResults: -1,
         }))
-      }, value? 300 + Math.random() * 300 : 0)
+      }, value? Math.random() * 150 : 0)
     }))
   }
 
