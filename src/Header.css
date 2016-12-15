@@ -3,11 +3,9 @@
   background: url(./Header/header-middle.png) repeat-x;
   background-size: auto 50px;
 }
-
-.Header > header {
+.Header .header-left {
   float: left;
 }
-
 .Header .header-right {
   float: right;
 }

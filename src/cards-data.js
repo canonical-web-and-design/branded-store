@@ -4,20 +4,22 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-const images = [
-  'docker',
-  'cisco',
-  'docker',
-  'f5',
-  'gravatar',
-  'intel',
-  'metaswitch',
-  'onie',
-  'orange',
-  'paloalto',
-  'purple',
-  'snort',
-]
+const imagesCount = 11
+
+// const images = [
+//   'docker',
+//   'cisco',
+//   'docker',
+//   'f5',
+//   'gravatar',
+//   // 'intel',
+//   'metaswitch',
+//   'onie',
+//   'orange',
+//   'paloalto',
+//   'purple',
+//   'snort',
+// ]
 
 const names = [
   'Docker',
@@ -38,6 +40,9 @@ const actions = [
   'Install',
   'Install',
   'Install',
+  'Install',
+  'Install',
+  'Install',
   '$3.99',
   '$2.99',
   '$1.99',
@@ -51,7 +56,7 @@ function cards(count) {
       name: names[randomInt(0, names.length)],
       author: authors[randomInt(0, authors.length)],
       action: actions[randomInt(0, actions.length)],
-      image: images[randomInt(0, images.length)],
+      image: `app-${randomInt(0, imagesCount) + 1}`,
     })
   }
   return cards
