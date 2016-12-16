@@ -1,10 +1,17 @@
-import cards from './cards-data'
-import apps from './apps-data'
+import axios from 'axios'
+// import cards from './cards-data'
+// import apps from './apps-data'
+
+const DEFAULT_ICON = 'https://myapps.developer.ubuntu.com/site_media/appmedia/2016/01/logo-ubuntu_cof-orange-hex_1.png'
 
 function randomInt(min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min)) + min
+}
+
+function apiSearchUrl(query) {
+  return `https://search.apps.ubuntu.com/api/v1/snaps/search?q=${encodeURIComponent(query)}&size=5`
 }
 
 const categories = [
@@ -30,7 +37,7 @@ const categories = [
   'Navigation',
 ].map(cat => ({
   name: cat,
-  icon: `app-${randomInt(0, 11) + 1}`,
+  icon: `${process.env.PUBLIC_URL}/icons/small/app-${randomInt(0, 11) + 1}.png`,
 }))
 
 function searchCategories(terms, count=3) {
@@ -50,33 +57,33 @@ function searchCategories(terms, count=3) {
   return found
 }
 
-function search(query) {
-  query = query.trim()
-
-  if (!query) {
-    return { groups: [], tags: [] }
+// Transforms an app from the API into a simpler data structure
+function appFromApi(data) {
+  return {
+    // icon: item.image,
+    name: data.title,
+    author: data.publisher,
+    rating: data.ratings_average,
+    icon: data.icon_url || DEFAULT_ICON,
+    price: data.price === 0? 'Free' : `$${data.price}`,
   }
+}
+
+function search(query, cancelCallback) {
 
   const fullResults = {
     groups: [],
     tags: [],
   }
 
-  const searchResults = apps.search(query, 5)
-  const categoryResults = searchCategories(query, 3)
+  query = query.trim()
 
-  if (searchResults.length) {
-    fullResults.groups.push({
-      groupName: 'Apps',
-      items: searchResults.map((item, i) => ({
-        icon: item.image,
-        name: item.name,
-        author: item.author,
-        rating: 6,
-        price: 'Free',
-      }))
-    })
+  if (!query) {
+    return Promise.resolve(fullResults)
   }
+
+  // const searchResults = apps.search(query, 5)
+  const categoryResults = searchCategories(query, 3)
 
   if (categoryResults.length) {
     fullResults.groups.push({
@@ -84,29 +91,6 @@ function search(query) {
       items: categoryResults,
     })
   }
-
-
-  // fullResults.groups: [
-  //     {
-  //       groupName: 'Categories',
-  //       items: cards(1).map(card => ({
-  //         icon: card.image,
-  //         name: 'Games',
-  //       })),
-  //     },
-  //     // {
-  //     //   groupName: 'Suggestions',
-  //     //   items: cards(3).map((card, i) => {
-  //     //     return {
-  //     //       icon: card.image,
-  //     //       name: [ 'Gameloft', 'Game Insight', 'Gamehouse' ][i],
-  //     //       author: [ 'Tom Dryer', 'KDE', 'VideoLAN' ][i],
-  //     //       rating: 6,
-  //     //       price: 'Free',
-  //     //     }
-  //     //   })
-  //     // },
-  //   ],
 
   fullResults.tags = [
     { name: 'Action', count: 19 },
@@ -124,7 +108,38 @@ function search(query) {
     { name: 'Family', count: 17 },
   ]
 
-  return fullResults
+  return axios
+    .get(apiSearchUrl(query), {
+      cancelToken: new axios.CancelToken(cancelCallback),
+    })
+    .then(res => (
+      res.data._embedded && res.data._embedded['clickindex:package']
+    ) || [])
+    .then(packages => packages.map(appFromApi))
+    .then(apps => {
+      if (apps.length) {
+        fullResults.groups.push({
+          groupName: 'Apps',
+          items: apps,
+        })
+      }
+      return fullResults
+    })
+
+  // return Promise.resolve(fullResults)
+
+  // if (searchResults.length) {
+  //   fullResults.groups.push({
+  //     groupName: 'Apps',
+  //     items: searchResults.map((item, i) => ({
+  //       icon: item.image,
+  //       name: item.name,
+  //       author: item.author,
+  //       rating: 6,
+  //       price: 'Free',
+  //     }))
+  //   })
+  // }
 }
 
 export default search

@@ -6,21 +6,6 @@ function randomInt(min, max) {
 
 const imagesCount = 11
 
-// const images = [
-//   'docker',
-//   'cisco',
-//   'docker',
-//   'f5',
-//   'gravatar',
-//   // 'intel',
-//   'metaswitch',
-//   'onie',
-//   'orange',
-//   'paloalto',
-//   'purple',
-//   'snort',
-// ]
-
 const names = [
   'Docker',
   'VLC',

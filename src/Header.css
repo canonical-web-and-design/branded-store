@@ -3,6 +3,11 @@
   background: url(./Header/header-middle.png) repeat-x;
   background-size: auto 50px;
 }
+.Header-logo {
+}
+.Header-nav li {
+  float: left;
+}
 .Header .header-left {
   float: left;
 }

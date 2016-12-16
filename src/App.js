@@ -15,9 +15,10 @@ class App extends Component {
     super(props)
 
     this.state = {
-      currentSearch: '',
-      searchResults: search(''),
-      waitForResults: -1, // timer
+      searchTerms: '',
+      searchResults: { groups: [], tags: [] },
+      // waitForResults: -1, // timer
+      cancelSearch: null,
       topCards: cards(4),
       featuredCards: cards(8),
     }
@@ -25,41 +26,73 @@ class App extends Component {
     this.onSearchChange = this.onSearchChange.bind(this)
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('DID UPDATE', this.state)
+    const { searchTerms } = this.state
+
+    if (!searchTerms || prevState.searchTerms === searchTerms) {
+      return
+    }
+
+    search(searchTerms, cancel => {
+      // console.log('cancel cb received')
+      this.updateState({ cancelSearch: cancel })
+    }).then(searchResults => {
+      // console.log('results received', searchResults)
+      this.updateState({ searchResults, cancelSearch: null })
+    })
+  }
+
+  updateState(update) {
+    // console.log('UPDATE', update)
+    this.setState(Object.assign({}, this.state, update))
+  }
+
   onSearchChange(value) {
     value = value.trim()
 
-    clearTimeout(this.state.waitForResults)
+    if (this.state.cancelSearch) {
+      console.log('CANCEL')
+      this.state.cancelSearch()
+    }
 
-    this.setState(Object.assign({}, this.state, {
-      currentSearch: value,
+    this.updateState({
+      searchTerms: value,
+      cancelSearch: null,
+    })
 
-      // simulate an async load of the results
-      waitForResults: setTimeout(() => {
-        this.setState(Object.assign({}, this.state, {
-          searchResults: search(value),
-          waitForResults: -1,
-        }))
-      }, value? 150 + Math.random() * 150 : 0)
-    }))
+    // clearTimeout(this.state.waitForResults)
+
+    // this.setState(Object.assign({}, this.state, {
+    //   searchTerms: value,
+
+    //   // simulate an async load of the results
+    //   waitForResults: setTimeout(() => {
+    //     this.setState(Object.assign({}, this.state, {
+    //       searchResults: search(value),
+    //       waitForResults: -1,
+    //     }))
+    //   }, value? 150 + Math.random() * 150 : 0)
+    // }))
   }
 
   render() {
     const {
       topCards,
       featuredCards,
-      currentSearch,
+      searchTerms,
       searchResults,
-      waitForResults,
+      cancelSearch,
     } = this.state
     return (
       <div className='App'>
         <Header />
 
         <SearchField
-          value={currentSearch}
+          value={searchTerms}
           results={searchResults}
           onChange={this.onSearchChange}
-          wait={waitForResults !== -1}
+          wait={!!cancelSearch}
         />
 
         <main className='App-content'>

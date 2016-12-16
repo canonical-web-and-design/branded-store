@@ -1031,7 +1031,6 @@ function search(terms, count=10) {
 
 function apps(count) {
   const items = []
-  let item = null
   while (count--) {
     items.push(appsList[randomInt(0, appsList.length)])
   }

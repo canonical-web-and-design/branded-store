@@ -12,10 +12,11 @@ class SearchField extends Component {
   onSearchChange(event) {
     this.props.onChange(event.target.value)
   }
-  icon
   render() {
     const { value, results, wait } = this.props
     const active = value !== ''
+    const { groups, tags } = results
+
     return (
       <section className={'SearchField ' + (active? 'SearchField-filled' : '')}>
         <div className='SearchField-in'>
@@ -45,7 +46,7 @@ class SearchField extends Component {
                 {active? (
                   <div>
                     <div className='SearchField-groups'>
-                      {results.groups.map((group, i) => (
+                      {groups.map((group, i) => (
                         <div className='SearchField-group' key={i}>
                           <div className='SearchField-group-title'>
                             {group.groupName}
@@ -57,7 +58,7 @@ class SearchField extends Component {
                                   <img
                                     width='41'
                                     height='41'
-                                    src={`${publicUrl}/icons/small/${item.icon}.png`}
+                                    src={item.icon}
                                     alt=''
                                   />
                                 </div>
@@ -86,7 +87,7 @@ class SearchField extends Component {
                       ))}
                     </div>
                     <div className='SearchField-tags'>
-                      {results.tags.map((tag, i) => (
+                      {tags.map((tag, i) => (
                         <span key={i}>
                           <a>{tag.name}</a>{' '}
                           ({tag.count}){i === results.tags.length-1? '' : ', '}
