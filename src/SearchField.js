@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import './SearchField.css'
 import stars from './Card/rating-stars.png'
 
-const publicUrl = process.env.PUBLIC_URL
-
 class SearchField extends Component {
   constructor(props) {
     super(props)

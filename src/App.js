@@ -9,6 +9,8 @@ import SearchField from './SearchField'
 import cards from './cards-data'
 import search from './search'
 
+const SLOW_SEARCH_TIMEOUT = 500
+
 class App extends Component {
 
   constructor(props) {
@@ -17,8 +19,9 @@ class App extends Component {
     this.state = {
       searchTerms: '',
       searchResults: { groups: [], tags: [] },
-      // waitForResults: -1, // timer
       cancelSearch: null,
+      slowSearchRequest: false,
+      slowSearchRequestTimer: -1,
       topCards: cards(4),
       featuredCards: cards(8),
     }
@@ -27,53 +30,82 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('DID UPDATE', this.state)
     const { searchTerms } = this.state
+    if (prevState.searchTerms !== searchTerms) {
+      this.initSearch(searchTerms)
+    }
+  }
 
-    if (!searchTerms || prevState.searchTerms === searchTerms) {
+  initSearch(searchTerms) {
+    let cancel = null
+
+    clearTimeout(this.state.slowSearchRequestTimer)
+
+    if (!searchTerms) {
+      this.updateState({
+        slowSearchRequest: false,
+        slowSearchRequestTimer: -1,
+        searchResults: { groups: [], tags: [] },
+        cancelSearch: null,
+      })
       return
     }
 
-    search(searchTerms, cancel => {
-      // console.log('cancel cb received')
-      this.updateState({ cancelSearch: cancel })
-    }).then(searchResults => {
-      // console.log('results received', searchResults)
-      this.updateState({ searchResults, cancelSearch: null })
+    // start the search request
+    search(searchTerms, c => cancel = c)
+
+      .then(results => {
+        clearTimeout(this.state.slowSearchRequestTimer)
+        this.updateState({
+          slowSearchRequest: false,
+          slowSearchRequestTimer: -1,
+          searchResults: results,
+          cancelSearch: null,
+        })
+      })
+
+      .catch(() => {
+        clearTimeout(this.state.slowSearchRequestTimer)
+        this.updateState({
+          slowSearchRequest: false,
+          slowSearchRequestTimer: -1,
+          cancelSearch: null,
+        })
+      })
+
+    // start the slow search timer
+    const slowSearchRequestTimer = setTimeout(() => {
+      this.updateState({
+        slowSearchRequest: true,
+        slowSearchRequestTimer: -1,
+      })
+    }, SLOW_SEARCH_TIMEOUT)
+
+    this.updateState({
+      cancelSearch: () => {
+        clearTimeout(this.state.slowSearchRequestTimer)
+        cancel()
+      },
+      slowSearchRequestTimer,
     })
   }
 
   updateState(update) {
-    // console.log('UPDATE', update)
     this.setState(Object.assign({}, this.state, update))
   }
 
   onSearchChange(value) {
+    const { cancelSearch } = this.state
     value = value.trim()
 
-    if (this.state.cancelSearch) {
-      console.log('CANCEL')
-      this.state.cancelSearch()
+    if (cancelSearch) {
+      cancelSearch()
     }
 
     this.updateState({
       searchTerms: value,
       cancelSearch: null,
     })
-
-    // clearTimeout(this.state.waitForResults)
-
-    // this.setState(Object.assign({}, this.state, {
-    //   searchTerms: value,
-
-    //   // simulate an async load of the results
-    //   waitForResults: setTimeout(() => {
-    //     this.setState(Object.assign({}, this.state, {
-    //       searchResults: search(value),
-    //       waitForResults: -1,
-    //     }))
-    //   }, value? 150 + Math.random() * 150 : 0)
-    // }))
   }
 
   render() {
@@ -82,7 +114,7 @@ class App extends Component {
       featuredCards,
       searchTerms,
       searchResults,
-      cancelSearch,
+      slowSearchRequest,
     } = this.state
     return (
       <div className='App'>
@@ -92,7 +124,7 @@ class App extends Component {
           value={searchTerms}
           results={searchResults}
           onChange={this.onSearchChange}
-          wait={!!cancelSearch}
+          wait={slowSearchRequest}
         />
 
         <main className='App-content'>
