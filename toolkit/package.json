@@ -1,0 +1,8 @@
+{
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "dependencies": {
+    "babel-preset-react-app": "^2.0.1"
+  }
+}

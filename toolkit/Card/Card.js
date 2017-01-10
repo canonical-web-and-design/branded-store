@@ -1,14 +1,11 @@
 import React from 'react'
 import './Card.css'
-import stars from './Card/rating-stars.png'
-
-const publicUrl = process.env.PUBLIC_URL
+import stars from './rating-stars.png'
 
 function Card(props) {
-  const iconUrl = `${publicUrl}/icons/cards/${props.image}.png`
   return (
     <div className='Card'>
-      <img className='Card-icon' src={iconUrl} alt='' width='114' height='114' />
+      <img className='Card-icon' src={props.image} alt='' width='114' height='114' />
       <p className='Card-name'>{props.name}</p>
       <p className='Card-author'>By {props.author}</p>
       <img className='Card-rating' src={stars} alt='' width='104' height='18' />

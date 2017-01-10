@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './SearchField.css'
-import stars from './Card/rating-stars.png'
+
+import stars from 'toolkit/Card/rating-stars.png'
 
 class SearchField extends Component {
   constructor(props) {

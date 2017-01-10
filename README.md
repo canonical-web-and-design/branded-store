@@ -1,1 +1,1 @@
-# Stores Project
+# Stores
