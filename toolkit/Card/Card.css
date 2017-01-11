@@ -1,14 +1,16 @@
 .Card {
   width: 230px;
-  padding: 20px 10px 0;
-  border-radius: 2px;
+  border-radius: 3px;
   border: 1px solid #CDCDCD;
   font-size: 16px;
   color: #333;
 }
+.Card-main {
+  padding: 20px 10px;
+}
 .Card-icon {
   display: block;
-  margin: 0 auto 10px;
+  margin: 0 auto 15px;
 }
 .Card p {
   margin: 10px 0;
@@ -26,10 +28,18 @@
   margin: 5px 0;
 }
 .Card-footer {
+  position: relative;
   overflow: hidden;
-  margin-top: 20px;
   padding: 10px 15px;
-  border-top: 1px solid #CDCDCD;
+}
+.Card-footer:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  height: 1px;
+  background: #CDCDCD;
 }
 .Card-action {
   float: right;

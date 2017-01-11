@@ -5,6 +5,8 @@ import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import CardsList from 'toolkit/CardsList/CardsList'
 
+import * as snaps from './snaps/snaps'
+
 import cards from './cards-data'
 
 import createHistory from 'history/createBrowserHistory'
@@ -27,27 +29,42 @@ class App extends Component {
     super(props)
 
     this.state = {
-      installedSnaps: cards(4),
+      location: history.location,
+      installedSnaps: [],
       topSnaps: cards(4),
       featuredSnaps: cards(8),
-      location: history.location,
     }
 
     history.listen(this.handleNavigation.bind(this))
 
     this.onMenuItemClick = this.onMenuItemClick.bind(this)
+    this.onCardClick = this.onCardClick.bind(this)
+  }
+
+  componentDidMount() {
+    snaps.installed().then(installedSnaps => {
+      this.setState({
+        installedSnaps: installedSnaps.map(snap => ({
+          id: snap.id,
+          name: snap.name,
+          author: snap.author,
+          action: snap.price === 'free'? 'Install' : snap.price,
+          image: snap.id,
+        }))
+      })
+    })
   }
 
   handleNavigation(location) {
-    this.updateState({ location: location })
-  }
-
-  updateState(update) {
-    this.setState(Object.assign({}, this.state, update))
+    this.setState({ location: location })
   }
 
   onMenuItemClick(id) {
     history.push('/' + (id === 'home' ? '' : id))
+  }
+
+  onCardClick(id) {
+    history.push(`/snap/${id}`)
   }
 
   render() {
@@ -76,13 +93,13 @@ class App extends Component {
         />
 
         <main className='App-content'>
-
           {(() => {
             if (currentSection === 'home') return (
               <CardsList
                 title='Installed Snaps'
                 cards={installedSnaps}
                 cardImgUrl={cardImgUrl}
+                onCardClick={this.onCardClick}
               />
             )
             if (currentSection === 'store') return (
@@ -100,7 +117,6 @@ class App extends Component {
               </div>
             )
           })()}
-
         </main>
 
         <Footer />
