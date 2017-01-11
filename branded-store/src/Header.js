@@ -26,12 +26,13 @@ class MenuItem extends Component {
     this.props.onClick(this.props.id)
   }
   render() {
-    const { name, id } = this.props
+    const { name, id, current } = this.props
     return (
       <li
         role='button'
         tabIndex='0'
         onClick={this.onClick}
+        className={current? 'current' : ''}
       >
         {itemIcons[id]? (
           <img
@@ -50,12 +51,15 @@ class Header extends Component {
     super(props)
     this.onLogoClick = this.onLogoClick.bind(this)
     this.onMenuItemClick = this.onMenuItemClick.bind(this)
+    this.onProfileClick = this.onProfileClick.bind(this)
   }
   onLogoClick(event) {
     event.currentTarget.blur()
+    this.props.onMenuItemClick('home')
   }
   onProfileClick(event) {
     event.currentTarget.blur()
+    this.props.onMenuItemClick('profile')
   }
   onMenuItemClick(id) {
     this.props.onMenuItemClick(id)
@@ -83,6 +87,7 @@ class Header extends Component {
                 id={item.id}
                 name={item.name}
                 onClick={this.onMenuItemClick}
+                current={item.id === props.currentSection}
               />
             ))}
           </ul>
@@ -93,7 +98,7 @@ class Header extends Component {
           tabIndex='0'
           onClick={this.onProfileClick}
         >
-          <img width='24' height='24' src={avatar} />
+          <img width='24' height='24' src={avatar} alt='' />
           <span>{props.profilename || defaultProfileName}</span>
         </div>
       </header>
