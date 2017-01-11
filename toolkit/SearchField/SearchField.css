@@ -49,7 +49,7 @@
   padding: 16px;
   background:
     #FFF
-    url(./SearchField/search-icon.png)
+    url(./assets/search-icon.png)
     no-repeat
     calc(100% - 10px) 50%;
   background-size: 24px 23px;

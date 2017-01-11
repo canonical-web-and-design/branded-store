@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import Header from './Header'
-import Footer from './Footer'
-import CardsList from './CardsList'
+import Header from 'toolkit/Header/Header'
+import Footer from 'toolkit/Footer/Footer'
+import CardsList from 'toolkit/CardsList/CardsList'
 
 import cards from './cards-data'
 
 import createHistory from 'history/createBrowserHistory'
 
+const publicUrl = process.env.PUBLIC_URL
 const history = createHistory()
-
 const sections = [ 'store', 'settings' ]
 
 function sectionFromPath(path) {
@@ -58,7 +58,10 @@ class App extends Component {
       featuredSnaps,
       installedSnaps,
     } = this.state
+
     const currentSection = sectionFromPath(location.pathname)
+
+    const cardImgUrl = `${publicUrl}/icons/cards/`
 
     return (
       <div className='App'>
@@ -79,6 +82,7 @@ class App extends Component {
               <CardsList
                 title='Installed Snaps'
                 cards={installedSnaps}
+                cardImgUrl={cardImgUrl}
               />
             )
             if (currentSection === 'store') return (
@@ -86,10 +90,12 @@ class App extends Component {
                 <CardsList
                   title='Top'
                   cards={topSnaps}
+                  cardImgUrl={cardImgUrl}
                 />
                 <CardsList
                   title='Featured'
                   cards={featuredSnaps}
+                  cardImgUrl={cardImgUrl}
                 />
               </div>
             )

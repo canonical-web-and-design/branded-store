@@ -3,9 +3,7 @@ import './CardsList.css'
 
 import Card from 'toolkit/Card/Card'
 
-const publicUrl = process.env.PUBLIC_URL
-
-function CardsList({ title, cards }) {
+function CardsList({ title, cards, cardImgUrl }) {
   return (
     <div className='CardsList'>
       <div className='CardsList-title'>{title}</div>
@@ -13,10 +11,10 @@ function CardsList({ title, cards }) {
         {cards.map((card, i) => (
           <Card
             key={i}
-            image={`${publicUrl}/icons/cards/${card.image}.png`}
             name={card.name}
             author={card.author}
             action={card.action}
+            image={`${cardImgUrl}${card.image}.png`}
           />
         ))}
       </div>

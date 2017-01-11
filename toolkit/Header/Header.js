@@ -2,19 +2,19 @@ import React, { Component } from 'react'
 import './Header.css'
 
 import defaultLogo from './assets/logo.svg'
-import avatar from './Header/avatar.png'
+import avatar from './assets/avatar.png'
 
 // item icons
-import iconStore from './Header/store.svg'
-import iconSettings from './Header/settings.svg'
+import iconStore from './assets/store.svg'
+import iconSettings from './assets/settings.svg'
+
+const defaultName = 'Ubuntu'
+const defaultProfileName = 'Karl Waghorn-Moyce'
 
 const itemIcons = {
   store: iconStore,
   settings: iconSettings,
 }
-
-const defaultName = 'Ubuntu'
-const defaultProfileName = 'Karl Waghorn-Moyce'
 
 class MenuItem extends Component {
   constructor(props) {
