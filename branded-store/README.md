@@ -1,1 +1,1 @@
-# Stores
+# Branded Store

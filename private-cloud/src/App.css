@@ -1,0 +1,11 @@
+.App-content {
+  min-height: 100px;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 50px 20px 0;
+}
+
+[role=button] {
+  user-select: none;
+  cursor: pointer;
+}
