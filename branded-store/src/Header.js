@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Header.css'
 
 import defaultLogo from './assets/logo.svg'
+import avatar from './Header/avatar.png'
 
 // item icons
 import iconStore from './Header/store.svg'
@@ -13,6 +14,7 @@ const itemIcons = {
 }
 
 const defaultName = 'Ubuntu'
+const defaultProfileName = 'Karl Waghorn-Moyce'
 
 class MenuItem extends Component {
   constructor(props) {
@@ -37,7 +39,7 @@ class MenuItem extends Component {
             alt=''
           />
         ) : null}
-        {name}
+        <span>{name}</span>
       </li>
     )
   }
@@ -50,6 +52,9 @@ class Header extends Component {
     this.onMenuItemClick = this.onMenuItemClick.bind(this)
   }
   onLogoClick(event) {
+    event.currentTarget.blur()
+  }
+  onProfileClick(event) {
     event.currentTarget.blur()
   }
   onMenuItemClick(id) {
@@ -82,6 +87,15 @@ class Header extends Component {
             ))}
           </ul>
         </nav>
+        <div
+          className='Header-profile'
+          role='button'
+          tabIndex='0'
+          onClick={this.onProfileClick}
+        >
+          <img width='24' height='24' src={avatar} />
+          <span>{props.profilename || defaultProfileName}</span>
+        </div>
       </header>
     )
   }
