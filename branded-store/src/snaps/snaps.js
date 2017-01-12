@@ -1,4 +1,6 @@
-import snaps, { baseSnaps } from './snaps-index'
+import snaps, {
+  featuredSnaps,
+} from './snaps-index'
 
 // Get a single snap by id
 export function snap(id) {
@@ -28,7 +30,9 @@ export function install() {
 
 // Get the featured snaps from the store
 export function featured() {
-  return baseSnaps
-    .map(id => snaps.find(snap => snaps.id === id))
-    .filter(snap => snap)
+  return Promise.resolve(
+    featuredSnaps
+      .map(id => snaps.find(snap => snap.id === id))
+      .filter(snap => snap)
+  )
 }

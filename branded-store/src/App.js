@@ -9,7 +9,6 @@ import SnapPage from 'toolkit/SnapPage/SnapPage'
 
 import createHistory from 'history/createBrowserHistory'
 import * as snaps from './snaps/snaps'
-import cards from './cards-data'
 
 const publicUrl = process.env.PUBLIC_URL
 const history = createHistory()
@@ -45,8 +44,7 @@ class App extends Component {
     this.state = {
       location: history.location,
       installedSnaps: [],
-      topSnaps: cards(4),
-      featuredSnaps: cards(8),
+      featuredSnaps: [],
       snapPageSnap: undefined,
     }
 
@@ -60,6 +58,12 @@ class App extends Component {
     snaps.installed().then(installedSnaps => {
       this.setState({
         installedSnaps: installedSnaps.map(snapToCard)
+      })
+    })
+
+    snaps.featured().then(featuredSnaps => {
+      this.setState({
+        featuredSnaps: featuredSnaps.map(snapToCard)
       })
     })
   }
@@ -93,7 +97,6 @@ class App extends Component {
 
     const {
       location,
-      topSnaps,
       featuredSnaps,
       installedSnaps,
       snapPageSnap,
@@ -129,14 +132,10 @@ class App extends Component {
               if (currentSection === 'store') return (
                 <ContentWrapper>
                   <CardsList
-                    title='Top'
-                    cards={topSnaps}
-                    cardImgUrl={cardImgUrl}
-                  />
-                  <CardsList
-                    title='Featured'
+                    title='Featured Snaps'
                     cards={featuredSnaps}
                     cardImgUrl={cardImgUrl}
+                    onCardClick={this.onCardClick}
                   />
                 </ContentWrapper>
               )
