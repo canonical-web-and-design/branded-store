@@ -1,0 +1,9 @@
+.ContentWrapper {
+}
+.ContentWrapper-background {
+  background: #F7F7F7;
+}
+.ContentWrapper-in {
+  width: 980px;
+  margin: 0 auto;
+}
