@@ -18,13 +18,12 @@
 .SnapPage-header > div {
   align-self: center;
 }
-
 .SnapPage-content {
   display: flex;
   padding-top: 25px;
 }
 .SnapPage-SnapPageAbout {
-  margin-top: 40px;
+  margin: 40px 0;
 }
 .SnapPage-content > div + div {
   flex-shrink: 0;

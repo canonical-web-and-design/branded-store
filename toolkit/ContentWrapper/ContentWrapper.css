@@ -1,7 +1,8 @@
-.ContentWrapper {
-}
 .ContentWrapper-background {
   background: #F7F7F7;
+}
+.ContentWrapper-bordered {
+  border-top: 1px solid #D2D2D2;
 }
 .ContentWrapper-in {
   width: 980px;

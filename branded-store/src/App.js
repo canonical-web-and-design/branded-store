@@ -5,7 +5,7 @@ import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import CardsList from 'toolkit/CardsList/CardsList'
-import SnapPage from './SnapPage/SnapPage'
+import SnapPage from 'toolkit/SnapPage/SnapPage'
 
 import createHistory from 'history/createBrowserHistory'
 import * as snaps from './snaps/snaps'
@@ -25,6 +25,16 @@ function sectionFromPath(path) {
 function snapIdFromPath(path) {
   const parts = path.split('/').slice(1)
   return (parts[0] === 'snap' && parts[1]) || ''
+}
+
+function snapToCard(snap) {
+  return {
+    id: snap.id,
+    name: snap.name,
+    author: snap.author,
+    action: snap.price === 'free'? 'Install' : snap.price,
+    image: snap.id,
+  }
 }
 
 class App extends Component {
@@ -49,13 +59,7 @@ class App extends Component {
   componentDidMount() {
     snaps.installed().then(installedSnaps => {
       this.setState({
-        installedSnaps: installedSnaps.map(snap => ({
-          id: snap.id,
-          name: snap.name,
-          author: snap.author,
-          action: snap.price === 'free'? 'Install' : snap.price,
-          image: snap.id,
-        }))
+        installedSnaps: installedSnaps.map(snapToCard)
       })
     })
   }

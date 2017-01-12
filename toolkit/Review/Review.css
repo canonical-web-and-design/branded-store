@@ -1,0 +1,19 @@
+.Review-content {
+  display: flex;
+}
+.Review-image {
+  margin-right: 20px;
+  border-radius: 50%;
+}
+.Review-rating {
+  margin-bottom: 30px;
+}
+.Review-metas {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.Review-date {
+  color: #888888;
+}
