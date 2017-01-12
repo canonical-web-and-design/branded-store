@@ -1,6 +1,7 @@
 import React from 'react'
 import './Card.css'
-import stars from './rating-stars.png'
+
+import RatingStars from 'toolkit/RatingStars/RatingStars'
 
 function Card(props) {
   return (
@@ -19,13 +20,7 @@ function Card(props) {
         />
         <p className='Card-name'>{props.name}</p>
         <p className='Card-author'>By {props.author}</p>
-        <img
-          className='Card-rating'
-          src={stars}
-          alt=''
-          width='104'
-          height='18'
-        />
+        <RatingStars />
       </div>
       <div className='Card-footer'>
         <div className='Card-action'>{props.action}</div>
