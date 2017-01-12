@@ -8,7 +8,7 @@ import CardsList from 'toolkit/CardsList/CardsList'
 import SnapPage from 'toolkit/SnapPage/SnapPage'
 
 import createHistory from 'history/createBrowserHistory'
-import * as snaps from './snaps/snaps'
+import * as snapApi from './snaps/snap-api'
 
 const publicUrl = process.env.PUBLIC_URL
 const history = createHistory()
@@ -55,13 +55,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    snaps.installed().then(installedSnaps => {
+    snapApi.installed().then(installedSnaps => {
       this.setState({
         installedSnaps: installedSnaps.map(snapToCard)
       })
     })
-
-    snaps.featured().then(featuredSnaps => {
+    snapApi.featured().then(featuredSnaps => {
       this.setState({
         featuredSnaps: featuredSnaps.map(snapToCard)
       })
@@ -75,7 +74,7 @@ class App extends Component {
     if (section === 'snap' && snapId && !(
       snapPageSnap && snapPageSnap.id === snapId
     )) {
-      snaps.snap(snapId).then(snap => {
+      snapApi.snap(snapId).then(snap => {
         this.setState({ snapPageSnap: snap })
       })
     }
