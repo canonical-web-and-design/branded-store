@@ -1,26 +1,30 @@
 import React, { Component } from 'react'
 import './App.css'
 
+import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import CardsList from 'toolkit/CardsList/CardsList'
-
-import * as snaps from './snaps/snaps'
-
-import cards from './cards-data'
+import SnapPage from './SnapPage/SnapPage'
 
 import createHistory from 'history/createBrowserHistory'
+import * as snaps from './snaps/snaps'
+import cards from './cards-data'
 
 const publicUrl = process.env.PUBLIC_URL
 const history = createHistory()
-const sections = [ 'store', 'settings' ]
+const sections = [ 'store', 'settings', 'snap' ]
 
 function sectionFromPath(path) {
-  return path === '/' ? 'home' : (
-    sections.find(section => (
-      path.startsWith(`/${section}`)
-    )) || ''
+  const parts = path.split('/').slice(1)
+  return parts[0] === ''? 'home' : (
+    sections.find(section => parts[0] === section) || ''
   )
+}
+
+function snapIdFromPath(path) {
+  const parts = path.split('/').slice(1)
+  return (parts[0] === 'snap' && parts[1]) || ''
 }
 
 class App extends Component {
@@ -33,6 +37,7 @@ class App extends Component {
       installedSnaps: [],
       topSnaps: cards(4),
       featuredSnaps: cards(8),
+      snapPageSnap: undefined,
     }
 
     history.listen(this.handleNavigation.bind(this))
@@ -55,8 +60,21 @@ class App extends Component {
     })
   }
 
+  componentDidUpdate() {
+    const { location, snapPageSnap } = this.state
+    const section = sectionFromPath(location.pathname)
+    const snapId = snapIdFromPath(location.pathname)
+    if (section === 'snap' && snapId && !(
+      snapPageSnap && snapPageSnap.id === snapId
+    )) {
+      snaps.snap(snapId).then(snap => {
+        this.setState({ snapPageSnap: snap })
+      })
+    }
+  }
+
   handleNavigation(location) {
-    this.setState({ location: location })
+    this.setState({ location })
   }
 
   onMenuItemClick(id) {
@@ -74,10 +92,10 @@ class App extends Component {
       topSnaps,
       featuredSnaps,
       installedSnaps,
+      snapPageSnap,
     } = this.state
 
     const currentSection = sectionFromPath(location.pathname)
-
     const cardImgUrl = `${publicUrl}/icons/cards/`
 
     return (
@@ -93,30 +111,38 @@ class App extends Component {
         />
 
         <main className='App-content'>
-          {(() => {
-            if (currentSection === 'home') return (
-              <CardsList
-                title='Installed Snaps'
-                cards={installedSnaps}
-                cardImgUrl={cardImgUrl}
-                onCardClick={this.onCardClick}
-              />
-            )
-            if (currentSection === 'store') return (
-              <div>
-                <CardsList
-                  title='Top'
-                  cards={topSnaps}
-                  cardImgUrl={cardImgUrl}
+            {(() => {
+              if (currentSection === 'home') return (
+                <ContentWrapper>
+                  <CardsList
+                    title='Installed Snaps'
+                    cards={installedSnaps}
+                    cardImgUrl={cardImgUrl}
+                    onCardClick={this.onCardClick}
+                  />
+                </ContentWrapper>
+              )
+              if (currentSection === 'store') return (
+                <ContentWrapper>
+                  <CardsList
+                    title='Top'
+                    cards={topSnaps}
+                    cardImgUrl={cardImgUrl}
+                  />
+                  <CardsList
+                    title='Featured'
+                    cards={featuredSnaps}
+                    cardImgUrl={cardImgUrl}
+                  />
+                </ContentWrapper>
+              )
+              if (currentSection === 'snap') return (
+                <SnapPage
+                  snap={snapPageSnap}
+                  icon={`${cardImgUrl}${snapPageSnap && snapPageSnap.id}.png`}
                 />
-                <CardsList
-                  title='Featured'
-                  cards={featuredSnaps}
-                  cardImgUrl={cardImgUrl}
-                />
-              </div>
-            )
-          })()}
+              )
+            })()}
         </main>
 
         <Footer />

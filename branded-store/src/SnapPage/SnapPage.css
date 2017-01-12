@@ -1,0 +1,33 @@
+.SnapPage-header {
+  padding: 45px 0 40px;
+}
+.SnapPage-summary {
+  display: flex;
+  margin-bottom: 40px;
+}
+.SnapPage-icon {
+  margin-right: 20px;
+}
+.SnapPage-name {
+  font-size: 32px;
+}
+.SnapPage-author {
+  margin: 8px 0;
+  color: #888888;
+}
+.SnapPage-header > div {
+  align-self: center;
+}
+
+.SnapPage-content {
+  display: flex;
+  padding-top: 25px;
+}
+.SnapPage-SnapPageAbout {
+  margin-top: 40px;
+}
+.SnapPage-content > div + div {
+  flex-shrink: 0;
+  width: 308px;
+  margin-left: 122px;
+}

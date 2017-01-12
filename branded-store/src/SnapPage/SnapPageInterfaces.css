@@ -1,0 +1,12 @@
+.SnapPageInterfaces {
+  padding: 20px;
+  border: 1px solid #CDCDCD;
+}
+
+.SnapPageInterfaces h2 {
+  margin-bottom: 5px;
+  color: #888888;
+}
+.SnapPageInterfaces li {
+  list-style: disc inside;
+}

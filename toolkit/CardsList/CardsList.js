@@ -48,7 +48,7 @@ class CardsList extends Component {
         <div className='CardsList-content'>
           {cards.map((card, i) => (
             <CardWrapper
-              key={card.id}
+              key={card.id + i}
               card={card}
               image={`${cardImgUrl}${card.image}.png`}
               onClick={this.onCardClick}

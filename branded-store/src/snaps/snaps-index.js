@@ -5,6 +5,7 @@ const snaps = [
     author: 'Byron George',
     price: 'free',
     rating: 8,
+    category: 'Databases',
     description: `Access everything with the tools you are already using,
     regardless of the device or platform you are on. Pictures, videos,
     documents, contacts, communications - they are all available right where
@@ -17,6 +18,7 @@ const snaps = [
     author: 'Brett Romero',
     price: '$3.99',
     rating: 7,
+    category: 'Databases',
     description: `Access everything with the tools you are already using,
     regardless of the device or platform you are on. Pictures, videos,
     documents, contacts, communications - they are all available right where
@@ -29,6 +31,7 @@ const snaps = [
     author: 'Salvador Miller',
     price: 'free',
     rating: 9,
+    category: 'Databases',
     description: `Access everything with the tools you are already using,
     regardless of the device or platform you are on. Pictures, videos,
     documents, contacts, communications - they are all available right where
@@ -41,6 +44,7 @@ const snaps = [
     author: 'Stephen Ellis',
     price: '$1.99',
     rating: 10,
+    category: 'Databases',
     description: `Access everything with the tools you are already using,
     regardless of the device or platform you are on. Pictures, videos,
     documents, contacts, communications - they are all available right where
@@ -53,6 +57,7 @@ const snaps = [
     author: 'Stanley Griffin',
     price: '$0.99',
     rating: 9,
+    category: 'Databases',
     description: `Access everything with the tools you are already using,
     regardless of the device or platform you are on. Pictures, videos,
     documents, contacts, communications - they are all available right where
@@ -65,6 +70,7 @@ const snaps = [
     author: 'Vicki Mitchell',
     price: 'free',
     rating: 7,
+    category: 'Databases',
     description: `Access everything with the tools you are already using,
     regardless of the device or platform you are on. Pictures, videos,
     documents, contacts, communications - they are all available right where
@@ -77,6 +83,7 @@ const snaps = [
     author: 'Mary Dixon',
     price: 'free',
     rating: 9,
+    category: 'Databases',
     description: `Access everything with the tools you are already using,
     regardless of the device or platform you are on. Pictures, videos,
     documents, contacts, communications - they are all available right where
@@ -89,6 +96,7 @@ const snaps = [
     author: 'Alyssa Gutierrez',
     price: '$1.99',
     rating: 8,
+    category: 'Databases',
     description: `Access everything with the tools you are already using,
     regardless of the device or platform you are on. Pictures, videos,
     documents, contacts, communications - they are all available right where
@@ -101,6 +109,7 @@ const snaps = [
     author: 'Wyatt Sutton',
     price: 'free',
     rating: 8,
+    category: 'Databases',
     description: `Access everything with the tools you are already using,
     regardless of the device or platform you are on. Pictures, videos,
     documents, contacts, communications - they are all available right where
