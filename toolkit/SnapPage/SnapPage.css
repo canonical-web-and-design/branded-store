@@ -1,6 +1,13 @@
 .SnapPage-header {
   padding: 45px 0 40px;
 }
+.SnapPage-headerParts {
+  display: flex;
+  justify-content: space-between;
+}
+.SnapPage-installButton {
+  align-self: flex-end;
+}
 .SnapPage-summary {
   display: flex;
   margin-bottom: 40px;

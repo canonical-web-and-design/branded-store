@@ -7,6 +7,7 @@ import RatingStars from 'toolkit/RatingStars/RatingStars'
 import SnapPageDetails from './SnapPageDetails'
 import SnapPageAbout from './SnapPageAbout'
 import SnapPageInterfaces from './SnapPageInterfaces'
+import SnapPageInstallButton from './SnapPageInstallButton'
 
 function SnapPage(props) {
   const { snap, icon } = props
@@ -16,30 +17,39 @@ function SnapPage(props) {
       <ContentWrapper background>
         <div className='SnapPage-header'>
 
-          <div className='SnapPage-summary'>
-            <img
-              className='SnapPage-icon'
-              src={icon}
-              alt=''
-              width='114'
-              height='114'
-            />
+          <div className='SnapPage-headerParts'>
             <div>
-              <h1 className='SnapPage-name'>{snap.name}</h1>
-              <p className='SnapPage-author'>By {snap.author}</p>
-              <RatingStars />
+              <div className='SnapPage-summary'>
+                <img
+                  className='SnapPage-icon'
+                  src={icon}
+                  alt=''
+                  width='114'
+                  height='114'
+                />
+                <div>
+                  <h1 className='SnapPage-name'>{snap.name}</h1>
+                  <p className='SnapPage-author'>By {snap.author}</p>
+                  <RatingStars />
+                </div>
+              </div>
+              <div className='SnapPage-tags'>
+                <p>
+                  {['databases', 'cassandra', 'app-deployment'].map((tagname, i) => (
+                    <span key={i}>
+                      {i? <span>{', '}</span> : null}
+                      <a role='button'>{tagname}</a>
+                    </span>
+                  ))}
+                </p>
+              </div>
             </div>
-          </div>
-
-          <div className='SnapPage-tags'>
-            <p>
-              {['databases', 'cassandra', 'app-deployment'].map((tagname, i) => (
-                <span key={i}>
-                  {i? <span>{', '}</span> : null}
-                  <a role='button'>{tagname}</a>
-                </span>
-              ))}
-            </p>
+            <div className='SnapPage-installButton'>
+              <SnapPageInstallButton
+                label={'Free'}
+                installProgress={0.3}
+              />
+            </div>
           </div>
 
         </div>
