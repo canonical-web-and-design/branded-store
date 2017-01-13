@@ -68,8 +68,7 @@ class App extends Component {
 
         <Header
           menuitems={[
-            { id: 'store', name: 'Store' },
-            { id: 'settings', name: 'Settings' },
+            // no menus
           ]}
           currentSection={currentSection}
           onMenuItemClick={this.onMenuItemClick}
@@ -80,7 +79,7 @@ class App extends Component {
           {(() => {
             if (currentSection === 'home') return (
               <CardsList
-                title='Installed Snaps'
+                title='Installed Services'
                 cards={installedSnaps}
                 cardImgUrl={cardImgUrl}
               />
