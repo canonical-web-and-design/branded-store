@@ -118,7 +118,7 @@ const snaps = [
   },
 ]
 
-export const baseSnaps = [
+export const featuredSnaps = [
   'discourse',
   'docker',
   'gitlab',

@@ -5,11 +5,10 @@ import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import CardsList from 'toolkit/CardsList/CardsList'
-import SnapPage from './SnapPage/SnapPage'
+import SnapPage from 'toolkit/SnapPage/SnapPage'
 
 import createHistory from 'history/createBrowserHistory'
 import * as snaps from './snaps/snaps'
-import cards from './cards-data'
 
 const publicUrl = process.env.PUBLIC_URL
 const history = createHistory()
@@ -27,6 +26,16 @@ function snapIdFromPath(path) {
   return (parts[0] === 'snap' && parts[1]) || ''
 }
 
+function snapToCard(snap) {
+  return {
+    id: snap.id,
+    name: snap.name,
+    author: snap.author,
+    action: snap.price === 'free'? 'Install' : snap.price,
+    image: snap.id,
+  }
+}
+
 class App extends Component {
 
   constructor(props) {
@@ -35,8 +44,7 @@ class App extends Component {
     this.state = {
       location: history.location,
       installedSnaps: [],
-      topSnaps: cards(4),
-      featuredSnaps: cards(8),
+      featuredSnaps: [],
       snapPageSnap: undefined,
     }
 
@@ -49,13 +57,13 @@ class App extends Component {
   componentDidMount() {
     snaps.installed().then(installedSnaps => {
       this.setState({
-        installedSnaps: installedSnaps.map(snap => ({
-          id: snap.id,
-          name: snap.name,
-          author: snap.author,
-          action: snap.price === 'free'? 'Install' : snap.price,
-          image: snap.id,
-        }))
+        installedSnaps: installedSnaps.map(snapToCard)
+      })
+    })
+
+    snaps.featured().then(featuredSnaps => {
+      this.setState({
+        featuredSnaps: featuredSnaps.map(snapToCard)
       })
     })
   }
@@ -89,7 +97,6 @@ class App extends Component {
 
     const {
       location,
-      topSnaps,
       featuredSnaps,
       installedSnaps,
       snapPageSnap,
@@ -125,14 +132,10 @@ class App extends Component {
               if (currentSection === 'store') return (
                 <ContentWrapper>
                   <CardsList
-                    title='Top'
-                    cards={topSnaps}
-                    cardImgUrl={cardImgUrl}
-                  />
-                  <CardsList
-                    title='Featured'
+                    title='Featured Snaps'
                     cards={featuredSnaps}
                     cardImgUrl={cardImgUrl}
+                    onCardClick={this.onCardClick}
                   />
                 </ContentWrapper>
               )
