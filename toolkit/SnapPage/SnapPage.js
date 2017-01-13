@@ -7,7 +7,6 @@ import RatingStars from 'toolkit/RatingStars/RatingStars'
 import SnapPageDetails from './SnapPageDetails'
 import SnapPageAbout from './SnapPageAbout'
 import SnapPageInterfaces from './SnapPageInterfaces'
-import ReviewList from 'toolkit/ReviewList/ReviewList'
 
 function SnapPage(props) {
   const { snap, icon } = props
@@ -79,9 +78,7 @@ function SnapPage(props) {
         </div>
       </ContentWrapper>
 
-      <ContentWrapper bordered>
-        <ReviewList />
-      </ContentWrapper>
+      {props.children}
 
     </div>
   ) : null

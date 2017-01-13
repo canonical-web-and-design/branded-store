@@ -2,11 +2,12 @@
   display: flex;
 }
 .Review-image {
+  flex-shrink: 0;
   margin-right: 20px;
   border-radius: 50%;
 }
 .Review-rating {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 .Review-metas {
   display: flex;

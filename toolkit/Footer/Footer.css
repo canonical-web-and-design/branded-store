@@ -1,18 +1,18 @@
 .Footer {
-  overflow: hidden;
-  margin-top: 50px;
   padding: 20px 30px;
-  font-size: 12px;
+  font-size: 13px;
   border-top: 1px dotted #D2D2D2;
 }
 .Footer-in {
+  display: flex;
+  justify-content: space-between;
   max-width: 980px;
   margin: 0 auto;
 }
-.Footer-infos {
-  float: left;
-}
 .Footer-logo {
-  float: right;
+  margin-left: 15px;
   margin-top: 20px;
+}
+.Footer-copyright {
+  font-size: 12px;
 }

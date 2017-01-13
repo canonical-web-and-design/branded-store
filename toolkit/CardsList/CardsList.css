@@ -1,16 +1,14 @@
 .CardsList-title {
-  margin-top: 27px;
-  margin-bottom: 23px;
+  margin-top: 25px;
+  margin-bottom: 20px;
   font-size: 24px;
 }
 .CardsList-content {
-  overflow: hidden;
-  margin-top: -23px;
-  margin-left: -23px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px -10px 0;
 }
 .CardsList .Card {
-  float: left;
-  width: 225px;
-  margin-top: 23px;
-  margin-left: 23px;
+  width: 230px;
+  margin: 10px;
 }

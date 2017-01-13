@@ -1,0 +1,16 @@
+.DeviceBanner {
+  display: flex;
+  padding: 40px 0;
+}
+.DeviceBanner > img {
+  margin-right: 20px;
+}
+.DeviceBanner-name {
+  font-size: 45px;
+  line-height: 1.4em;
+  margin-bottom: 10px;
+}
+.DeviceBanner-id {
+  margin-bottom: 10px;
+  font-size: 23px;
+}
