@@ -51,7 +51,7 @@ class MenuItem extends Component {
             style={currentLineStyles}
           />
         )}
-        <div className='Header-nav-activeOverlay' />
+        <div className='Header-activeOverlay' />
       </li>
     )
   }
@@ -101,6 +101,7 @@ class Header extends Component {
               alt={props.name || defaultName}
               height='48'
             />
+            <div className='Header-activeOverlay' />
           </h1>
           <nav className='Header-nav'>
             <ul>
@@ -124,6 +125,7 @@ class Header extends Component {
           >
             <img width='24' height='24' src={avatar} alt='' />
             <span>{props.profilename || defaultProfileName}</span>
+            <div className='Header-activeOverlay' />
           </div>
         </div>
       </header>

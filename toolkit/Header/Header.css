@@ -17,30 +17,24 @@
   justify-content: flex-end;
   height: 48px;
 }
-.Header-logo,
-.Header-logo:focus:active {
+.Header-activeOverlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.Header-logo {
   position: relative;
   flex-grow: 0;
   margin: 0;
   padding: 0 20px 0 30px;
   outline: 0;
 }
-.Header-logo:active:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+.Header-logo:focus .Header-activeOverlay,
+.Header-logo:active .Header-activeOverlay {
   background: rgba(0,0,0,0.05);
 }
-/* .Header-logo:focus { */
-/*   position: relative; */
-/*   z-index: 2; */
-/*   margin: 2px 0 2px 2px; */
-/*   padding-left: 28px; */
-/*   outline: 2px solid #19B6EE; */
-/* } */
 .Header-logo img {
   display: block;
   max-height: 100%;
@@ -53,11 +47,11 @@
   list-style: none;
   border-left: 1px solid #E3E3E3;
 }
-.Header-nav li,
-.Header-nav li:focus:active {
-  height: 100%;
+.Header-nav li {
+  position: relative;
   display: flex;
   align-items: center;
+  height: 100%;
   margin-top: 0;
   padding: 0 14px;
   border-right: 1px solid #E3E3E3;
@@ -67,9 +61,6 @@
   height: 20px;
   margin-right: 10px;
 }
-.Header-nav li {
-  position: relative;
-}
 .Header-nav .Header-nav-currentLine {
   position: absolute;
   left: -1px;
@@ -78,51 +69,24 @@
   height: 3px;
   background: #E95420;
 }
-.Header-nav li .Header-nav-activeOverlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-}
-.Header-nav li:active .Header-nav-activeOverlay {
+.Header-nav li:focus .Header-activeOverlay,
+.Header-nav li:active .Header-activeOverlay {
   background: rgba(0,0,0,0.05);
 }
-/* .Header-nav li:focus { */
-/*   height: calc(100% - 4px); */
-/*   margin-top: 2px; */
-/*   outline: 2px solid #19B6EE; */
-/*   border-color: transparent; */
-/* } */
-.Header-profile,
-.Header-profile:focus:active {
+.Header-profile {
   position: relative;
   display: flex;
   align-items: center;
   margin: 0 0 0 auto;
   padding-left: 15px;
   padding-right: 30px;
-  outline: 0;
   white-space: nowrap;
+  outline: 0;
 }
 .Header-profile img {
   margin-right: 15px;
 }
-.Header-profile:active:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+.Header-profile:focus .Header-activeOverlay,
+.Header-profile:active .Header-activeOverlay {
   background: rgba(0,0,0,0.05);
 }
-/* .Header-profile:focus { */
-/*   position: relative; */
-/*   z-index: 2; */
-/*   margin-top: 2px; */
-/*   margin-bottom: 2px; */
-/*   margin-right: 2px; */
-/*   padding-right: 28px; */
-/*   outline: 2px solid #19B6EE; */
-/* } */
