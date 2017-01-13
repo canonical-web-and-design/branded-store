@@ -147,7 +147,7 @@ class App extends Component {
 
         <style>{`
           .App a {
-            color: ${brandData.color || '#E95420'}
+            color: ${brandData.color || '#333'}
           }
         `}</style>
 

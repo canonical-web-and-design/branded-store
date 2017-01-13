@@ -23,7 +23,7 @@ ul {
 strong {
   font-weight: 400;
 }
-[role=button] {
+button, [role=button] {
   user-select: none;
   cursor: pointer;
 }
