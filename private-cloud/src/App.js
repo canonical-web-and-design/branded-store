@@ -27,9 +27,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      installedSnaps: cards(4),
-      topSnaps: cards(4),
-      featuredSnaps: cards(8),
+      installedServices: cards(4),
       location: history.location,
     }
 
@@ -54,9 +52,7 @@ class App extends Component {
 
     const {
       location,
-      topSnaps,
-      featuredSnaps,
-      installedSnaps,
+      installedServices,
     } = this.state
 
     const currentSection = sectionFromPath(location.pathname)
@@ -80,23 +76,9 @@ class App extends Component {
             if (currentSection === 'home') return (
               <CardsList
                 title='Installed Services'
-                cards={installedSnaps}
+                cards={installedServices}
                 cardImgUrl={cardImgUrl}
               />
-            )
-            if (currentSection === 'store') return (
-              <div>
-                <CardsList
-                  title='Top'
-                  cards={topSnaps}
-                  cardImgUrl={cardImgUrl}
-                />
-                <CardsList
-                  title='Featured'
-                  cards={featuredSnaps}
-                  cardImgUrl={cardImgUrl}
-                />
-              </div>
             )
           })()}
 

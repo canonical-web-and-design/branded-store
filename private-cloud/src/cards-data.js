@@ -21,24 +21,23 @@ const authors = [
 ]
 
 const actions = [
-  'Install',
-  'Install',
-  'Install',
-  'Install',
-  'Install',
-  'Install',
-  'Install',
-  '$3.99',
-  '$2.99',
-  '$1.99',
+  'Online',
+  'Online',
+  'Online',
+  'Online',
+  'Online',
+  'Offline',
 ]
 
 // Generate cards
 function cards(count) {
   const cards = []
+  let name = ''
   while (count--) {
+    name = names[randomInt(0, names.length)]
     cards.push({
-      name: names[randomInt(0, names.length)],
+      id: name.toLowerCase(),
+      name: name,
       author: authors[randomInt(0, authors.length)],
       action: actions[randomInt(0, actions.length)],
       image: `app-${randomInt(0, imagesCount) + 1}`,
