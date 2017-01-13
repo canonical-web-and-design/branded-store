@@ -4,13 +4,14 @@ import starsColor from './rating-stars-color.png'
 
 export default function RatingStars(props) {
   const src = props.color? starsColor : stars
+  const size = props.color? [290/2, 42/2] : [104, 18]
   return (
     <img
       className='Card-rating'
       src={src}
       alt=''
-      width='104'
-      height='18'
+      width={size[0]}
+      height={size[1]}
     />
   )
 }

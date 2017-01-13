@@ -7,7 +7,7 @@ body {
   color: #333;
   overflow-y: scroll;
 }
-body, input, button {
+body, input, button, h1, h2, h3 {
   font-family: 'Ubuntu', sans-serif;
   font-size: 16px;
   line-height: 1.7em;
@@ -16,13 +16,11 @@ body, input, button {
 h1, h2, h3, p, ul, li {
   margin: 0;
   padding: 0;
-  font-size: 16px;
-  font-weight: 300;
 }
 ul {
   list-style: none;
 }
-h1, strong {
+strong {
   font-weight: 400;
 }
 [role=button] {

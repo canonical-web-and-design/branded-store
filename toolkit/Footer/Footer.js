@@ -7,9 +7,12 @@ function Footer(props) {
     <footer className='Footer'>
       <div className='Footer-in'>
         <div className='Footer-infos'>
-          <p><strong>Snappy version 1.0</strong></p>
           <p>
-            © 2016 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.
+            <strong>Snappy version 1.0</strong>
+            {props.firstLine}
+          </p>
+          <p className='Footer-copyright'>
+            © 2017 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.
           </p>
         </div>
         <img className='Footer-logo' src={logo} alt='Ubuntu' />

@@ -1,3 +1,14 @@
 .App-content {
   min-height: 100px;
 }
+.App-installedSnaps,
+.App-store,
+.App-snapPage {
+  padding-bottom: 50px;
+}
+.ThemeChanger {
+  margin-left: 20px;
+}
+.ThemeChanger select {
+  margin-right: 5px;
+}

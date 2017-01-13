@@ -5,6 +5,7 @@
   border-top: 1px solid #D2D2D2;
 }
 .ContentWrapper-in {
-  width: 980px;
+  max-width: 1020px;
   margin: 0 auto;
+  padding: 0 20px;
 }
