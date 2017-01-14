@@ -6,6 +6,6 @@ Device ID: OrcaX MX1 (VDSL2) HAJA77669A
 
 Folder: lime
 Brand: Lime Microsystems
-Color: #B4D518
+Color: #BAD72D
 Device Name: LimeNET
 Device ID: LimeSDR LM677 NLM871000
