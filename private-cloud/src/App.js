@@ -57,7 +57,7 @@ class App extends Component {
 
     const currentSection = sectionFromPath(location.pathname)
 
-    const cardImgUrl = `${publicUrl}/icons/cards/`
+    const cardImgRootUrl = `${publicUrl}/icons/cards/`
 
     return (
       <div className='App'>
@@ -77,7 +77,7 @@ class App extends Component {
               <CardsList
                 title='Installed Services'
                 cards={installedServices}
-                cardImgUrl={cardImgUrl}
+                cardImgRootUrl={cardImgRootUrl}
               />
             )
           })()}
