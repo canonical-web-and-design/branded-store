@@ -1,0 +1,12 @@
+.Button {
+  padding: 6px;
+  min-width: 308px;
+  color: #FFF;
+  background: #3EB34F;
+  border: 0;
+  border-radius: 3px;
+}
+.Button:active,
+.Button:focus {
+  background: #0F8420;
+}

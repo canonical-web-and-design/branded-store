@@ -10,7 +10,7 @@ import SnapPageInterfaces from './SnapPageInterfaces'
 import SnapPageInstallButton from './SnapPageInstallButton'
 
 function SnapPage(props) {
-  const { snap, icon } = props
+  const { snap, icon, installProgress } = props
   return snap? (
     <div className='SnapPage'>
 
@@ -47,7 +47,10 @@ function SnapPage(props) {
             <div className='SnapPage-installButton'>
               <SnapPageInstallButton
                 label={'Free'}
-                installProgress={0.3}
+                installProgress={installProgress}
+                snapId={snap.id}
+                onRequestInstall={props.onRequestInstall}
+                isInstalled={props.isInstalled}
               />
             </div>
           </div>

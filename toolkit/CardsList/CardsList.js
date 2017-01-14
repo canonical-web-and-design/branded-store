@@ -40,7 +40,7 @@ class CardsList extends Component {
     const {
       title,
       cards,
-      cardImgUrl,
+      cardImgRootUrl,
     } = this.props
     return (
       <div className='CardsList'>
@@ -50,7 +50,7 @@ class CardsList extends Component {
             <CardWrapper
               key={card.id + i}
               card={card}
-              image={`${cardImgUrl}${card.image}.png`}
+              image={`${cardImgRootUrl}${card.image}.png`}
               onClick={this.onCardClick}
             />
           ))}

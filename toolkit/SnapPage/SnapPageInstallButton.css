@@ -2,14 +2,6 @@
   text-align: right;
   margin-bottom: 10px;
 }
-.SnapPageInstallButton-button {
-  padding: 6px;
-  min-width: 308px;
-  color: #FFF;
-  background: #3EB34F;
-  border: 0;
-  border-radius: 3px;
-}
 .SnapPageInstallButton-progress {
   width: 308px;
 }
