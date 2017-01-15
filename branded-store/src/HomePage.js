@@ -10,6 +10,14 @@ export default function HomePage({
   cardImgRootUrl,
   onOpenSnap,
 }) {
+
+  const cards = installedSnaps.concat([{
+    id: 'add',
+    name: 'Add more snaps for this device',
+    action: 'Browse store',
+    image: 'add-snap',
+  }])
+
   return (
     <div>
       <ContentWrapper>
@@ -22,7 +30,7 @@ export default function HomePage({
         <div className='App-installedSnaps'>
           <CardsList
             title='Installed Snaps'
-            cards={installedSnaps}
+            cards={cards}
             cardImgRootUrl={cardImgRootUrl}
             onCardClick={onOpenSnap}
           />

@@ -33,12 +33,24 @@ function snapIdFromPath(path) {
   return (parts[0] === 'snap' && parts[1]) || ''
 }
 
-function snapToCard(snap) {
+function snapToStoreCard(snap) {
   return {
     id: snap.id,
     name: snap.name,
     author: snap.author,
     action: snap.price === 'free'? 'Install' : snap.price,
+    image: snap.id,
+    rating: snap.rating,
+  }
+}
+
+function snapToHomeCard(snap) {
+  return {
+    id: snap.id,
+    name: snap.name,
+    author: snap.author,
+    type: '',
+    // action: snap.price === 'free'? 'Install' : snap.price,
     image: snap.id,
   }
 }
@@ -119,7 +131,7 @@ class App extends Component {
     this.goto(id === 'home'? '' : id)
   }
   onOpenSnap = (id) => {
-    this.goto(`snap/${id}`)
+    this.goto(id === 'add'? 'store' : `snap/${id}`)
   }
 
   snapIdsToSnaps = (ids) => (
@@ -187,7 +199,7 @@ class App extends Component {
               <HomePage
                 cardImgRootUrl={cardImgRootUrl}
                 brandData={brandData}
-                installedSnaps={installedSnaps.map(snapToCard).map(card => {
+                installedSnaps={installedSnaps.map(snapToHomeCard).map(card => {
                   card.action = null
                   return card
                 })}
@@ -197,7 +209,7 @@ class App extends Component {
             if (currentSection === 'store') return (
               <StorePage
                 cardImgRootUrl={cardImgRootUrl}
-                featuredSnaps={featuredSnaps.map(snapToCard)}
+                featuredSnaps={featuredSnaps.map(snapToStoreCard)}
                 onOpenSnap={this.onOpenSnap}
               />
             )

@@ -6,27 +6,41 @@
   color: #333;
   background: #FFF;
 }
+.Card-positive {
+  border-color: #3EB34F;
+}
 .Card-main {
-  padding: 20px 10px;
+  padding: 20px 10px 15px;
+}
+.Card-content {
+  height: calc(27px * 3);
+}
+.Card-content > div + div {
+  height: 17px;
+  line-height: 17px;
+  margin: 5px 0;
+}
+.Card-content {
+  display: flex;
+  flex-direction: column;
+}
+.Card-alignBottom .Card-content {
+  justify-content: flex-end;
 }
 .Card-icon {
   display: block;
   margin: 0 auto 15px;
 }
-.Card p {
-  margin: 10px 0;
-  line-height: 20px;
-}
 .Card-name {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 400;
 }
 .Card-author {
+  font-weight: 300;
   color: #888;
 }
 .Card-rating {
   display: block;
-  margin: 5px 0;
 }
 .Card-footer {
   position: relative;
@@ -43,7 +57,9 @@
   background: #CDCDCD;
 }
 .Card-action {
+  padding-right: 10px;
   text-align: right;
   line-height: 1.7em;
   height: 1.7em;
+  font-size: 16px;
 }

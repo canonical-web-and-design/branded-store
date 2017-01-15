@@ -1,28 +1,74 @@
 import React from 'react'
 import './Card.css'
 
+import classes from 'toolkit/classes'
 import RatingStars from 'toolkit/RatingStars/RatingStars'
+
+export function CardIcon({ image }) {
+  return (
+    <img
+      className='Card-icon'
+      src={image}
+      alt=''
+      width='114'
+      height='114'
+    />
+  )
+}
+
+export function CardName({ name }) {
+  return (
+    <p className='Card-name'>{name}</p>
+  )
+}
+
+export function CardAuthor({ name }) {
+  return (
+    <p className='Card-author'>By {name}</p>
+  )
+}
 
 function Card(props) {
   return (
     <div
-      className='Card'
+      className={classes({
+        'Card': true,
+        'Card-positive': props.positive,
+        'Card-alignBottom': props.alignBottom,
+      })}
       role='button'
       onClick={props.onClick}
     >
       <div
         className='Card-main'
       >
-        <img
-          className='Card-icon'
-          src={props.image}
-          alt=''
-          width='114'
-          height='114'
+        <CardIcon
+          image={props.image}
         />
-        <p className='Card-name'>{props.name}</p>
-        <p className='Card-author'>By {props.author}</p>
-        <RatingStars />
+        {props.children || (
+          <div className='Card-content'>
+            <div>
+              <CardName
+                name={props.name}
+              />
+            </div>
+            {props.author? (
+              <div>
+                <CardAuthor
+                  name={props.author}
+                />
+              </div>
+            ) : null}
+            {props.type? (
+              <div>{props.type}</div>
+            ) : null}
+            {props.rating? (
+              <div>
+                <RatingStars />
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
       <div className='Card-footer'>
         <div className='Card-action'>{props.action}</div>
@@ -33,6 +79,7 @@ function Card(props) {
 
 Card.propTypes = {
   name: React.PropTypes.string,
+  rating: React.PropTypes.number,
   author: React.PropTypes.string,
   image: React.PropTypes.string,
   action: React.PropTypes.string,
@@ -40,10 +87,6 @@ Card.propTypes = {
 }
 
 Card.defaultProps = {
-  name: 'Card Title',
-  author: 'Author Name',
-  image: '',
-  action: 'Action',
   onClick: () => {},
 }
 

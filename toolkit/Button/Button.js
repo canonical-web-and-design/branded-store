@@ -1,12 +1,7 @@
 import React from 'react'
 import './Button.css'
 
-const classes = (names) => (
-  Object.entries(names)
-    .filter(i => i[1])
-    .map(i => i[0])
-    .join(' ')
-)
+import classes from 'toolkit/classes'
 
 export default function Button(props) {
   return (

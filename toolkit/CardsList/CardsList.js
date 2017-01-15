@@ -4,35 +4,32 @@ import './CardsList.css'
 import Card from 'toolkit/Card/Card'
 
 class CardWrapper extends Component {
-  constructor(props) {
-    super(props)
-    this.onClick = this.onClick.bind(this)
-  }
-  onClick() {
+
+  onClick = () => {
     this.props.onClick(this.props.card.id)
   }
+
   render() {
     const { card, image } = this.props
-    const { name, author, action } = card
-    return(
+    const { name, author, action, rating, id } = card
+    return (
       <Card
         name={name}
         author={author}
         action={action}
         image={image}
         onClick={this.onClick}
+        rating={rating}
+        positive={id === 'add'}
+        alignBottom={id === 'add'}
       />
     )
   }
 }
 
 class CardsList extends Component {
-  constructor(props) {
-    super(props)
-    this.onCardClick = this.onCardClick.bind(this)
-  }
 
-  onCardClick(id) {
+  onCardClick = (id) => {
     this.props.onCardClick(id)
   }
 
