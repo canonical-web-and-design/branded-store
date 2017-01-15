@@ -47,6 +47,7 @@ export default function createStore(brand) {
     ).join(','))
   }
 
+  let authTimer = -1
   let installingTimer = -1
 
   const installingTick = () => {
@@ -86,6 +87,13 @@ export default function createStore(brand) {
   const install = (snapId) => {
     const snap = allSnaps.find(snap => snap.id === snapId)
     if (!snap) return
+
+    if (snap.price !== 'free' && snap.status !== 'confirming') {
+      snap.status = 'wait-signin'
+      emit('ALL_SNAPS', { snaps: allSnaps })
+      return
+    }
+
     snap.status = 'installing'
     snap.installStart = Date.now()
     snap.installProgress = 0
@@ -102,9 +110,47 @@ export default function createStore(brand) {
     emit('ALL_SNAPS', { snaps: allSnaps })
   }
 
+  const signin = (snapId) => {
+    const snap = allSnaps.find(snap => snap.id === snapId)
+    if (!snap || snap.status !== 'wait-signin') return
+    snap.status = 'signing-in'
+    emit('ALL_SNAPS', { snaps: allSnaps })
+    clearTimeout(authTimer)
+    authTimer = setTimeout(() => {
+      snap.status = 'wait-authorize'
+      emit('ALL_SNAPS', { snaps: allSnaps })
+    }, 1000)
+  }
+
+  const authorize = (snapId) => {
+    const snap = allSnaps.find(snap => snap.id === snapId)
+    if (!snap || snap.status !== 'wait-authorize') return
+    snap.status = 'authorizing'
+    emit('ALL_SNAPS', { snaps: allSnaps })
+    clearTimeout(authTimer)
+    authTimer = setTimeout(() => {
+      snap.status = 'wait-confirm'
+      emit('ALL_SNAPS', { snaps: allSnaps })
+    }, 1000)
+  }
+
+  const confirm = (snapId) => {
+    const snap = allSnaps.find(snap => snap.id === snapId)
+    if (!snap || snap.status !== 'wait-confirm') return
+    snap.status = 'confirming'
+    emit('ALL_SNAPS', { snaps: allSnaps })
+    clearTimeout(authTimer)
+    authTimer = setTimeout(() => {
+      install(snapId)
+    }, 1000)
+  }
+
   return {
-    listen: listen,
+    listen,
     install,
     remove,
+    signin,
+    authorize,
+    confirm,
   }
 }

@@ -13,15 +13,16 @@ const ProgressBarWrapper = ({ label, progress }) => (
   </div>
 )
 
-const ButtonWrapper = ({ label, buttonLabel, positive, onClick }) => (
+const ButtonWrapper = ({ label, disabled, buttonLabel, type, onClick }) => (
   <div>
     <div className='SnapPageInstallButton-price'>
-      {label}
+      {label === 'free' ? 'Free' : label}
     </div>
     <Button
       onClick={onClick}
       label={buttonLabel}
-      positive={positive}
+      type={type}
+      disabled={disabled}
     />
   </div>
 )
@@ -41,13 +42,27 @@ class SnapPageInstallButton extends Component {
   }
 
   render() {
+
     const {
       priceLabel,
+      snapName,
       status,
       installProgress = 0,
     } = this.props
 
-    const buttonLabel = status === 'installed'? 'Remove' : 'Install'
+    const processing = [
+      'wait-signin',
+      'signing-in',
+      'wait-authorize',
+      'authorizing',
+    ].includes(status)
+
+    const buttonLabel = (() => {
+      if (status === 'installed') return 'Remove'
+      if (priceLabel === 'free') return 'Install'
+      if (processing) return 'Processing…'
+      return `Purchase ${snapName}`
+    })()
 
     return (
       <div className='SnapPageInstallButton'>
@@ -60,8 +75,9 @@ class SnapPageInstallButton extends Component {
           <ButtonWrapper
             label={status === 'uninstalled'? priceLabel : ''}
             buttonLabel={buttonLabel}
-            positive={status === 'uninstalled'}
+            type={status === 'uninstalled'? 'positive' : 'normal'}
             onClick={this.handleButtonClick}
+            disabled={processing}
           />
         )}
       </div>

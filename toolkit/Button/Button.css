@@ -1,9 +1,18 @@
 .Button {
-  padding: 6px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 15px;
   min-width: 308px;
   border: 1px solid #CDCDCD;
   border-radius: 3px;
   background: #FFFFFF;
+  outline: 0;
+}
+.Button[disabled] {
+  color: rgba(102,102,102,0.5);
+  background: transparent;
+  border: 1px solid rgba(102,102,102,0.5);
 }
 .Button:active,
 .Button:focus {
@@ -18,3 +27,26 @@
 .Button-positive:focus {
   background: #0F8420;
 }
+.Button-strong {
+  color: #FFF;
+  border: 0;
+  background: #E95420;
+}
+.Button-strong:active,
+.Button-strong:focus {
+  background: #D74F1E;
+}
+.Button-spinner {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background: url(/spinner.png) no-repeat 0 0;
+  background-size: cover;
+  animation: Button-spinner-spin 1.5s linear infinite;
+}
+@keyframes Button-spinner-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

@@ -5,7 +5,7 @@ import RatingStars from 'toolkit/RatingStars/RatingStars'
 
 export default function SnapPageSummary({ icon, name, author }) {
   return (
-    <div className='SnapPagesummary'>
+    <div className='SnapPageSummary'>
       <img
         className='SnapPageSummary-icon'
         src={icon}

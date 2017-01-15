@@ -9,6 +9,7 @@ import SnapPageDetails from './SnapPageDetails'
 import SnapPageAbout from './SnapPageAbout'
 import SnapPageInterfaces from './SnapPageInterfaces'
 import SnapPageInstallButton from './SnapPageInstallButton'
+import SnapPagePurchase from './SnapPagePurchase'
 
 function SnapPage(props) {
 
@@ -18,6 +19,9 @@ function SnapPage(props) {
     installProgress,
     onRequestInstall,
     onRequestRemove,
+    onRequestSignin,
+    onRequestAuthorize,
+    onRequestConfirm,
   } = props
 
   if (!snap) return null
@@ -41,15 +45,34 @@ function SnapPage(props) {
             </div>
             <div className='SnapPage-installButton'>
               <SnapPageInstallButton
-                priceLabel={'Free'}
+                priceLabel={snap.price}
                 installProgress={installProgress}
                 status={snap.status}
                 snapId={snap.id}
+                snapName={snap.name}
                 onRequestInstall={onRequestInstall}
                 onRequestRemove={onRequestRemove}
               />
             </div>
           </div>
+
+          {(() => {
+            if (snap.status === 'installed' ||
+                snap.status === 'uninstalled' ||
+                snap.status === 'installing') {
+              return null
+            }
+            return (
+              <div className='SnapPage-purchase'>
+                <SnapPagePurchase
+                  status={snap.status}
+                  onSignin={onRequestSignin}
+                  onAuthorize={onRequestAuthorize}
+                  onConfirm={onRequestConfirm}
+                />
+              </div>
+            )
+          })()}
 
         </div>
       </ContentWrapper>

@@ -1,0 +1,22 @@
+.SnapPageConfirm-part {
+  margin-bottom: 10px;
+  padding: 20px;
+  background: #FFFFFF;
+}
+.SnapPageConfirm-part-title {
+  font-size: 24px;
+  padding-left: 33px;
+  background: url(/check.svg) no-repeat 0 50%;
+}
+.SnapPageConfirm-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.SnapPageConfirm-validateGroup {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.SnapPageConfirm-validateGroup-cancel {
+  margin-right: 20px;
+}

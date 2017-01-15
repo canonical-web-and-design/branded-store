@@ -27,6 +27,11 @@ button, [role=button] {
   user-select: none;
   cursor: pointer;
 }
-a[role=button] {
+.link {
   text-decoration: underline;
+}
+.external {
+  padding-right: 20px;
+  color: #335280;
+  background: url(/external.svg) no-repeat 100% 50%;
 }

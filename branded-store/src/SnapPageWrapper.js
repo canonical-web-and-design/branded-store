@@ -9,6 +9,9 @@ export default function SnapPageWrapper({
   snap,
   onRequestInstall,
   onRequestRemove,
+  onRequestSignin,
+  onRequestAuthorize,
+  onRequestConfirm,
 }) {
 
   if (!snap) return null
@@ -27,6 +30,9 @@ export default function SnapPageWrapper({
         icon={iconUrl}
         onRequestInstall={onRequestInstall}
         onRequestRemove={onRequestRemove}
+        onRequestSignin={() => { onRequestSignin(snap.id) }}
+        onRequestAuthorize={() => { onRequestAuthorize(snap.id) }}
+        onRequestConfirm={() => { onRequestConfirm(snap.id) }}
         isInstalled={snap.status === 'installed'}
       >
         <ContentWrapper bordered>

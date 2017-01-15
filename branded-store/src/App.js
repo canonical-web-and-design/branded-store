@@ -122,6 +122,16 @@ class App extends Component {
   requestRemove = (snapId) => {
     this.state.store.remove(snapId)
   }
+  requestSignin = (snapId) => {
+    this.state.store.signin(snapId)
+  }
+  requestAuthorize = (snapId) => {
+    this.state.store.authorize(snapId)
+  }
+  requestConfirm = (snapId) => {
+    console.log('REQUEST CONFIRM')
+    this.state.store.confirm(snapId)
+  }
 
   onMenuItemClick = (id) => {
     this.goto(id === 'home'? '' : id)
@@ -140,6 +150,10 @@ class App extends Component {
     ids.map(id => (
       this.state.allSnaps.find(snap => snap.id === id)
     )).filter(snap => snap)
+  )
+
+  snapFromId = (id) => (
+    this.state.allSnaps.find(snap => snap.id === id)
   )
 
   render() {
@@ -175,7 +189,7 @@ class App extends Component {
     return (
       <div className='App'>
         <style>{`
-          .App a {
+          a {
             color: ${brandData.color || '#333'}
           }
         `}</style>
@@ -185,7 +199,7 @@ class App extends Component {
             { id: 'store', name: 'Store' },
             { id: 'settings', name: 'Settings' },
           ]}
-          currentSection={currentSection}
+          currentSection={currentSection === 'snap'? 'store' : currentSection}
           onMenuItemClick={this.onMenuItemClick}
           logo={
             brandData.id
@@ -223,6 +237,9 @@ class App extends Component {
                 )}
                 onRequestInstall={this.requestInstall}
                 onRequestRemove={this.requestRemove}
+                onRequestSignin={this.requestSignin}
+                onRequestAuthorize={this.requestAuthorize}
+                onRequestConfirm={this.requestConfirm}
               />
             )
           })()}

@@ -3,17 +3,29 @@ import './Button.css'
 
 import classes from 'toolkit/classes'
 
-export default function Button(props) {
+export default function Button({
+  disabled,
+  type,
+  onClick,
+  label,
+  loading,
+}) {
   return (
     <button
+      disabled={disabled}
       type='button'
       className={classes({
         'Button': true,
-        'Button-positive': props.positive,
+        'Button-positive': type === 'positive',
+        'Button-strong': type === 'strong',
       })}
-      onClick={props.onClick}
+      onClick={onClick}
     >
-      {props.label}
+      {loading
+        ? <span className='Button-spinner' />
+        : null
+      }
+      <span>{label}</span>
     </button>
   )
 }
