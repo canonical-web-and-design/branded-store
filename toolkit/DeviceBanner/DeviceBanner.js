@@ -21,7 +21,7 @@ export default function DeviceBanner(props) {
           <span>{' ' + idParts.slice(1).join(' ')}</span>
         </p>
         <p>
-          <a href='http://example.org/'>CGR Developer documentation</a>
+          <a role='button'>CGR Developer documentation</a>
         </p>
       </div>
     </section>

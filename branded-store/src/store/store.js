@@ -12,7 +12,11 @@ function parseIds(ids) {
 function createAllSnaps(snapsData) {
   const installedIds = parseIds(localStorage.getItem('installed-snaps'))
   return snapsData.map(snap => Object.assign({}, snap, {
-    status: installedIds.includes(snap.id)? 'installed' : 'uninstalled',
+    status: (
+      installedIds.includes(snap.id) || snap.preinstalled
+        ? 'installed'
+        : 'uninstalled'
+    ),
     installStart: -1,
     installProgress: -1,
   }))
@@ -90,6 +94,7 @@ export default function createStore(brand) {
 
   const remove = (snapId) => {
     const snap = allSnaps.find(snap => snap.id === snapId)
+    if (snap.preinstalled) return
     snap.status = 'uninstalled'
     snap.installStart = -1
     snap.installProgress = -1

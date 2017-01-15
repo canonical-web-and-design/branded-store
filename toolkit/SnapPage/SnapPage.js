@@ -11,6 +11,7 @@ import SnapPageInterfaces from './SnapPageInterfaces'
 import SnapPageInstallButton from './SnapPageInstallButton'
 
 function SnapPage(props) {
+
   const {
     snap,
     icon,
@@ -19,7 +20,9 @@ function SnapPage(props) {
     onRequestRemove,
   } = props
 
-  return snap? (
+  if (!snap) return null
+
+  return (
     <div className='SnapPage'>
 
       <ContentWrapper background>
@@ -87,7 +90,7 @@ function SnapPage(props) {
       {props.children}
 
     </div>
-  ) : null
+  )
 }
 
 export default SnapPage

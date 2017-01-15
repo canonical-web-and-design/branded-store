@@ -84,6 +84,7 @@ class App extends Component {
 
   handleNavigation = (location) => {
     this.setState({ location })
+    window.scrollTo(0, 0)
   }
 
   goto = (path) => {
@@ -98,9 +99,6 @@ class App extends Component {
     if (event.type === 'FEATURED_SNAPS') {
       return this.setState({ featuredSnapIds: event.ids })
     }
-    // if (event.type === 'INSTALLED_SNAPS') {
-    //   return this.setState({ installedSnapIds: event.ids })
-    // }
   }
 
   reloadBrands = () => {
@@ -113,6 +111,10 @@ class App extends Component {
       }
     )
   }
+  changeBrand = (id) => {
+    this.setState({ brand: id })
+    window.scrollTo(0, 0)
+  }
 
   requestInstall = (snapId) => {
     this.state.store.install(snapId)
@@ -121,17 +123,17 @@ class App extends Component {
     this.state.store.remove(snapId)
   }
 
-  changeBrand = (id) => {
-    this.setState({
-      brand: id,
-    })
-  }
-
   onMenuItemClick = (id) => {
     this.goto(id === 'home'? '' : id)
   }
   onOpenSnap = (id) => {
-    this.goto(id === 'add'? 'store' : `snap/${id}`)
+    if (id === 'add') {
+      return this.goto('store')
+    }
+    const snap = this.state.allSnaps.find(snap => snap.id === id)
+    if (snap && !snap.preinstalled) {
+      this.goto(`snap/${id}`)
+    }
   }
 
   snapIdsToSnaps = (ids) => (

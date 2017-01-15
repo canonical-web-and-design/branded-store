@@ -53,7 +53,7 @@ class SnapPageInstallButton extends Component {
       <div className='SnapPageInstallButton'>
         {status === 'installing'? (
           <ProgressBarWrapper
-            label={'Installing'}
+            label={installProgress < 0.8? 'Downloading' : 'Installing'}
             progress={installProgress}
           />
         ) : (
