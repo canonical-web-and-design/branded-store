@@ -2,7 +2,7 @@
   display: flex;
   padding: 40px 0;
 }
-.DeviceBanner > img {
+.DeviceBanner-image {
   margin-right: 20px;
 }
 .DeviceBanner-name {

@@ -1,12 +1,20 @@
 .Button {
   padding: 6px;
   min-width: 308px;
-  color: #FFF;
-  background: #3EB34F;
-  border: 0;
+  border: 1px solid #CDCDCD;
   border-radius: 3px;
+  background: #FFFFFF;
 }
 .Button:active,
 .Button:focus {
+  background: #F7F7F7;
+}
+.Button-positive {
+  color: #FFF;
+  border: 0;
+  background: #3EB34F;
+}
+.Button-positive:active,
+.Button-positive:focus {
   background: #0F8420;
 }

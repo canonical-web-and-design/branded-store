@@ -24,6 +24,7 @@ export default function ProgressBar({ progress }) {
         width: `${progress * 100}%`,
         background: '#335280',
         borderRadius: '2px',
+        transition: 'width 150ms ease-in-out',
       }} />
     </div>
   )

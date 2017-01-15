@@ -7,19 +7,19 @@ import ThemeChanger from './ThemeChanger/ThemeChanger'
 
 import HomePage from './HomePage'
 import StorePage from './StorePage'
-import SnapPage from './SnapPage'
+import SnapPageWrapper from './SnapPageWrapper'
 
 import createHistory from 'history/createBrowserHistory'
-import createSnapApi from './snaps/snap-api'
+import createStore from './store/store'
 import createBrands from './brands'
+
+const BRAND_DEFAULT = 'ubuntu'
 
 const publicUrl = process.env.PUBLIC_URL
 const history = createHistory()
 const sections = [ 'store', 'settings', 'snap' ]
 
 const getBrands = createBrands(`${publicUrl}/brands`)
-
-const snapApi = createSnapApi()
 
 function sectionFromPath(path) {
   const parts = path.split('/').slice(1)
@@ -48,135 +48,104 @@ class App extends Component {
   constructor(props) {
     super(props)
 
+    const store = createStore()
+
     this.state = {
       location: history.location,
-      installedSnaps: [],
-      featuredSnaps: [],
-      snapPageSnap: undefined,
+      store: store,
+
+      allSnaps: [],
+      installedSnapIds: [],
+      featuredSnapIds: [],
+
       brands: [],
-      brand: -1,
-      installing: [],
+      brand: BRAND_DEFAULT,
     }
 
-    history.listen(this.handleNavigation.bind(this))
-    snapApi.listen(this.handleSnapEvents.bind(this))
-
-    this.onMenuItemClick = this.onMenuItemClick.bind(this)
-    this.onOpenSnap = this.onOpenSnap.bind(this)
-    this.reloadBrands = this.reloadBrands.bind(this)
-    this.changeBrand = this.changeBrand.bind(this)
-    this.requestInstall = this.requestInstall.bind(this)
+    history.listen(this.handleNavigation)
   }
 
   componentDidMount() {
-    // snapApi.requestInstalled()
-    snapApi.installed().then(snaps => {
-      this.setState({
-        installedSnaps: snaps.map(snapToCard)
-      })
-    })
-    snapApi.featured().then(snaps => {
-      this.setState({
-        featuredSnaps: snaps.map(snapToCard)
-      })
-    })
     this.reloadBrands()
+    this.state.store.listen(this.handleStoreEvents)
   }
 
-  componentDidUpdate() {
-    const { location, snapPageSnap } = this.state
-
-    const section = sectionFromPath(location.pathname)
-    const snapId = snapIdFromPath(location.pathname)
-
-    if (section === 'snap' && snapId && !(
-      snapPageSnap && snapPageSnap.id === snapId
-    )) {
-      snapApi.snap(snapId).then(snap => {
-        this.setState({
-          snapPageSnap: snap
-        })
-      })
-    }
-  }
-
-  handleNavigation(location) {
+  handleNavigation = (location) => {
     this.setState({ location })
   }
 
-  handleSnapEvents(event) {
-    if (event.type === 'INSTALL_PROGRESS') {
-      if (this.state.snapPageSnap) {
-        snapApi.snap(this.state.snapPageSnap.id).then(snap => {
-          this.setState({
-            installing: event.installing,
-            // installedSnaps: event.snaps.map(snapToCard),
-            snapPageSnap: snap,
-          })
-        })
-      } else {
-        this.setState({
-          installing: event.installing,
-          // installedSnaps: event.snaps.map(snapToCard),
+  goto = (path) => {
+    history.push('/' + (path || ''))
+  }
+
+  handleStoreEvents = (event) => {
+    // console.log('[STORE EVENT]', event.type, event)
+    if (event.type === 'ALL_SNAPS') {
+      return this.setState({ allSnaps: event.snaps })
+    }
+    if (event.type === 'FEATURED_SNAPS') {
+      return this.setState({ featuredSnapIds: event.ids })
+    }
+    // if (event.type === 'INSTALLED_SNAPS') {
+    //   return this.setState({ installedSnapIds: event.ids })
+    // }
+  }
+
+  reloadBrands = () => {
+    this.setState(
+      { brands: [], brand: 'ubuntu' },
+      () => {
+        getBrands().then(brands => {
+          this.setState({ brands })
         })
       }
-      return
-    }
-    if (event.type === 'INSTALLED_SNAPS') {
-      this.setState({
-        installedSnaps: event.snaps.map(snapToCard)
-      })
-      return
-    }
+    )
   }
 
-  reloadBrands() {
-    this.setState({
-      brands: [],
-      brand: -1,
-    }, () => {
-      getBrands().then(brands => {
-        this.setState({
-          brands,
-        })
-      })
-    })
+  requestInstall = (snapId) => {
+    this.state.store.install(snapId)
+  }
+  requestRemove = (snapId) => {
+    this.state.store.remove(snapId)
   }
 
-  requestInstall(snapId) {
-    snapApi.install(snapId)
-  }
-
-  changeBrand(id) {
+  changeBrand = (id) => {
     this.setState({
       brand: id,
     })
   }
 
-  onMenuItemClick(id) {
-    history.push('/' + (id === 'home' ? '' : id))
+  onMenuItemClick = (id) => {
+    this.goto(id === 'home'? '' : id)
+  }
+  onOpenSnap = (id) => {
+    this.goto(`snap/${id}`)
   }
 
-  onOpenSnap(id) {
-    history.push(`/snap/${id}`)
-  }
+  snapIdsToSnaps = (ids) => (
+    ids.map(id => (
+      this.state.allSnaps.find(snap => snap.id === id)
+    )).filter(snap => snap)
+  )
 
   render() {
 
     const {
       location,
-      featuredSnaps,
-      installedSnaps,
-      snapPageSnap,
-      brands,
+      allSnaps,
+      featuredSnapIds,
       brand,
-      installing,
+      brands,
     } = this.state
 
+    const installedSnaps = allSnaps.filter(snap => snap.status === 'installed')
+    const featuredSnaps = this.snapIdsToSnaps(featuredSnapIds)
+
     const currentSection = sectionFromPath(location.pathname)
+
     const cardImgRootUrl = `${publicUrl}/icons/cards/`
 
-    const brandData = brands[brand] || {
+    const brandData = brands.find(br => br.id === brand) || {
       deviceName: 'Connected grid router',
       deviceId: 'Cisco CGR1120 C02PQ53JFVH8',
     }
@@ -205,8 +174,8 @@ class App extends Component {
           currentSection={currentSection}
           onMenuItemClick={this.onMenuItemClick}
           logo={
-            brandData.folder
-            ? `${publicUrl}/brands/${brandData.folder}/logo.png`
+            brandData.id
+            ? `${publicUrl}/brands/${brandData.id}/logo.png`
             : ''
           }
           customColor={brandData.color}
@@ -218,24 +187,28 @@ class App extends Component {
               <HomePage
                 cardImgRootUrl={cardImgRootUrl}
                 brandData={brandData}
-                installedSnaps={installedSnaps}
+                installedSnaps={installedSnaps.map(snapToCard).map(card => {
+                  card.action = null
+                  return card
+                })}
                 onOpenSnap={this.onOpenSnap}
               />
             )
             if (currentSection === 'store') return (
               <StorePage
                 cardImgRootUrl={cardImgRootUrl}
-                featuredSnaps={featuredSnaps}
+                featuredSnaps={featuredSnaps.map(snapToCard)}
                 onOpenSnap={this.onOpenSnap}
               />
             )
             if (currentSection === 'snap') return (
-              <SnapPage
+              <SnapPageWrapper
                 cardImgRootUrl={cardImgRootUrl}
-                snap={snapPageSnap}
-                installing={installing}
-                installedSnaps={installedSnaps}
+                snap={allSnaps.find(
+                  snap => snap.id === snapIdFromPath(location.pathname)
+                )}
                 onRequestInstall={this.requestInstall}
+                onRequestRemove={this.requestRemove}
               />
             )
           })()}

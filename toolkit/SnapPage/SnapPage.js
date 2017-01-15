@@ -2,15 +2,23 @@ import React from 'react'
 import './SnapPage.css'
 
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
-import RatingStars from 'toolkit/RatingStars/RatingStars'
 
+import SnapPageSummary from './SnapPageSummary'
+import SnapPageTags from './SnapPageTags'
 import SnapPageDetails from './SnapPageDetails'
 import SnapPageAbout from './SnapPageAbout'
 import SnapPageInterfaces from './SnapPageInterfaces'
 import SnapPageInstallButton from './SnapPageInstallButton'
 
 function SnapPage(props) {
-  const { snap, icon, installProgress } = props
+  const {
+    snap,
+    icon,
+    installProgress,
+    onRequestInstall,
+    onRequestRemove,
+  } = props
+
   return snap? (
     <div className='SnapPage'>
 
@@ -19,38 +27,23 @@ function SnapPage(props) {
 
           <div className='SnapPage-headerParts'>
             <div>
-              <div className='SnapPage-summary'>
-                <img
-                  className='SnapPage-icon'
-                  src={icon}
-                  alt=''
-                  width='114'
-                  height='114'
-                />
-                <div>
-                  <h1 className='SnapPage-name'>{snap.name}</h1>
-                  <p className='SnapPage-author'>By {snap.author}</p>
-                  <RatingStars />
-                </div>
-              </div>
-              <div className='SnapPage-tags'>
-                <p>
-                  {['databases', 'cassandra', 'app-deployment'].map((tagname, i) => (
-                    <span key={i}>
-                      {i? <span>{', '}</span> : null}
-                      <a role='button'>{tagname}</a>
-                    </span>
-                  ))}
-                </p>
-              </div>
+              <SnapPageSummary
+                icon={icon}
+                name={snap.name}
+                author={snap.author}
+              />
+              <SnapPageTags
+                tags={['databases', 'cassandra', 'app-deployment']}
+              />
             </div>
             <div className='SnapPage-installButton'>
               <SnapPageInstallButton
-                label={'Free'}
+                priceLabel={'Free'}
                 installProgress={installProgress}
+                status={snap.status}
                 snapId={snap.id}
-                onRequestInstall={props.onRequestInstall}
-                isInstalled={props.isInstalled}
+                onRequestInstall={onRequestInstall}
+                onRequestRemove={onRequestRemove}
               />
             </div>
           </div>
@@ -95,14 +88,6 @@ function SnapPage(props) {
 
     </div>
   ) : null
-}
-
-SnapPage.propTypes = {
-  snap: React.PropTypes.object,
-}
-
-SnapPage.defaultProps = {
-  snap: undefined,
 }
 
 export default SnapPage

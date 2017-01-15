@@ -8,7 +8,7 @@ export default class ThemeChanger extends Component {
   }
 
   onBrandSelectChange(event) {
-    const brandId = Number(event.currentTarget.value)
+    const brandId = event.currentTarget.value
     this.props.onChangeBrand(brandId)
   }
 
@@ -26,12 +26,12 @@ export default class ThemeChanger extends Component {
           value={'select'}
         >
           <option value='select'>Select a brand</option>
-          <option value='-1'>Ubuntu</option>
+          <option value='ubuntu'>Ubuntu</option>
           {brands.map((brand, i) => (
             <option
               key={i}
-              value={i}
-            >{brand.brand}</option>
+              value={brand.id}
+            >{brand.name}</option>
           ))}
         </select>
         {' '}

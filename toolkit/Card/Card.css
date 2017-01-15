@@ -43,5 +43,7 @@
   background: #CDCDCD;
 }
 .Card-action {
-  float: right;
+  text-align: right;
+  line-height: 1.7em;
+  height: 1.7em;
 }

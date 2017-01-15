@@ -1,0 +1,4 @@
+Name: KEYMILE
+Color: #FF7301
+Device Name: Open Resource Cloud Access
+Device ID: OrcaX MX1 (VDSL2) HAJA77669A

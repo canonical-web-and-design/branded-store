@@ -5,11 +5,13 @@ import RatingStars from 'toolkit/RatingStars/RatingStars'
 
 function Card(props) {
   return (
-    <div className='Card'>
+    <div
+      className='Card'
+      role='button'
+      onClick={props.onClick}
+    >
       <div
         className='Card-main'
-        role='button'
-        onClick={props.onClick}
       >
         <img
           className='Card-icon'

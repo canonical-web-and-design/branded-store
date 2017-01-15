@@ -4,48 +4,66 @@ import './SnapPageInstallButton.css'
 import Button from 'toolkit/Button/Button'
 import ProgressBar from 'toolkit/ProgressBar/ProgressBar'
 
-class SnapPageInstallButton extends Component {
-  constructor(props) {
-    super(props)
-    this.handleInstallClick = this.handleInstallClick.bind(this)
-  }
+const ProgressBarWrapper = ({ label, progress }) => (
+  <div className='SnapPageInstallButton-progress'>
+    <div className='SnapPageInstallButton-progressLabel'>
+      {label}
+    </div>
+    <ProgressBar progress={progress} />
+  </div>
+)
 
-  handleInstallClick() {
-    const { onRequestInstall = () => {} } = this.props
-    onRequestInstall(this.props.snapId)
+const ButtonWrapper = ({ label, buttonLabel, positive, onClick }) => (
+  <div>
+    <div className='SnapPageInstallButton-price'>
+      {label}
+    </div>
+    <Button
+      onClick={onClick}
+      label={buttonLabel}
+      positive={positive}
+    />
+  </div>
+)
+
+class SnapPageInstallButton extends Component {
+
+  handleButtonClick = () => {
+    const { status, onRequestInstall, onRequestRemove } = this.props
+
+    if (status === 'uninstalled' && onRequestInstall) {
+      return onRequestInstall(this.props.snapId)
+    }
+
+    if (status === 'installed' && onRequestRemove) {
+      return onRequestRemove(this.props.snapId)
+    }
   }
 
   render() {
     const {
-      label,
+      priceLabel,
+      status,
       installProgress = 0,
-      isInstalled,
     } = this.props
+
+    const buttonLabel = status === 'installed'? 'Remove' : 'Install'
+
     return (
       <div className='SnapPageInstallButton'>
-        {(() => {
-          if (installProgress > 0) {
-            return (
-              <div className='SnapPageInstallButton-progress'>
-                <div className='SnapPageInstallButton-progressLabel'>
-                  Installing
-                </div>
-                <ProgressBar progress={installProgress} />
-              </div>
-            )
-          }
-          return (
-            <div>
-              <div className='SnapPageInstallButton-price'>
-                {label}
-              </div>
-              <Button
-                onClick={this.handleInstallClick}
-                label={isInstalled? 'Uninstall' : 'Install'}
-              />
-            </div>
-          )
-        })()}
+        {status === 'installing'? (
+          <ProgressBarWrapper
+            label={'Installing'}
+            progress={installProgress}
+          />
+        ) : (
+          <ButtonWrapper
+            label={status === 'uninstalled'? priceLabel : ''}
+            buttonLabel={buttonLabel}
+            positive={status === 'uninstalled'}
+            onClick={this.handleButtonClick}
+          />
+        )}
       </div>
     )
   }
