@@ -1,8 +1,11 @@
 .DeviceBanner {
   display: flex;
+  align-items: center;
   padding: 40px 0;
 }
 .DeviceBanner-image {
+  display: flex;
+  align-items: center;
   margin-right: 20px;
 }
 .DeviceBanner-name {
