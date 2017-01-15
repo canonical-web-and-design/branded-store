@@ -11,12 +11,13 @@ class CardWrapper extends Component {
 
   render() {
     const { card, image } = this.props
-    const { name, author, action, rating, id } = card
+    const { name, author, action, rating, id, type } = card
     return (
       <Card
         name={name}
         author={author}
         action={action}
+        type={type}
         image={image}
         onClick={this.onClick}
         rating={rating}

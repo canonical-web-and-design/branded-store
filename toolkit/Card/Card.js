@@ -60,7 +60,7 @@ function Card(props) {
               </div>
             ) : null}
             {props.type? (
-              <div>{props.type}</div>
+              <div style={{ color: '#888888', fontWeight: '400' }}>{props.type}</div>
             ) : null}
             {props.rating? (
               <div>

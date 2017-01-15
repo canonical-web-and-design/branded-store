@@ -49,7 +49,7 @@ function snapToHomeCard(snap) {
     id: snap.id,
     name: snap.name,
     author: snap.author,
-    type: '',
+    type: snap.type === 'Snap'? '' : snap.type,
     // action: snap.price === 'free'? 'Install' : snap.price,
     image: snap.id,
   }
