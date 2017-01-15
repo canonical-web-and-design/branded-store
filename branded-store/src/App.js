@@ -88,6 +88,7 @@ class App extends Component {
   }
 
   goto = (path) => {
+    this.state.store.cancelPurchases()
     history.push('/' + (path || ''))
   }
 
@@ -129,7 +130,6 @@ class App extends Component {
     this.state.store.authorize(snapId)
   }
   requestConfirm = (snapId) => {
-    console.log('REQUEST CONFIRM')
     this.state.store.confirm(snapId)
   }
 

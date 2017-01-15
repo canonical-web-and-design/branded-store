@@ -145,6 +145,36 @@ export default function createStore(brand) {
     }, 1000)
   }
 
+  const cancelPurchases = (except = null) => {
+
+    const purchaseSteps = [
+      'wait-signin',
+      'signing-in',
+      'wait-authorize',
+      'authorizing',
+      'wait-confirm',
+      'confirming',
+    ]
+
+    let touched = false
+
+    clearTimeout(authTimer)
+    authTimer = -1
+
+    allSnaps.forEach(snap => {
+      if (purchaseSteps.includes(snap.status) &&
+          (except === null || except !== snap.id)
+      ) {
+        snap.status = 'uninstalled'
+        touched = true
+      }
+    })
+
+    if (touched) {
+      emit('ALL_SNAPS', { snaps: allSnaps })
+    }
+  }
+
   return {
     listen,
     install,
@@ -152,5 +182,6 @@ export default function createStore(brand) {
     signin,
     authorize,
     confirm,
+    cancelPurchases,
   }
 }
