@@ -38,10 +38,16 @@ class CardsList extends Component {
       title,
       cards,
       cardImgRootUrl,
+      separator,
     } = this.props
     return (
       <div className='CardsList'>
-        <div className='CardsList-title'>{title}</div>
+        <div className='CardsList-title'>
+          {title}
+          {separator? (
+            <div className='CardsList-separator' />
+          ) : null}
+        </div>
         <div className='CardsList-content'>
           {cards.map((card, i) => (
             <CardWrapper

@@ -12,3 +12,9 @@
   width: 230px;
   margin: 10px;
 }
+.CardsList-separator {
+  height: 0;
+  width: 100%;
+  margin-top: 20px;
+  border-bottom: 1px dotted #D2D2D2;
+}
