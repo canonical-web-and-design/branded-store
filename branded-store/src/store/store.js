@@ -1,6 +1,6 @@
 import allSnapsData, { featuredSnaps } from './snaps-index'
 
-const INSTALL_TIME = 1000 * 5
+const INSTALL_TIME = 1000 * 10
 const INSTALL_STEPS = 5
 
 function parseIds(ids) {

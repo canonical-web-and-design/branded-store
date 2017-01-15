@@ -10,7 +10,7 @@ export default function DeviceBanner(props) {
       <div className='DeviceBanner-image'>
         <img
           alt=''
-          src={photo}
+          src={props.photo || photo}
           width='232'
         />
       </div>

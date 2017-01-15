@@ -4,6 +4,8 @@ import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import DeviceBanner from 'toolkit/DeviceBanner/DeviceBanner'
 import CardsList from 'toolkit/CardsList/CardsList'
 
+const publicUrl = process.env.PUBLIC_URL
+
 export default function HomePage({
   brandData,
   installedSnaps,
@@ -18,10 +20,15 @@ export default function HomePage({
     image: 'add-snap',
   }])
 
+  const photo = brandData.id? (
+    `${publicUrl}/brands/${brandData.id}/banner-photo.jpg`
+  ) : ''
+
   return (
     <div>
       <ContentWrapper>
         <DeviceBanner
+          photo={photo}
           name={brandData.deviceName}
           id={brandData.deviceId}
         />
