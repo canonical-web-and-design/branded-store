@@ -1,0 +1,22 @@
+.SettingsNavigation {
+  border: 1px solid #CDCDCD;
+}
+.SettingsNavigation a {
+  color: #333;
+}
+.SettingsNavigation-item {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding-left: 10px;
+  border-top: 1px dotted #D2D2D2;
+}
+.SettingsNavigation-item-active {
+  background: #F7F7F7;
+}
+.SettingsNavigation-icon {
+  margin-right: 10px;
+}
+li:first-child .SettingsNavigation-item {
+  border-top: 0;
+}

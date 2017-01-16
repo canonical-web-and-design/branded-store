@@ -31,7 +31,7 @@ export default function StorePage({
           'home',
           'private',
         ].map(tag => (
-          <span>
+          <span key={tag}>
             <a role='button'>{tag}</a>
             <span>{' '}</span>
           </span>
