@@ -8,6 +8,7 @@ export default function SnapPagePurchase({
   onSignin,
   onAuthorize,
   onConfirm,
+  onCancel,
 }) {
 
   const authorizeSteps = [
@@ -30,12 +31,14 @@ export default function SnapPagePurchase({
             status={status}
             onSignin={onSignin}
             onAuthorize={onAuthorize}
+            onCancel={onCancel}
           />
         )
         if (confirmSteps) return (
           <SnapPageConfirm
             status={status}
             onConfirm={onConfirm}
+            onCancel={onCancel}
           />
         )
       })()}

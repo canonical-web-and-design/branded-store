@@ -16,7 +16,7 @@ export default class SnapPageLogin extends Component {
     }
   }
   render() {
-    const { status } = this.props
+    const { status, onCancel } = this.props
 
     const step = (() => {
       if (status === 'wait-signin' || status === 'signing-in') return 1
@@ -102,6 +102,7 @@ export default class SnapPageLogin extends Component {
             <a
               role='button'
               className='SnapPageLogin-validateGroup-cancel'
+              onClick={onCancel}
             >
               Cancel
             </a>

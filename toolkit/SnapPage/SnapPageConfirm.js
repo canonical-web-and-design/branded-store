@@ -12,7 +12,7 @@ export default class SnapPageConfirm extends Component {
     }
   }
   render() {
-    const { status } = this.props
+    const { status, onCancel } = this.props
 
     const waiting = status === 'confirming'
 
@@ -53,6 +53,7 @@ export default class SnapPageConfirm extends Component {
             <a
               role='button'
               className='SnapPageConfirm-validateGroup-cancel'
+              onClick={onCancel}
             >
               Cancel
             </a>

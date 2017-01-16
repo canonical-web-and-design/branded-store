@@ -132,6 +132,9 @@ class App extends Component {
   requestConfirm = (snapId) => {
     this.state.store.confirm(snapId)
   }
+  requestCancel = (snapId) => {
+    this.state.store.cancelPurchases()
+  }
 
   onMenuItemClick = (id) => {
     this.goto(id === 'home'? '' : id)
@@ -240,6 +243,7 @@ class App extends Component {
                 onRequestSignin={this.requestSignin}
                 onRequestAuthorize={this.requestAuthorize}
                 onRequestConfirm={this.requestConfirm}
+                onRequestCancel={this.requestCancel}
               />
             )
           })()}
