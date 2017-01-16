@@ -15,10 +15,6 @@ const names = [
   'iredmail',
 ]
 
-const authors = [
-  'Pierre-Andre Morey',
-]
-
 const actions = [
   'Running',
 ]
@@ -35,7 +31,6 @@ function cards(count) {
     cards.push({
       id: name.toLowerCase(),
       name: name,
-      author: authors[randomInt(0, authors.length)],
       action: actions[randomInt(0, actions.length)],
       image: `app-${randomInt(0, imagesCount) + 1}`,
     })
