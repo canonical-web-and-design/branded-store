@@ -7,13 +7,12 @@ function randomInt(min, max) {
 const imagesCount = 11
 
 const names = [
-  'Docker',
-  'VLC',
-  'Krita',
-  'Blender',
-  'Hangups',
-  'Cassandra',
-  'Jenkins',
+  'Wekan',
+  'Nextcloud',
+  'Rocketchat',
+  'Gogs',
+  'Spreed',
+  'iredmail',
 ]
 
 const authors = [
@@ -21,20 +20,18 @@ const authors = [
 ]
 
 const actions = [
-  'Online',
-  'Online',
-  'Online',
-  'Online',
-  'Online',
-  'Offline',
+  'Running',
 ]
 
 // Generate cards
 function cards(count) {
   const cards = []
   let name = ''
+
+  if (count > names.length) count = names.length
+
   while (count--) {
-    name = names[randomInt(0, names.length)]
+    name = names[names.length - count - 1]
     cards.push({
       id: name.toLowerCase(),
       name: name,

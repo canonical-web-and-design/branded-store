@@ -27,7 +27,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      installedServices: cards(4),
+      installedServices: cards(6),
       location: history.location,
     }
 
@@ -75,7 +75,7 @@ class App extends Component {
           {(() => {
             if (currentSection === 'home') return (
               <CardsList
-                title='Installed Services'
+                title='All Services'
                 cards={installedServices}
                 cardImgRootUrl={cardImgRootUrl}
               />
