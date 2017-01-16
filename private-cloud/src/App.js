@@ -10,6 +10,8 @@ import cards from './cards-data'
 import createHistory from 'history/createBrowserHistory'
 
 const publicUrl = process.env.PUBLIC_URL
+//@todo: change the snapweb url to something not local
+const snapwebUrl = 'http://localhost:3001/'
 const history = createHistory()
 const sections = [ 'store', 'settings' ]
 
@@ -45,7 +47,14 @@ class App extends Component {
   }
 
   onMenuItemClick(id) {
-    history.push('/' + (id === 'home' ? '' : id))
+    if (id === 'store') {
+      const win = window.open(snapwebUrl, '_blank');
+      if (win) {
+        //Browser has allowed it to be opened
+        win.focus();
+      }
+    }
+    //history.push('/' + (id === 'home' ? '' : id))
   }
 
   render() {
@@ -64,7 +73,7 @@ class App extends Component {
 
         <Header
           menuitems={[
-            // no menus
+            { id: 'store', name: 'Store' },
           ]}
           currentSection={currentSection}
           onMenuItemClick={this.onMenuItemClick}
