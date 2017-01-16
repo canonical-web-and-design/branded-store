@@ -22,6 +22,7 @@ function SnapPage(props) {
     onRequestSignin,
     onRequestAuthorize,
     onRequestConfirm,
+    onRequestCancel,
   } = props
 
   if (!snap) return null
@@ -69,6 +70,7 @@ function SnapPage(props) {
                   onSignin={onRequestSignin}
                   onAuthorize={onRequestAuthorize}
                   onConfirm={onRequestConfirm}
+                  onCancel={onRequestCancel}
                 />
               </div>
             )

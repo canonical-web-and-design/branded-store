@@ -55,6 +55,8 @@ class SnapPageInstallButton extends Component {
       'signing-in',
       'wait-authorize',
       'authorizing',
+      'wait-confirm',
+      'confirming',
     ].includes(status)
 
     const buttonLabel = (() => {
