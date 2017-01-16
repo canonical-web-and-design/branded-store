@@ -56,8 +56,13 @@ function snapToHomeCard(snap) {
     name: snap.name,
     author: snap.author,
     type: snap.type === 'Snap'? '' : snap.type,
-    // action: snap.price === 'free'? 'Install' : snap.price,
+    action: snap.status === 'installing'? 'Installing' : null,
     image: snap.id,
+    installProgress: (
+      snap.status === 'installing'
+        ? snap.installProgress
+        : -1
+    ),
   }
 }
 
@@ -175,8 +180,11 @@ class App extends Component {
       brands,
     } = this.state
 
-    const installedSnaps = allSnaps.filter(
-      snap => snap.status === 'installed'
+    const homeSnaps = allSnaps.filter(
+      snap => (
+        snap.status === 'installed' ||
+        snap.status === 'installing'
+      )
     )
 
     const featuredSnaps = this.snapIdsToSnaps(featuredSnapIds)
@@ -202,11 +210,7 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <style>{`
-          a {
-            color: ${brandData.color || '#333'}
-          }
-        `}</style>
+        <style>{`a { color: ${brandData.color || '#333'} }`}</style>
 
         <Header
           menuitems={[
@@ -229,10 +233,7 @@ class App extends Component {
               <HomePage
                 cardImgRootUrl={cardImgRootUrl}
                 brandData={brandData}
-                installedSnaps={installedSnaps.map(snapToHomeCard).map(card => {
-                  card.action = null
-                  return card
-                })}
+                snaps={homeSnaps.map(snapToHomeCard)}
                 onOpenSnap={this.onOpenSnap}
               />
             )
@@ -246,9 +247,9 @@ class App extends Component {
             if (currentSection === 'snap') return (
               <SnapPageWrapper
                 cardImgRootUrl={cardImgRootUrl}
-                snap={allSnaps.find(
-                  snap => snap.id === snapIdFromPath(location.pathname)
-                )}
+                snap={allSnaps.find(snap => (
+                  snap.id === snapIdFromPath(location.pathname)
+                ))}
                 onRequestInstall={this.requestInstall}
                 onRequestRemove={this.requestRemove}
                 onRequestSignin={this.requestSignin}

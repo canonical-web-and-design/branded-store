@@ -11,8 +11,12 @@
   padding-left: 10px;
   border-top: 1px dotted #D2D2D2;
 }
-.SettingsNavigation-item-active {
+.SettingsNavigation-item:focus,
+.SettingsNavigation-item:active {
   background: #F7F7F7;
+}
+.SettingsNavigation-item-active {
+  font-weight: 400;
 }
 .SettingsNavigation-icon {
   margin-right: 10px;

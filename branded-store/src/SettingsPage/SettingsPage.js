@@ -31,7 +31,6 @@ export default function SettingsPage({ screenId, onNavChange }) {
               onNavChange={onNavChange}
             />
           </div>
-
           <div className='SettingsPage-content'>
             <h1 className='SettingsPage-title'>{screen[1]}</h1>
           </div>

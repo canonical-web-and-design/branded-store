@@ -56,6 +56,16 @@
   height: 1px;
   background: #CDCDCD;
 }
+.Card-footer-installing {
+  padding: 10px 5px;
+}
+.Card-footer-installing:before {
+  display: none;
+}
+.Card-footer-installProgress {
+  margin-top: -10px;
+  margin-bottom: 4px;
+}
 .Card-action {
   padding-right: 10px;
   text-align: right;
