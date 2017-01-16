@@ -7,6 +7,8 @@ import CardsList from 'toolkit/CardsList/CardsList'
 
 import cards from './cards-data'
 
+import SnapPageWrapper from './SnapPage/SnapPageWrapper'
+
 import createHistory from 'history/createBrowserHistory'
 
 const publicUrl = process.env.PUBLIC_URL
@@ -53,7 +55,7 @@ class App extends Component {
         //Browser has allowed it to be opened
         win.focus();
       }
-    }
+    } 
     //history.push('/' + (id === 'home' ? '' : id))
   }
 
@@ -80,13 +82,18 @@ class App extends Component {
         />
 
         <main className='App-content'>
-
           {(() => {
             if (currentSection === 'home') return (
               <CardsList
                 title='All Services'
                 cards={installedServices}
                 cardImgRootUrl={cardImgRootUrl}
+              />
+            )
+            if (currentSection === 'service') return (
+              <SnapPageWrapper
+                cardImgRootUrl={cardImgRootUrl}
+                snap={installedServices[1]}
               />
             )
           })()}

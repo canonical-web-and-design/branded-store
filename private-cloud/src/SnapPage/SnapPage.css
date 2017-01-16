@@ -1,0 +1,28 @@
+.SnapPage-header {
+  padding: 45px 0 40px;
+}
+.SnapPage-headerParts {
+  display: flex;
+  justify-content: space-between;
+}
+.SnapPage-installButton {
+  align-self: flex-end;
+}
+.SnapPage-header > div {
+  align-self: center;
+}
+.SnapPage-content {
+  display: flex;
+  padding-top: 25px;
+}
+.SnapPage-SnapPageAbout {
+  margin: 40px 0;
+}
+.SnapPage-content > div + div {
+  flex-shrink: 0;
+  width: 308px;
+  margin-left: 122px;
+}
+.SnapPage-purchase {
+  margin-top: 60px;
+}
