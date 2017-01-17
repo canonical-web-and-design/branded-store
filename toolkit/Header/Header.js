@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './Header.css'
 
+import If from 'toolkit/If'
+
 import defaultLogo from './assets/logo.png'
 import avatar from './assets/avatar.png'
 
@@ -103,20 +105,22 @@ class Header extends Component {
             />
             <div className='Header-activeOverlay' />
           </h1>
-          <nav className='Header-nav'>
-            <ul>
-              {(props.menuitems || []).map(item => (
-                <MenuItem
-                  key={item.id}
-                  id={item.id}
-                  name={item.name}
-                  onClick={this.onMenuItemClick}
-                  current={item.id === props.currentSection}
-                  currentColor={props.customColor}
-                />
-              ))}
-            </ul>
-          </nav>
+          <If cond={props.menuitems.length > 0}>
+            <nav className='Header-nav'>
+              <ul>
+                {(props.menuitems || []).map(item => (
+                  <MenuItem
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    onClick={this.onMenuItemClick}
+                    current={item.id === props.currentSection}
+                    currentColor={props.customColor}
+                  />
+                ))}
+              </ul>
+            </nav>
+          </If>
           <div
             className='Header-profile'
             role='button'

@@ -20,7 +20,7 @@ function parseBrandSettings(data) {
 
 export default function createApi(baseUrl) {
   return function getBrands() {
-    return fetch(`${baseUrl}/index.txt`)
+    return fetch(`${baseUrl}/brands-index.txt`)
       .then(res => res.text())
       .then(data => (
         data

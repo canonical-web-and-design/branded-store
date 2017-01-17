@@ -89,8 +89,13 @@ export default function createStore(brand) {
     if (!snap) return
 
     if (snap.price !== 'free' && snap.status !== 'confirming') {
-      snap.status = 'wait-signin'
-      emit('ALL_SNAPS', { snaps: allSnaps })
+      // snap.status = 'wait-signin'
+      // snap.status = 'authorizing'
+
+      snap.status = 'wait-authorize'
+      authorize(snapId)
+      // installingTick()
+      // emit('ALL_SNAPS', { snaps: allSnaps })
       return
     }
 
@@ -141,6 +146,7 @@ export default function createStore(brand) {
     emit('ALL_SNAPS', { snaps: allSnaps })
     clearTimeout(authTimer)
     authTimer = setTimeout(() => {
+      window.scrollTo(0, 0)
       install(snapId)
     }, 1000)
   }

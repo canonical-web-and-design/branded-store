@@ -58,7 +58,7 @@ function SnapPage(props) {
           </div>
 
           {(() => {
-            if (snap.status === 'installed' ||
+            if (true || snap.status === 'installed' ||
                 snap.status === 'uninstalled' ||
                 snap.status === 'installing') {
               return null

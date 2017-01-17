@@ -1,0 +1,22 @@
+.Loader {
+  display: flex;
+  justify-content: center;
+}
+.Loader p {
+  display: flex;
+  align-items: center;
+  font-size: 36px;
+}
+.Loader img {
+  margin-right: 20px;
+}
+
+.Loader img {
+  animation: Loader-spin 1.5s linear infinite;
+}
+@keyframes Loader-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
