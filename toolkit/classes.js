@@ -1,4 +1,8 @@
-import entries from 'object.entries'
+const entries = obj => (
+  Object
+    .keys(obj)
+    .map(key => [key, obj[key]])
+)
 
 const classes = (names) => (
   entries(names)

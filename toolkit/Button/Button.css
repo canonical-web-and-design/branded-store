@@ -35,6 +35,7 @@
 }
 .Button-positive:active,
 .Button-positive:focus {
+  color: #FFF;
   background: #0F8420;
 }
 .Button-strong {
@@ -44,6 +45,7 @@
 }
 .Button-strong:active,
 .Button-strong:focus {
+  color: #FFF;
   background: #D74F1E;
 }
 .Button-spinner {
