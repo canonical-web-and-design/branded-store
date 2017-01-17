@@ -70,7 +70,7 @@ class Header extends Component {
   }
   onProfileClick(event) {
     event.currentTarget.blur()
-    this.props.onMenuItemClick('profile')
+    this.props.onMenuItemClick('settings/profile')
   }
   onMenuItemClick(id) {
     this.props.onMenuItemClick(id)

@@ -56,6 +56,8 @@ export default function StorePage({
             marginTop: '20px',
             marginBottom: '40px',
           }}
+          width={1968/2}
+          height={84/2}
           src={`${publicUrl}/search-field.png`}
           alt='Search Field placeholder'
         />

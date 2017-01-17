@@ -14,7 +14,7 @@ import createHistory from 'history/createBrowserHistory'
 import createStore from './store/store'
 import createBrands from './brands'
 
-const BRAND_DEFAULT = 'ubuntu'
+const DEFAULT_BRAND = 'ubuntu'
 
 const pub = process.env.PUBLIC_URL
 const history = createHistory()
@@ -79,7 +79,7 @@ class App extends Component {
       allSnaps: [],
       featuredSnapIds: [],
       brands: [],
-      brand: BRAND_DEFAULT,
+      brand: DEFAULT_BRAND,
     }
 
     history.listen(this.handleNavigation)
@@ -112,7 +112,7 @@ class App extends Component {
 
   reloadBrands = () => {
     this.setState(
-      { brands: [], brand: 'ubuntu' },
+      { brands: [], brand: DEFAULT_BRAND },
       () => {
         getBrands().then(brands => {
           this.setState({ brands })

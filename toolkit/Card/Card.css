@@ -57,7 +57,7 @@
   background: #CDCDCD;
 }
 .Card-footer-installing {
-  padding: 10px 5px;
+  padding: 10px 10px;
 }
 .Card-footer-installing:before {
   display: none;
