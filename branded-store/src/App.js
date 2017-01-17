@@ -329,7 +329,7 @@ class App extends Component {
           <MyUbuntu
             onPurchase={this.requestConfirm}
             onCancel={this.requestCancel}
-            snapId={currSnap && currSnap.id}
+            snap={currSnap}
           />
         </If>
 

@@ -10,21 +10,23 @@ const pub = process.env.PUBLIC_URL
 
 export default class MyUbuntu extends Component {
   onPurchase = () => {
-    this.props.onPurchase(this.props.snapId)
+    this.props.onPurchase(this.props.snap.id)
   }
   render() {
+    const snap = this.props.snap
+    const name = snap && snap.name || 'Cassandra'
     const content = {
-      title: 'Purchasing Cassandra',
-      listTitle: 'Buying cassandra is easy, all you need to do is:',
+      title: `Purchasing ${name}`,
+      listTitle: `Buying ${name} is easy, all you need to do is:`,
       listItems: [
-        'Log in using Ubuntu Single Sign On',
-        'Provide us your payment details',
+        `Log in using Ubuntu Single Sign On`,
+        `Provide us your payment details`,
       ],
-      par1: 'Once you authorize the payment you’ll be returned to the store.',
-      welcome: 'Welcome, Lola Chang',
-      youAreSignedIn: 'You are signed in with the email address lola.chang@canonical.com. ',
-      notYou: 'Not Lola? ',
-      manage: 'Manage your SSO account',
+      par1: `Once you authorize the payment you’ll be returned to the store.`,
+      welcome: `Welcome, Lola Chang`,
+      youAreSignedIn: `You are signed in with the email address lola.chang@canonical.com. `,
+      notYou: `Not Lola? `,
+      manage: `Manage your SSO account`,
     }
 
     const { onCancel } = this.props
