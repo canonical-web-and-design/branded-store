@@ -2,7 +2,7 @@ import React from 'react'
 
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import SnapPage from './SnapPage'
-import ReviewList from 'toolkit/ReviewList/ReviewList'
+import HistoryList from './HistoryList/HistoryList'
 
 export default function SnapPageWrapper({
   cardImgRootUrl,
@@ -36,7 +36,7 @@ export default function SnapPageWrapper({
         isInstalled={snap.status === 'installed'}
       >
         <ContentWrapper bordered>
-          <ReviewList />
+          <HistoryList />
         </ContentWrapper>
       </SnapPage>
     </div>

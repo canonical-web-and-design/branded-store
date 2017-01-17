@@ -2,13 +2,12 @@ import React from 'react'
 import './SnapPage.css'
 
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
-
-import SnapPageSummary from './SnapPageSummary'
 import SnapPageDetails from 'toolkit/SnapPage/SnapPageDetails'
 import SnapPageAbout from 'toolkit/SnapPage/SnapPageAbout'
 import SnapPageInterfaces from 'toolkit/SnapPage/SnapPageInterfaces'  
-import SnapPageOpenServiceButton from './SnapPageOpenServiceButton'
 import Button from 'toolkit/Button/Button'
+
+import SnapPageSummary from './SnapPageSummary'
 
 function SnapPage(props) {
 
@@ -32,13 +31,18 @@ function SnapPage(props) {
                 name={snap.name}
               />
             </div>
-            <div className='SnapPage-installButton'>
-              <Button
-                //onClick={onClick}
-                label={'Open service'}
-                type={'positive'}
-                //disabled={disabled}
-              />
+            <div className='SnapPage-buttonContainer'>
+              <div className='SnapPage-button'>
+                <Button
+                  label={'Open service'}
+                />
+              </div>
+              <div className='SnapPage-button'>
+                <Button
+                  label={'Stop'}
+                  type={'strong'}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -59,8 +63,7 @@ function SnapPage(props) {
             />
             <div className='SnapPage-SnapPageAbout'>
               <SnapPageAbout
-                //content={snap.description}
-                content={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.'}
+                content={'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.'}
               />
             </div>
           </div>

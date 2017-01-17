@@ -4,6 +4,8 @@ import './App.css'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import CardsList from 'toolkit/CardsList/CardsList'
+import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
+import DeviceBanner from 'toolkit/DeviceBanner/DeviceBanner'
 
 import cards from './cards-data'
 
@@ -12,10 +14,16 @@ import SnapPageWrapper from './SnapPage/SnapPageWrapper'
 import createHistory from 'history/createBrowserHistory'
 
 const publicUrl = process.env.PUBLIC_URL
-//@todo: change the snapweb url to something not local
+
+// @todo: Replace this url with the real snapweb link on the device
 const snapwebUrl = 'http://localhost:3001/'
 const history = createHistory()
-const sections = [ 'store', 'settings' ]
+const sections = ['service']
+const bannerData = {
+  photo: '',
+  deviceName: 'Connected grid router',
+  deviceId: 'Cisco CGR1120 C02PQ53JFVH8',
+}
 
 function sectionFromPath(path) {
   return path === '/' ? 'home' : (
@@ -56,7 +64,11 @@ class App extends Component {
         win.focus();
       }
     } 
-    //history.push('/' + (id === 'home' ? '' : id))
+    if (id === 'home') history.push('/')
+  }
+
+  onOpenService(id) {
+    history.push('/service')
   }
 
   render() {
@@ -72,7 +84,6 @@ class App extends Component {
 
     return (
       <div className='App'>
-
         <Header
           menuitems={[
             { id: 'store', name: 'Store' },
@@ -80,15 +91,22 @@ class App extends Component {
           currentSection={currentSection}
           onMenuItemClick={this.onMenuItemClick}
         />
-
         <main className='App-content'>
           {(() => {
             if (currentSection === 'home') return (
-              <CardsList
-                title='All Services'
-                cards={installedServices}
-                cardImgRootUrl={cardImgRootUrl}
-              />
+              <ContentWrapper>
+                <DeviceBanner
+                  photo={bannerData.photo}
+                  name={bannerData.deviceName}
+                  id={bannerData.deviceId}
+                />
+                <CardsList
+                  title='All Services'
+                  cards={installedServices}
+                  cardImgRootUrl={cardImgRootUrl}
+                  onCardClick={this.onOpenService}
+                />
+              </ContentWrapper>
             )
             if (currentSection === 'service') return (
               <SnapPageWrapper
@@ -99,7 +117,6 @@ class App extends Component {
           })()}
 
         </main>
-
         <Footer />
       </div>
     )

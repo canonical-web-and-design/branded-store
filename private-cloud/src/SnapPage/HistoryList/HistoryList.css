@@ -1,0 +1,11 @@
+.HistoryList {
+  padding-top: 35px;
+  padding-bottom: 35px;
+  padding-right: calc(308px + 122px);
+}
+.HistoryList h2 {
+  font-size: 22px;
+}
+.HistoryList > div {
+  margin-top: 25px;
+}
