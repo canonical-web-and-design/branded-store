@@ -49,11 +49,7 @@ class App extends Component {
   }
 
   handleNavigation(location) {
-    this.updateState({ location: location })
-  }
-
-  updateState(update) {
-    this.setState(Object.assign({}, this.state, update))
+    this.setState({ location: location })
   }
 
   onMenuItemClick(id) {
