@@ -21,11 +21,13 @@ export default function Button({
       })}
       onClick={onClick}
     >
-      {loading
-        ? <span className='Button-spinner' />
-        : null
-      }
-      <span>{label}</span>
+      <span>
+        {loading
+          ? <span className='Button-spinner' />
+          : null
+        }
+        <span>{label}</span>
+      </span>
     </button>
   )
 }

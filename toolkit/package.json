@@ -3,6 +3,7 @@
     "extends": "react-app"
   },
   "dependencies": {
-    "babel-preset-react-app": "^2.0.1"
+    "babel-preset-react-app": "^2.0.1",
+    "object.entries": "^1.0.4"
   }
 }
