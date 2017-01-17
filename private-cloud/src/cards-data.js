@@ -4,8 +4,6 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-const imagesCount = 11
-
 const names = [
   'Wekan',
   'Nextcloud',

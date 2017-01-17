@@ -90,19 +90,23 @@ class App extends Component {
         <main className='App-content'>
           {(() => {
             if (currentSection === 'home') return (
-              <ContentWrapper>
-                <DeviceBanner
-                  photo={bannerData.photo}
-                  name={bannerData.deviceName}
-                  id={bannerData.deviceId}
-                />
-                <CardsList
-                  title='All Services'
-                  cards={installedServices}
-                  cardImgRootUrl={cardImgRootUrl}
-                  onCardClick={this.onOpenService}
-                />
-              </ContentWrapper>
+              <div>
+                <ContentWrapper>
+                  <DeviceBanner
+                    photo={bannerData.photo}
+                    name={bannerData.deviceName}
+                    id={bannerData.deviceId}
+                  />
+                </ContentWrapper>
+                <ContentWrapper background bordered>
+                  <CardsList
+                    title='All Services'
+                    cards={installedServices}
+                    cardImgRootUrl={cardImgRootUrl}
+                    onCardClick={this.onOpenService}
+                  />
+                </ContentWrapper>
+              </div>
             )
             if (currentSection === 'service') return (
               <SnapPageWrapper
