@@ -8,12 +8,12 @@ const publicUrl = process.env.PUBLIC_URL
 
 export default function HomePage({
   brandData,
-  installedSnaps,
+  snaps,
   cardImgRootUrl,
   onOpenSnap,
 }) {
 
-  const cards = installedSnaps.concat([{
+  const cards = snaps.concat([{
     id: 'add',
     name: 'Add more snaps for this device',
     action: 'Browse store',
@@ -34,14 +34,12 @@ export default function HomePage({
         />
       </ContentWrapper>
       <ContentWrapper background bordered>
-        <div className='App-installedSnaps'>
-          <CardsList
-            title='Installed Snaps'
-            cards={cards}
-            cardImgRootUrl={cardImgRootUrl}
-            onCardClick={onOpenSnap}
-          />
-        </div>
+        <CardsList
+          title='Installed Snaps'
+          cards={cards}
+          cardImgRootUrl={cardImgRootUrl}
+          onCardClick={onOpenSnap}
+        />
       </ContentWrapper>
     </div>
   )

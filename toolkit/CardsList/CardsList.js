@@ -11,7 +11,17 @@ class CardWrapper extends Component {
 
   render() {
     const { card, image } = this.props
-    const { name, author, action, rating, id, type } = card
+
+    const {
+      name,
+      author,
+      action,
+      rating,
+      id,
+      type,
+      installProgress = -1,
+    } = card
+
     return (
       <Card
         name={name}
@@ -23,6 +33,7 @@ class CardWrapper extends Component {
         rating={rating}
         positive={id === 'add'}
         alignBottom={id === 'add'}
+        installProgress={installProgress}
       />
     )
   }

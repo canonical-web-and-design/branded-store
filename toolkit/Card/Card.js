@@ -3,6 +3,7 @@ import './Card.css'
 
 import classes from 'toolkit/classes'
 import RatingStars from 'toolkit/RatingStars/RatingStars'
+import ProgressBar from 'toolkit/ProgressBar/ProgressBar'
 
 export function CardIcon({ image }) {
   return (
@@ -28,41 +29,54 @@ export function CardAuthor({ name }) {
   )
 }
 
-function Card(props) {
+function Card({
+  children,
+  positive,
+  alignBottom,
+  onClick,
+  image,
+  name,
+  author,
+  type,
+  rating,
+  installProgress = -1,
+  action,
+}) {
+  const installing = installProgress !== -1
   return (
     <div
       className={classes({
         'Card': true,
-        'Card-positive': props.positive,
-        'Card-alignBottom': props.alignBottom,
+        'Card-positive': positive,
+        'Card-alignBottom': alignBottom,
       })}
       role='button'
-      onClick={props.onClick}
+      onClick={onClick}
     >
       <div
         className='Card-main'
       >
         <CardIcon
-          image={props.image}
+          image={image}
         />
-        {props.children || (
+        {children || (
           <div className='Card-content'>
             <div>
               <CardName
-                name={props.name}
+                name={name}
               />
             </div>
-            {props.author? (
+            {author? (
               <div>
                 <CardAuthor
-                  name={props.author}
+                  name={author}
                 />
               </div>
             ) : null}
-            {props.type? (
-              <div style={{ color: '#888888', fontWeight: '400' }}>{props.type}</div>
+            {type? (
+              <div style={{ color: '#888888', fontWeight: '400' }}>{type}</div>
             ) : null}
-            {props.rating? (
+            {rating? (
               <div>
                 <RatingStars />
               </div>
@@ -70,8 +84,16 @@ function Card(props) {
           </div>
         )}
       </div>
-      <div className='Card-footer'>
-        <div className='Card-action'>{props.action}</div>
+      <div className={classes({
+        'Card-footer': true,
+        'Card-footer-installing': installing,
+      })}>
+        {installing && (
+          <div className='Card-footer-installProgress'>
+            <ProgressBar progress={installProgress} />
+          </div>
+        )}
+        <div className='Card-action'>{action}</div>
       </div>
     </div>
   )

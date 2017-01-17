@@ -8,6 +8,7 @@ import ThemeChanger from './ThemeChanger/ThemeChanger'
 import HomePage from './HomePage'
 import StorePage from './StorePage'
 import SnapPageWrapper from './SnapPageWrapper'
+import SettingsPage from './SettingsPage/SettingsPage'
 
 import createHistory from 'history/createBrowserHistory'
 import createStore from './store/store'
@@ -15,17 +16,22 @@ import createBrands from './brands'
 
 const BRAND_DEFAULT = 'ubuntu'
 
-const publicUrl = process.env.PUBLIC_URL
+const pub = process.env.PUBLIC_URL
 const history = createHistory()
 const sections = [ 'store', 'settings', 'snap' ]
 
-const getBrands = createBrands(`${publicUrl}/brands`)
+const getBrands = createBrands(`${pub}/brands`)
 
 function sectionFromPath(path) {
   const parts = path.split('/').slice(1)
   return parts[0] === ''? 'home' : (
     sections.find(section => parts[0] === section) || ''
   )
+}
+
+function settingScreenFromPath(path) {
+  const parts = path.split('/').slice(1)
+  return (parts[0] === 'settings' && parts[1]) || ''
 }
 
 function snapIdFromPath(path) {
@@ -50,8 +56,13 @@ function snapToHomeCard(snap) {
     name: snap.name,
     author: snap.author,
     type: snap.type === 'Snap'? '' : snap.type,
-    // action: snap.price === 'free'? 'Install' : snap.price,
+    action: snap.status === 'installing'? 'Installing' : null,
     image: snap.id,
+    installProgress: (
+      snap.status === 'installing'
+        ? snap.installProgress
+        : -1
+    ),
   }
 }
 
@@ -65,11 +76,8 @@ class App extends Component {
     this.state = {
       location: history.location,
       store: store,
-
       allSnaps: [],
-      installedSnapIds: [],
       featuredSnapIds: [],
-
       brands: [],
       brand: BRAND_DEFAULT,
     }
@@ -148,6 +156,9 @@ class App extends Component {
       this.goto(`snap/${id}`)
     }
   }
+  settingsNavChange = (id) => {
+    this.goto(`settings${id? `/${id}` : ''}`)
+  }
 
   snapIdsToSnaps = (ids) => (
     ids.map(id => (
@@ -169,12 +180,18 @@ class App extends Component {
       brands,
     } = this.state
 
-    const installedSnaps = allSnaps.filter(snap => snap.status === 'installed')
+    const homeSnaps = allSnaps.filter(
+      snap => (
+        snap.status === 'installed' ||
+        snap.status === 'installing'
+      )
+    )
+
     const featuredSnaps = this.snapIdsToSnaps(featuredSnapIds)
 
     const currentSection = sectionFromPath(location.pathname)
 
-    const cardImgRootUrl = `${publicUrl}/icons/cards/`
+    const cardImgRootUrl = `${pub}/icons/cards/`
 
     const brandData = brands.find(br => br.id === brand) || {
       deviceName: 'Connected grid router',
@@ -189,13 +206,11 @@ class App extends Component {
       />
     )
 
+    const currentSettingScreen = settingScreenFromPath(location.pathname)
+
     return (
       <div className='App'>
-        <style>{`
-          a {
-            color: ${brandData.color || '#333'}
-          }
-        `}</style>
+        <style>{`a { color: ${brandData.color || '#333'} }`}</style>
 
         <Header
           menuitems={[
@@ -206,7 +221,7 @@ class App extends Component {
           onMenuItemClick={this.onMenuItemClick}
           logo={
             brandData.id
-            ? `${publicUrl}/brands/${brandData.id}/logo.png`
+            ? `${pub}/brands/${brandData.id}/logo.png`
             : ''
           }
           customColor={brandData.color}
@@ -218,10 +233,7 @@ class App extends Component {
               <HomePage
                 cardImgRootUrl={cardImgRootUrl}
                 brandData={brandData}
-                installedSnaps={installedSnaps.map(snapToHomeCard).map(card => {
-                  card.action = null
-                  return card
-                })}
+                snaps={homeSnaps.map(snapToHomeCard)}
                 onOpenSnap={this.onOpenSnap}
               />
             )
@@ -235,15 +247,21 @@ class App extends Component {
             if (currentSection === 'snap') return (
               <SnapPageWrapper
                 cardImgRootUrl={cardImgRootUrl}
-                snap={allSnaps.find(
-                  snap => snap.id === snapIdFromPath(location.pathname)
-                )}
+                snap={allSnaps.find(snap => (
+                  snap.id === snapIdFromPath(location.pathname)
+                ))}
                 onRequestInstall={this.requestInstall}
                 onRequestRemove={this.requestRemove}
                 onRequestSignin={this.requestSignin}
                 onRequestAuthorize={this.requestAuthorize}
                 onRequestConfirm={this.requestConfirm}
                 onRequestCancel={this.requestCancel}
+              />
+            )
+            if (currentSection === 'settings') return (
+              <SettingsPage
+                screenId={currentSettingScreen}
+                onNavChange={this.settingsNavChange}
               />
             )
           })()}
