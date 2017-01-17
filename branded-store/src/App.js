@@ -14,7 +14,9 @@ import SnapPageWrapper from './SnapPageWrapper'
 import SettingsPage from './SettingsPage/SettingsPage'
 import MyUbuntu from './MyUbuntu'
 
-import createHistory from 'history/createBrowserHistory'
+// import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createHashHistory'
+
 import createStore from './store/store'
 import createBrands from './brands'
 
