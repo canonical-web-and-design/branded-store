@@ -13,6 +13,7 @@ const names = [
   'Gogs',
   'Spreed',
   'iredmail',
+  'collabora',
 ]
 
 const actions = [
@@ -32,7 +33,7 @@ function cards(count) {
       id: name.toLowerCase(),
       name: name,
       action: actions[randomInt(0, actions.length)],
-      image: `app-${randomInt(0, imagesCount) + 1}`,
+      image: name.toLowerCase()
     })
   }
   return cards

@@ -39,7 +39,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      installedServices: cards(6),
+      installedServices: cards(7),
       location: history.location,
     }
 
