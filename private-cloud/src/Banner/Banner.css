@@ -1,0 +1,19 @@
+.Banner {
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+}
+.Banner-image {
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+}
+.Banner-name {
+  font-size: 45px;
+  line-height: 1.4em;
+  margin-bottom: 10px;
+}
+.Banner-id {
+  margin-bottom: 10px;
+  font-size: 23px;
+}

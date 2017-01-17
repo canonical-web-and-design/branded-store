@@ -5,11 +5,11 @@ import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import CardsList from 'toolkit/CardsList/CardsList'
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
-import DeviceBanner from 'toolkit/DeviceBanner/DeviceBanner'
 
 import cards from './cards-data'
 
 import SnapPageWrapper from './SnapPage/SnapPageWrapper'
+import Banner from './Banner/Banner'
 
 import createHistory from 'history/createBrowserHistory'
 
@@ -21,8 +21,8 @@ const history = createHistory()
 const sections = ['service']
 const bannerData = {
   photo: '',
-  deviceName: 'Connected grid router',
-  deviceId: 'Cisco CGR1120 C02PQ53JFVH8',
+  deviceName: 'Self-hosted private cloud suite',
+  deviceId: 'An Ubuntu snap-based solution for forward-thinking enterprises to own and control their own data.',
 }
 
 function sectionFromPath(path) {
@@ -92,7 +92,7 @@ class App extends Component {
             if (currentSection === 'home') return (
               <div>
                 <ContentWrapper>
-                  <DeviceBanner
+                  <Banner
                     photo={bannerData.photo}
                     name={bannerData.deviceName}
                     id={bannerData.deviceId}
