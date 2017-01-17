@@ -18,7 +18,8 @@ import createHistory from 'history/createBrowserHistory'
 import createStore from './store/store'
 import createBrands from './brands'
 
-const DEFAULT_BRAND = 'ubuntu'
+// const DEFAULT_BRAND = 'ubuntu'
+const DEFAULT_BRAND = 'keymile'
 
 const pub = process.env.PUBLIC_URL
 const history = createHistory()
@@ -274,9 +275,10 @@ class App extends Component {
               currentSection={currentSection === 'snap'? 'store' : currentSection}
               onMenuItemClick={this.onMenuItemClick}
               logo={
-                brandData.id
-                ? `${pub}/brands/${brandData.id}/logo.png`
-                : ''
+                // brandData.id
+                // ? `${pub}/brands/${brandData.id}/logo.png`
+                // : ''
+                `${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`
               }
               customColor={brandData.color}
             />
