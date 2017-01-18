@@ -54,11 +54,8 @@ function SnapPage(props) {
           <div>
             <SnapPageDetails
               items={[
-                ['Category', 'Databases'],
                 ['Size', '65.7MB'],
                 ['Version', '3.7'],
-                ['Channel', 'Stable'],
-                ['Last run', '12 August 2016 12:37:06'],
               ]}
             />
             <div className='SnapPage-SnapPageAbout'>
@@ -67,15 +64,7 @@ function SnapPage(props) {
               />
             </div>
           </div>
-
           <div>
-            <SnapPageInterfaces
-              items={[
-                'Network',
-                'Network Bind',
-                'Mount Observe',
-              ]}
-            />
           </div>
         </div>
       </ContentWrapper>
