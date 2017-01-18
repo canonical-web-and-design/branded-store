@@ -33,6 +33,11 @@ function sectionFromPath(path) {
   )
 }
 
+function serviceIdFromPath(path) {
+  const parts = path.split('/').slice(1)
+  return (parts[0] === 'service' && parts[1]) || ''
+}
+
 class App extends Component {
 
   constructor(props) {
@@ -64,7 +69,7 @@ class App extends Component {
   }
 
   onOpenService(id) {
-    history.push('/service')
+    history.push('/service/' + id)
   }
 
   render() {
@@ -111,7 +116,9 @@ class App extends Component {
             if (currentSection === 'service') return (
               <SnapPageWrapper
                 cardImgRootUrl={cardImgRootUrl}
-                snap={installedServices[1]}
+                snap={installedServices.find(service => (
+                    service.id === serviceIdFromPath(location.pathname)
+                  ))}
               />
             )
           })()}
