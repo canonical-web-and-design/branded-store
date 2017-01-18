@@ -36,6 +36,7 @@
     "path-exists": "2.1.0",
     "postcss-loader": "1.0.0",
     "promise": "7.1.1",
+    "react-addons-perf": "^15.4.2",
     "react-dev-utils": "^0.4.2",
     "recursive-readdir": "2.1.0",
     "strip-ansi": "3.0.1",
@@ -52,11 +53,12 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1"
   },
+  "homepage": "http://pierre.demo.haus/store",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "deploy": "npm run build && now ./build -a store-proto.now.sh"
+    "deploy": "npm run build && cd ./build && scp -r . pierre@demo.haus:/srv/pierre.demo.haus/store && ssh pierre@demo.haus \"chmod -R +r /srv/pierre.demo.haus/store\""
   },
   "jest": {
     "collectCoverageFrom": [

@@ -1,39 +1,51 @@
 .Button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6px 15px;
   min-width: 308px;
   border: 1px solid #CDCDCD;
   border-radius: 3px;
+  color: #333;
   background: #FFFFFF;
   outline: 0;
+  text-align: center;
 }
-.Button[disabled] {
+.Button > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 15px;
+}
+.Button span {
+  display: block;
+}
+.Button[disabled],
+.Button[disabled]:active,
+.Button[disabled]:focus {
   color: rgba(102,102,102,0.5);
   background: transparent;
   border: 1px solid rgba(102,102,102,0.5);
 }
 .Button:active,
 .Button:focus {
+  color: #333;
   background: #F7F7F7;
 }
 .Button-positive {
   color: #FFF;
-  border: 0;
+  border: 1px solid #3EB34F;
   background: #3EB34F;
 }
 .Button-positive:active,
 .Button-positive:focus {
+  color: #FFF;
   background: #0F8420;
 }
 .Button-strong {
   color: #FFF;
-  border: 0;
+  border: 1px solid #E95420;
   background: #E95420;
 }
 .Button-strong:active,
 .Button-strong:focus {
+  color: #FFF;
   background: #D74F1E;
 }
 .Button-spinner {

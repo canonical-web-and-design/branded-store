@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
+import './Loader.css'
+
+import If from 'toolkit/If'
 
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
@@ -9,12 +12,16 @@ import HomePage from './HomePage'
 import StorePage from './StorePage'
 import SnapPageWrapper from './SnapPageWrapper'
 import SettingsPage from './SettingsPage/SettingsPage'
+import MyUbuntu from './MyUbuntu'
 
-import createHistory from 'history/createBrowserHistory'
+// import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createHashHistory'
+
 import createStore from './store/store'
 import createBrands from './brands'
 
-const BRAND_DEFAULT = 'ubuntu'
+// const DEFAULT_BRAND = 'ubuntu'
+const DEFAULT_BRAND = 'keymile'
 
 const pub = process.env.PUBLIC_URL
 const history = createHistory()
@@ -79,7 +86,8 @@ class App extends Component {
       allSnaps: [],
       featuredSnapIds: [],
       brands: [],
-      brand: BRAND_DEFAULT,
+      brand: DEFAULT_BRAND,
+      // waitingPayment: true,
     }
 
     history.listen(this.handleNavigation)
@@ -112,10 +120,13 @@ class App extends Component {
 
   reloadBrands = () => {
     this.setState(
-      { brands: [], brand: 'ubuntu' },
+      { brands: [], brand: DEFAULT_BRAND },
       () => {
         getBrands().then(brands => {
-          this.setState({ brands })
+          this.setState({
+            brands,
+            brand: brands[0].id,
+          })
         })
       }
     )
@@ -140,11 +151,20 @@ class App extends Component {
   requestConfirm = (snapId) => {
     this.state.store.confirm(snapId)
   }
-  requestCancel = (snapId) => {
+  requestCancel = () => {
     this.state.store.cancelPurchases()
   }
 
   onMenuItemClick = (id) => {
+    // if (id === 'home') {
+      // if (this.state.waitingPayment) {
+      //   this.stopWaitPayment()
+      // } else {
+      //   this.waitPayment()
+      // }
+      // return
+    // }
+
     this.goto(id === 'home'? '' : id)
   }
   onOpenSnap = (id) => {
@@ -170,6 +190,17 @@ class App extends Component {
     this.state.allSnaps.find(snap => snap.id === id)
   )
 
+  // waitPayment = () => {
+  //   this.setState({
+  //     waitingPayment: true,
+  //   })
+  // }
+  // stopWaitPayment = () => {
+  //   this.setState({
+  //     waitingPayment: false,
+  //   })
+  // }
+
   render() {
 
     const {
@@ -178,6 +209,7 @@ class App extends Component {
       featuredSnapIds,
       brand,
       brands,
+      // waitingPayment,
     } = this.state
 
     const homeSnaps = allSnaps.filter(
@@ -208,66 +240,125 @@ class App extends Component {
 
     const currentSettingScreen = settingScreenFromPath(location.pathname)
 
+    const currSnap = allSnaps.find(snap => (
+      snap.id === snapIdFromPath(location.pathname)
+    ))
+
+    let waitingPayment = false
+    if (currentSection === 'snap' && currSnap) {
+      waitingPayment = (
+        currSnap.status === 'wait-confirm' ||
+        currSnap.status === 'confirming'
+      )
+    }
+
+    let waitStoreToPay = false
+    let waitPayToStore = false
+    if (currentSection === 'snap' && currSnap) {
+      waitStoreToPay = (
+        currSnap.status === 'authorizing'
+      )
+      waitPayToStore = (
+        currSnap.status === 'confirming'
+      )
+    }
+
     return (
       <div className='App'>
         <style>{`a { color: ${brandData.color || '#333'} }`}</style>
 
-        <Header
-          menuitems={[
-            { id: 'store', name: 'Store' },
-            { id: 'settings', name: 'Settings' },
-          ]}
-          currentSection={currentSection === 'snap'? 'store' : currentSection}
-          onMenuItemClick={this.onMenuItemClick}
-          logo={
-            brandData.id
-            ? `${pub}/brands/${brandData.id}/logo.png`
-            : ''
-          }
-          customColor={brandData.color}
-        />
+        <If cond={!waitingPayment}>
+          <div className='App-main'>
+            <Header
+              menuitems={[
+                { id: 'store', name: 'Store' },
+                { id: 'settings', name: 'Settings' },
+              ]}
+              currentSection={currentSection === 'snap'? 'store' : currentSection}
+              onMenuItemClick={this.onMenuItemClick}
+              logo={
+                // brandData.id
+                // ? `${pub}/brands/${brandData.id}/logo.png`
+                // : ''
+                `${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`
+              }
+              customColor={brandData.color}
+            />
+            <main className='App-content'>
+              <If cond={currentSection === 'home'}>
+                <HomePage
+                  cardImgRootUrl={cardImgRootUrl}
+                  brandData={brandData}
+                  snaps={homeSnaps.map(snapToHomeCard)}
+                  onOpenSnap={this.onOpenSnap}
+                />
+              </If>
+              <If cond={currentSection === 'store'}>
+                <StorePage
+                  cardImgRootUrl={cardImgRootUrl}
+                  featuredSnaps={featuredSnaps.map(snapToStoreCard)}
+                  onOpenSnap={this.onOpenSnap}
+                />
+              </If>
+              <If cond={currentSection === 'snap'}>
+                <SnapPageWrapper
+                  cardImgRootUrl={cardImgRootUrl}
+                  snap={allSnaps.find(snap => (
+                    snap.id === snapIdFromPath(location.pathname)
+                  ))}
+                  onRequestInstall={this.requestInstall}
+                  onRequestRemove={this.requestRemove}
+                  onRequestSignin={this.requestSignin}
+                  onRequestAuthorize={this.requestAuthorize}
+                  onRequestConfirm={this.requestConfirm}
+                  onRequestCancel={this.requestCancel}
+                />
+              </If>
+              <If cond={currentSection === 'settings'}>
+                <SettingsPage
+                  screenId={currentSettingScreen}
+                  onNavChange={this.settingsNavChange}
+                />
+              </If>
+            </main>
+            <Footer firstLine={themeChanger} />
+          </div>
+        </If>
 
-        <main className='App-content'>
-          {(() => {
-            if (currentSection === 'home') return (
-              <HomePage
-                cardImgRootUrl={cardImgRootUrl}
-                brandData={brandData}
-                snaps={homeSnaps.map(snapToHomeCard)}
-                onOpenSnap={this.onOpenSnap}
-              />
-            )
-            if (currentSection === 'store') return (
-              <StorePage
-                cardImgRootUrl={cardImgRootUrl}
-                featuredSnaps={featuredSnaps.map(snapToStoreCard)}
-                onOpenSnap={this.onOpenSnap}
-              />
-            )
-            if (currentSection === 'snap') return (
-              <SnapPageWrapper
-                cardImgRootUrl={cardImgRootUrl}
-                snap={allSnaps.find(snap => (
-                  snap.id === snapIdFromPath(location.pathname)
-                ))}
-                onRequestInstall={this.requestInstall}
-                onRequestRemove={this.requestRemove}
-                onRequestSignin={this.requestSignin}
-                onRequestAuthorize={this.requestAuthorize}
-                onRequestConfirm={this.requestConfirm}
-                onRequestCancel={this.requestCancel}
-              />
-            )
-            if (currentSection === 'settings') return (
-              <SettingsPage
-                screenId={currentSettingScreen}
-                onNavChange={this.settingsNavChange}
-              />
-            )
-          })()}
-        </main>
+        <If cond={waitingPayment}>
+          <MyUbuntu
+            onPurchase={this.requestConfirm}
+            onCancel={this.requestCancel}
+            snap={currSnap}
+          />
+        </If>
 
-        <Footer firstLine={themeChanger} />
+        <div className='Loader' style={{
+          position: 'fixed',
+          left: '0',
+          right: '0',
+          top: waitStoreToPay || waitPayToStore? 0 : '100%',
+          bottom: '0',
+          background: '#FFF',
+          opacity: waitStoreToPay || waitPayToStore? 1 : 0,
+          transition: 'opacity 150ms ease-in-out',
+        }}>
+          <p>
+            <img
+              src={`${pub}/spinner-2.png`}
+              width={82/2}
+              height={82/2}
+              alt=''
+            />
+            <span>
+              {
+                !waitStoreToPay
+                  ? 'Returning you to the store…'
+                  : 'Talking to my.ubuntu.com…'
+              }
+            </span>
+          </p>
+        </div>
       </div>
     )
   }

@@ -1,0 +1,58 @@
+.MyUbuntu-content {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.MyUbuntuBlock {
+  margin-bottom: 24px;
+  padding: 20px 36px;
+  background: #FFF;
+}
+.MyUbuntuBlock-leftspace {
+  padding-left: 68px;
+}
+.MyUbuntuBlock h1 {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+.MyUbuntuBlock-list h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+.MyUbuntuBlock-list ul {
+  font-size: 21px;
+  font-weight: 400;
+  list-style: disc inside;
+  line-height: 40px;
+  margin-bottom: 20px;
+}
+
+.MyUbuntuBlock-title-check {
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding-left: 33px;
+  margin-left: -33px;
+  background: url(/check.svg) no-repeat 0 50%;
+}
+.MyUbuntuBlock-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.MyUbuntuBlock-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+.MyUbuntuBlock-row div {
+  margin-right: 30px;
+}
+
+.PurchaseSummary input {
+  width: 100%;
+  border: 1px solid #CDCDCD;
+  border-radius: 3px;
+  color: rgba(51, 51, 51, 1);
+  padding: 10px;
+}
+.PurchaseSummary input[disabled] {
+  color: rgba(51, 51, 51, 0.3);
+  background: #FFF;
+}
