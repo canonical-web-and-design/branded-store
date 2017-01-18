@@ -5,16 +5,36 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
+  overflow-y: scroll;
 }
-body, input, button {
+body, input, button, h1, h2, h3 {
   font-family: 'Ubuntu', sans-serif;
   font-size: 16px;
+  line-height: 1.7em;
   font-weight: 300;
 }
-h1, strong {
-  font-weight: 400;
-}
-h1, h2, h3 {
+h1, h2, h3, p, ul, li {
   margin: 0;
   padding: 0;
+}
+ul {
+  list-style: none;
+}
+strong {
+  font-weight: 400;
+}
+button, [role=button] {
+  user-select: none;
+  cursor: pointer;
+}
+.link {
+  text-decoration: underline;
+}
+.external {
+  padding-right: 20px;
+  color: #335280;
+  background: url(/external.svg) no-repeat 100% 50%;
+}
+.external-noicon {
+  color: #335280;
 }
