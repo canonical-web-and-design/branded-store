@@ -263,9 +263,19 @@ class App extends Component {
       )
     }
 
+    // waitingPayment = true
+
     return (
       <div className='App'>
-        <style>{`a { color: ${brandData.color || '#333'} }`}</style>
+        <style>{`
+          a, .SnapPageTags { color: ${brandData.color2 || '#333'} }
+          .external, .external-branded {
+            background-image: url(${pub}/external-${brandData.id}.svg);
+          }
+          .App-payment .external, .App-payment .external-branded {
+            background-image: url(${pub}/external.svg);
+          }
+        `}</style>
 
         <If cond={!waitingPayment}>
           <div className='App-main'>

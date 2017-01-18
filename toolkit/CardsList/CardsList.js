@@ -22,11 +22,17 @@ class CardWrapper extends Component {
       installProgress = -1,
     } = card
 
+    const finalAction = (
+      type? action : (
+        installProgress > -1 || id === 'add'? '' : 'open'
+      )
+    )
+
     return (
       <Card
         name={name}
         author={author}
-        action={action}
+        action={finalAction}
         type={type}
         image={image}
         onClick={this.onClick}

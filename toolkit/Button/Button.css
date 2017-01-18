@@ -7,6 +7,9 @@
   outline: 0;
   text-align: center;
 }
+.Button-variable {
+  min-width: 0;
+}
 .Button > span {
   display: flex;
   justify-content: center;
@@ -30,13 +33,13 @@
 }
 .Button-positive {
   color: #FFF;
-  border: 1px solid #3EB34F;
-  background: #3EB34F;
+  border: 1px solid #0E8420;
+  background: #0E8420;
 }
 .Button-positive:active,
 .Button-positive:focus {
   color: #FFF;
-  background: #0F8420;
+  background: #0B6B1A;
 }
 .Button-strong {
   color: #FFF;

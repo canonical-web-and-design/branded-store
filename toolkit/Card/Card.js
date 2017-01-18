@@ -93,7 +93,11 @@ function Card({
             <ProgressBar progress={installProgress} />
           </div>
         )}
-        <div className='Card-action'>{action}</div>
+        <div className='Card-action'>{
+          action === 'open'? (
+            <a role='button' className='external-branded'>Open</a>
+          ) : action
+        }</div>
       </div>
     </div>
   )

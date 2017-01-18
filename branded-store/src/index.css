@@ -28,13 +28,20 @@ button, [role=button] {
   cursor: pointer;
 }
 .link {
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 .external {
   padding-right: 20px;
   color: #335280;
   background: url(/external.svg) no-repeat 100% 50%;
 }
+.external-branded {
+  padding-right: 20px;
+  background: url(/external.svg) no-repeat 100% 50%;
+}
 .external-noicon {
   color: #335280;
+}
+.Footer-MyUbuntu a {
+  color: #dd4814;
 }

@@ -11,7 +11,7 @@ import iconStore from './assets/store.svg'
 import iconSettings from './assets/settings.svg'
 
 const defaultName = 'Ubuntu'
-const defaultProfileName = 'Karl Waghorn-Moyce'
+const defaultProfileName = 'Lola Chang'
 
 const itemIcons = {
   store: iconStore,

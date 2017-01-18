@@ -17,6 +17,7 @@ export default class ThemeChanger extends Component {
       brands=[],
       reloadBrands,
     } = this.props
+          // <option value='ubuntu'>Ubuntu</option>
 
     return (
       <span className='ThemeChanger'>
@@ -26,7 +27,6 @@ export default class ThemeChanger extends Component {
           value={'select'}
         >
           <option value='select'>Select a brand</option>
-          <option value='ubuntu'>Ubuntu</option>
           {brands.map((brand, i) => (
             <option
               key={i}

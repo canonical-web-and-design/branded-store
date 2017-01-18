@@ -4,6 +4,7 @@ import './MyUbuntu.css'
 import classes from 'toolkit/classes'
 import Button from 'toolkit/Button/Button'
 import Header from 'toolkit/Header/Header'
+import Footer from 'toolkit/Footer/Footer'
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 
 const pub = process.env.PUBLIC_URL
@@ -24,7 +25,8 @@ export default class MyUbuntu extends Component {
       ],
       par1: `Once you authorize the payment you’ll be returned to the store.`,
       welcome: `Welcome, Lola Chang`,
-      youAreSignedIn: `You are signed in with the email address lola.chang@canonical.com. `,
+      youAreSignedIn: `You are signed in with the email address`,
+      email: `lola.chang@canonical.com`,
       notYou: `Not Lola? `,
       manage: `Manage your SSO account`,
     }
@@ -43,7 +45,7 @@ export default class MyUbuntu extends Component {
               <div className='MyUbuntu-content'>
                 <Block>
                   <h1>{content.title}</h1>
-                  <div className='MyUbuntuBlock-list'>
+                  <div className='MyUbuntuBlock-list' style={{ display: 'none' }}>
                     <h2>{content.listTitle}</h2>
                     <ul>
                       {content.listItems.map((item, i) => (
@@ -61,10 +63,13 @@ export default class MyUbuntu extends Component {
                     marginBottom: '10px',
                   }}>
                     <span>{content.youAreSignedIn}</span>
+                    <span>{' '}</span>
+                    <strong>{content.email}</strong>
+                    <span>{'.'}</span>
                   </p>
                   <p>
                     <strong>{content.notYou}</strong>
-                    <a className='external'>{content.manage}</a>
+                    <a role='button' className='external'>{content.manage}</a>
                   </p>
                 </Block>
                 <Block>
@@ -101,6 +106,19 @@ export default class MyUbuntu extends Component {
             </ContentWrapper>
           </div>
         </main>
+
+        <Footer>
+          <div className='Footer-MyUbuntu'>
+            <ContentWrapper>
+              <p>© 2016 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.</p>
+              <p>
+                <a className='link'>Terms of Service</a>
+                <span>{' · '}</span>
+                <a className='link'>Report a bug on this site</a>
+              </p>
+            </ContentWrapper>
+          </div>
+        </Footer>
       </div>
     )
   }
@@ -133,6 +151,15 @@ class PurchaseSummary extends React.Component {
             marginBottom: '36px',
           }}
         />
+
+        <div style={{
+          width: '100%',
+          fontSize: '21px',
+          marginBottom: '20px',
+        }}>
+          Enter your password to confirm your purchase
+        </div>
+
         <div className='MyUbuntuBlock-authorize' style={{
           display: 'flex',
           alignItems: 'flex-end',
@@ -141,7 +168,7 @@ class PurchaseSummary extends React.Component {
             width: '50%',
           }}>
             <form autoComplete='off'>
-              <label htmlFor='password'>Payments password</label>
+              <label htmlFor='password'>Payment password</label>
               <input
                 type='password'
                 id='password'
@@ -173,6 +200,7 @@ class PurchaseSummary extends React.Component {
               type='positive'
               disabled={this.state.password === ''}
               onClick={onPurchase}
+              variableWidth={true}
             />
           </div>
         </div>

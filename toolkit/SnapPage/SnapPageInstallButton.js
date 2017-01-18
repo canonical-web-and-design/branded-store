@@ -16,7 +16,12 @@ const ProgressBarWrapper = ({ label, progress }) => (
 const ButtonWrapper = ({ label, disabled, buttonLabel, type, onClick }) => (
   <div>
     <div className='SnapPageInstallButton-price'>
-      {label === 'free' ? 'Free' : label}
+      {label === 'free' ? 'Free' : ( label? (
+        <span>
+          <span>Snap Price: </span>
+          <span style={{fontWeight: 400}}>{label}</span>
+        </span>
+      ) : null)}
     </div>
     <Button
       onClick={onClick}

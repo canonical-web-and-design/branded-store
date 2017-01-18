@@ -1,6 +1,7 @@
 const TAGS = [
   ['Name', 'name'],
   ['Color', 'color'],
+  ['Color2', 'color2'],
   ['Device Name', 'deviceName'],
   ['Device ID', 'deviceId'],
 ]
@@ -19,17 +20,19 @@ function parseBrandSettings(data) {
 }
 
 const brandContent = {
-  keymile: [
-    'Name: KEYMILE',
-    'Color: #FF7301',
-    'Device Name: Open Resource Cloud Access',
-    'Device ID: OrcaX MX1 (VDSL2) HAJA77669A',
-  ].join('\n'),
   lime: [
     'Name: Lime Microsystems',
     'Color: #BAD72D',
+    'Color2: #2E893A',
     'Device Name: LimeNET',
     'Device ID: LimeSDR LM677 NLM871000',
+  ].join('\n'),
+  keymile: [
+    'Name: KEYMILE',
+    'Color: #FF7301',
+    'Color2: #FF7301',
+    'Device Name: OrcaX access node',
+    'Device ID: OrcaX MX1 (VDSL2) HAJA77669A',
   ].join('\n'),
 }
 function fetchBrandSettings(brandId) {
@@ -50,7 +53,7 @@ export default function createApi(baseUrl) {
     //       .filter(id => id)
     //   ))
     return Promise.resolve([
-        'keymile', 'lime'
+        'lime', 'keymile'
       ])
       .then(ids => (
         Promise.all(

@@ -23,9 +23,9 @@ const snaps = [
   },
   {
     id: 'connected-grid-router',
-    name: 'Connected grid router',
+    name: 'LimeNET',
     type: 'Gadget Snap',
-    author: 'Cisco',
+    author: 'Lime Microsystems',
     price: 0,
     rating: -1,
     category: '',
