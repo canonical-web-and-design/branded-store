@@ -34,7 +34,7 @@ function SnapPage(props) {
             <div className='SnapPage-buttonContainer'>
               <div className='SnapPage-button'>
                 <Button
-                  label={'Open service'}
+                  label={'Admin interface'}
                 />
               </div>
               <div className='SnapPage-button'>
