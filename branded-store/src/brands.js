@@ -27,26 +27,18 @@ const brandContent = {
     'Device Name: LimeNET',
     'Device ID: LimeSDR LM677 NLM871000',
   ].join('\n'),
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
   bosch: [
     'Name: BOSCH',
     'Color: #FE000C',
     'Device Name: Smart Home Controller',
     'Device ID: Bosch 8750000001 4057749314475',
-=======
->>>>>>> Stashed changes
+  ].join('\n'),
   keymile: [
     'Name: KEYMILE',
     'Color: #FF7301',
     'Color2: #FF7301',
     'Device Name: OrcaX access node',
     'Device ID: OrcaX MX1 (VDSL2) HAJA77669A',
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/master
->>>>>>> Stashed changes
   ].join('\n'),
 }
 function fetchBrandSettings(brandId) {
@@ -67,15 +59,7 @@ export default function createApi(baseUrl) {
     //       .filter(id => id)
     //   ))
     return Promise.resolve([
-<<<<<<< Updated upstream
-        'lime', 'keymile'
-=======
-<<<<<<< HEAD
         'keymile', 'lime', 'bosch',
-=======
-        'lime', 'keymile'
->>>>>>> origin/master
->>>>>>> Stashed changes
       ])
       .then(ids => (
         Promise.all(
