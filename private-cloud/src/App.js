@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 
+import If from 'toolkit/If'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import CardsList from 'toolkit/CardsList/CardsList'
@@ -93,37 +94,35 @@ class App extends Component {
           onMenuItemClick={this.onMenuItemClick}
         />
         <main className='App-content'>
-          {(() => {
-            if (currentSection === 'home') return (
-              <div>
-                <ContentWrapper>
-                  <Banner
-                    photo={bannerData.photo}
-                    name={bannerData.deviceName}
-                    id={bannerData.deviceId}
-                  />
-                </ContentWrapper>
-                <ContentWrapper background bordered>
-                  <CardsList
-                    title='All Services'
-                    cards={installedServices}
-                    cardImgRootUrl={cardImgRootUrl}
-                    onCardClick={this.onOpenService}
-                  />
-                </ContentWrapper>
-              </div>
-            )
-            if (currentSection === 'service') return (
-              <SnapPageWrapper
-                cardImgRootUrl={cardImgRootUrl}
-                snap={installedServices.find(service => (
-                    service.id === serviceIdFromPath(location.pathname)
-                  ))}
-              />
-            )
-          })()}
-
+          <If cond={currentSection === 'home'}>
+            <div>
+              <ContentWrapper>
+                <Banner
+                  photo={bannerData.photo}
+                  name={bannerData.deviceName}
+                  id={bannerData.deviceId}
+                />
+              </ContentWrapper>
+              <ContentWrapper background bordered>
+                <CardsList
+                  title='All Services'
+                  cards={installedServices}
+                  cardImgRootUrl={cardImgRootUrl}
+                  onCardClick={this.onOpenService}
+                />
+              </ContentWrapper>
+            </div>
+          </If>
+          <If cond={currentSection === 'service'}>
+            <SnapPageWrapper
+              cardImgRootUrl={cardImgRootUrl}
+              snap={installedServices.find(service => (
+                  service.id === serviceIdFromPath(location.pathname)
+                ))}
+            />
+          </If>
         </main>
+
         <Footer />
       </div>
     )
