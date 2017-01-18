@@ -7,7 +7,7 @@ export default function HistoryList(props) {
       <h2>History</h2>
       {(() => Array(3).fill(1).map((k,i) => (
         <div key={i}>
-          {'Updated today'}
+          {'Last run today'}
         </div>
       )))()}
     </div>
