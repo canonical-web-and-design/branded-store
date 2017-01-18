@@ -23,5 +23,5 @@ cd branded-store && npm start
 Run the private cloud demo:
 
 ```
-cd private-cloud && npm install
+cd private-cloud && npm start
 ```
