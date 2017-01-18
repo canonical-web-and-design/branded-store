@@ -93,7 +93,10 @@ export default function createStore(brand) {
       // snap.status = 'authorizing'
 
       snap.status = 'wait-authorize'
+
+      // eslint-disable-next-line
       authorize(snapId)
+
       // installingTick()
       // emit('ALL_SNAPS', { snaps: allSnaps })
       return

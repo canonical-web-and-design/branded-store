@@ -263,8 +263,6 @@ class App extends Component {
       )
     }
 
-    // waitingPayment = true
-
     return (
       <div className='App'>
         <style>{`

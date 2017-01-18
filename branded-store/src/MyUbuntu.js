@@ -15,7 +15,7 @@ export default class MyUbuntu extends Component {
   }
   render() {
     const snap = this.props.snap
-    const name = snap && snap.name || 'Cassandra'
+    const name = (snap && snap.name) || 'Cassandra'
     const content = {
       title: `Purchasing ${name}`,
       listTitle: `Buying ${name} is easy, all you need to do is:`,
@@ -137,7 +137,6 @@ class PurchaseSummary extends React.Component {
     })
   }
   render() {
-    const { items } = this.props
     const { onCancel, onPurchase } = this.props
     return (
       <div className='PurchaseSummary'>
