@@ -9,6 +9,7 @@ export default function SnapPageWrapper({
   snap,
   onRequestStop,
   onRequestStart,
+  onRequestAdminPage,
 }) {
 
   if (!snap) return null
@@ -20,9 +21,10 @@ export default function SnapPageWrapper({
       <SnapPage
         snap={snap}
         icon={iconUrl}
+        isRunning={snap.action === 'Running'}
         onRequestStop={() => { onRequestStop(snap.id) }}
         onRequestStart={() => { onRequestStart(snap.id) }}
-        isRunning={snap.action === 'Running'}
+        onRequestAdminPage={() => { onRequestAdminPage(snap.id) }}
       >
         <ContentWrapper bordered>
           <HistoryList />

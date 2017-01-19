@@ -38,6 +38,14 @@ function serviceIdFromPath(path) {
   return (parts[0] === 'service' && parts[1]) || ''
 }
 
+function openNewTab(url) {
+  console.log(url)
+  const win = window.open(url, '_blank');
+        if (win) {
+          //Browser has allowed it to be opened
+          win.focus();
+        }
+}
 class App extends Component {
 
   constructor(props) {
@@ -53,6 +61,11 @@ class App extends Component {
     this.onMenuItemClick = this.onMenuItemClick.bind(this)
     this.onRequestStop = this.onRequestStop.bind(this)
     this.onRequestStart = this.onRequestStart.bind(this)
+    this.onRequestAdminPage = this.onRequestAdminPage.bind(this)
+  }
+
+  findServiceById(id) {
+    return this.state.installedServices.find(service => (service.id === id))
   }
 
   handleNavigation(location) {
@@ -62,11 +75,7 @@ class App extends Component {
 
   onMenuItemClick(id) {
     if (id === 'store') {
-      const win = window.open(snapwebUrl, '_blank');
-      if (win) {
-        //Browser has allowed it to be opened
-        win.focus();
-      }
+      openNewTab(snapwebUrl)
     } 
     if (id === 'home') history.push('/')
   }
@@ -88,6 +97,11 @@ class App extends Component {
                                                       service.id === id))
     newValue[index].action = 'Running'
     this.setState({installedServices: newValue})
+  }
+
+  onRequestAdminPage(id) {
+    const service = this.findServiceById(id)
+    if (service) openNewTab(service.adminPage)
   }
 
   render() {
@@ -130,6 +144,7 @@ class App extends Component {
                 ))}
               onRequestStop={this.onRequestStop}
               onRequestStart={this.onRequestStart}
+              onRequestAdminPage={this.onRequestAdminPage}
             />
           </If>
         </main>

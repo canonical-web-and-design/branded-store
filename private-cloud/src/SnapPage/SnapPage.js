@@ -17,6 +17,7 @@ function SnapPage(props) {
     isRunning,
     onRequestStop,
     onRequestStart,
+    onRequestAdminPage,
   } = props
 
   if (!snap) return null
@@ -39,6 +40,7 @@ function SnapPage(props) {
                 <Button
                   label={'Admin interface'}
                   disabled={!isRunning}
+                  onClick={onRequestAdminPage}
                 />
               </div>
               <div className='SnapPage-button'>

@@ -14,6 +14,16 @@ const names = [
   'Collabora',
 ]
 
+const adminPages = [
+  'https://wekan.io/',
+  'https://nextcloud.com/',
+  'https://rocket.chat/',
+  'https://gogs.io/',
+  'https://spreed.me/',
+  'http://www.iredmail.org/',
+  'https://www.collabora.com/',
+]
+
 const abouts = [
   'Wekan is an open source Kanban workflow tool that allows you to create boards, on which cards can be moved around between a number of columns. Boards can have many members, allowing for easy collaboration, just add everyone that should be able to work with you on the board to it, and you are good to go! ',
   'Nextcloud is a safe home for all your data. Access, share and protect your files, calendars, contacts and communication and more. Nextcloud comes with a feature rich set of pre-integrated services and is developed using a fully open source platform designed to give enterprises full control and privacy.',
@@ -44,7 +54,8 @@ function cards(count) {
       name: name,
       about: about,
       action: actions[0],
-      image: name.toLowerCase()
+      image: name.toLowerCase(),
+      adminPage: abouts[names.length - count - 1],
     })
   }
   return cards
