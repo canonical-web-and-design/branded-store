@@ -20,10 +20,17 @@ const publicUrl = process.env.PUBLIC_URL
 const snapwebUrl = 'http://localhost:3001/'
 const history = createHistory()
 const sections = ['service']
+
 const bannerData = {
   photo: '',
   deviceName: 'Self-hosted private cloud suite',
   deviceId: 'An Ubuntu snap-based solution for forward-thinking enterprises to own and control their own data.',
+}
+
+const brandData = {
+    name: 'KEYMILE',
+    id: 'keymile',
+    color: '#FF7301',
 }
 
 function sectionFromPath(path) {
@@ -92,6 +99,9 @@ class App extends Component {
           ]}
           currentSection={currentSection}
           onMenuItemClick={this.onMenuItemClick}
+          name={brandData.name}
+          logo={`${publicUrl}/brands/${brandData.id}/logo.png`}
+          customColor={brandData.color}
         />
         <main className='App-content'>
           <If cond={currentSection === 'home'}>
@@ -123,7 +133,9 @@ class App extends Component {
           </If>
         </main>
 
-        <Footer />
+        <Footer 
+          logo={`${publicUrl}/brands/${brandData.id}/logo.png`}
+        />
       </div>
     )
   }
