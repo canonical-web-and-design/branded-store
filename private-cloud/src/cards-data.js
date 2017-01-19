@@ -25,6 +25,7 @@ const abouts = [
 ]
 const actions = [
   'Running',
+  'Stopped'
 ]
 
 // Generate cards
@@ -42,7 +43,7 @@ function cards(count) {
       id: name.toLowerCase(),
       name: name,
       about: about,
-      action: actions[randomInt(0, actions.length)],
+      action: actions[0],
       image: name.toLowerCase()
     })
   }

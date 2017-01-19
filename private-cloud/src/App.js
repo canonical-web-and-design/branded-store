@@ -51,6 +51,8 @@ class App extends Component {
     history.listen(this.handleNavigation.bind(this))
 
     this.onMenuItemClick = this.onMenuItemClick.bind(this)
+    this.onRequestStop = this.onRequestStop.bind(this)
+    this.onRequestStart = this.onRequestStart.bind(this)
   }
 
   handleNavigation(location) {
@@ -71,6 +73,21 @@ class App extends Component {
 
   onOpenService(id) {
     history.push('/service/' + id)
+  }
+
+  onRequestStop(id) {
+    const newValue = this.state.installedServices
+    const index = this.state.installedServices.findIndex(service => (
+                                                      service.id === id))
+    newValue[index].action = 'Stopped'
+    this.setState({installedServices: newValue})
+  }
+  onRequestStart(id) {
+    const newValue = this.state.installedServices
+    const index = this.state.installedServices.findIndex(service => (
+                                                      service.id === id))
+    newValue[index].action = 'Running'
+    this.setState({installedServices: newValue})
   }
 
   render() {
@@ -111,6 +128,8 @@ class App extends Component {
               snap={installedServices.find(service => (
                   service.id === serviceIdFromPath(location.pathname)
                 ))}
+              onRequestStop={this.onRequestStop}
+              onRequestStart={this.onRequestStart}
             />
           </If>
         </main>

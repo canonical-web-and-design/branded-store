@@ -14,6 +14,9 @@ function SnapPage(props) {
   const {
     snap,
     icon,
+    isRunning,
+    onRequestStop,
+    onRequestStart,
   } = props
 
   if (!snap) return null
@@ -35,12 +38,14 @@ function SnapPage(props) {
               <div className='SnapPage-button'>
                 <Button
                   label={'Admin interface'}
+                  disabled={!isRunning}
                 />
               </div>
               <div className='SnapPage-button'>
                 <Button
-                  label={'Stop'}
-                  type={'strong'}
+                  label={isRunning?'Stop':'Start'}
+                  type={isRunning?'strong':'positive'}
+                  onClick={isRunning?onRequestStop:onRequestStart}
                 />
               </div>
             </div>

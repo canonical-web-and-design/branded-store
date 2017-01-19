@@ -7,18 +7,11 @@ import HistoryList from './HistoryList/HistoryList'
 export default function SnapPageWrapper({
   cardImgRootUrl,
   snap,
-  onRequestInstall,
-  onRequestRemove,
-  onRequestSignin,
-  onRequestAuthorize,
-  onRequestConfirm,
+  onRequestStop,
+  onRequestStart,
 }) {
 
   if (!snap) return null
-
-  const installProgress = (
-    snap.status === 'installing'? snap.installProgress : 0
-  )
 
   const iconUrl = `${cardImgRootUrl}${snap.id}.png`
 
@@ -26,14 +19,10 @@ export default function SnapPageWrapper({
     <div className='App-snapPage'>
       <SnapPage
         snap={snap}
-        installProgress={installProgress}
         icon={iconUrl}
-        onRequestInstall={onRequestInstall}
-        onRequestRemove={onRequestRemove}
-        onRequestSignin={() => { onRequestSignin(snap.id) }}
-        onRequestAuthorize={() => { onRequestAuthorize(snap.id) }}
-        onRequestConfirm={() => { onRequestConfirm(snap.id) }}
-        isInstalled={snap.status === 'installed'}
+        onRequestStop={() => { onRequestStop(snap.id) }}
+        onRequestStart={() => { onRequestStart(snap.id) }}
+        isRunning={snap.action === 'Running'}
       >
         <ContentWrapper bordered>
           <HistoryList />
