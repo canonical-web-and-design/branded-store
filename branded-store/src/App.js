@@ -329,7 +329,10 @@ class App extends Component {
                 />
               </If>
             </main>
-            <Footer firstLine={themeChanger} />
+            <Footer 
+              firstLine={themeChanger} 
+              logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
+            />
           </div>
         </If>
 

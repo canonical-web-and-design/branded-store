@@ -1,6 +1,8 @@
 import React from 'react'
 import './Footer.css'
-import logo from './assets/logo.svg'
+import defaultLogo from './assets/logo.png'
+
+const defaultName = 'Ubuntu'
 
 function Footer(props) {
   return (
@@ -16,7 +18,11 @@ function Footer(props) {
               © 2017 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.
             </p>
           </div>
-          <img className='Footer-logo' src={logo} alt='Ubuntu' />
+          <img className='Footer-logo'
+            src={props.logo || defaultLogo}
+            alt={props.name || defaultName}
+            height='48'
+          />
         </div>
       )}
     </footer>
