@@ -12,9 +12,6 @@
 .Card-main {
   padding: 20px 10px 15px;
 }
-.Card-content {
-  height: calc(27px * 3);
-}
 .Card-content > div + div {
   height: 17px;
   line-height: 17px;
