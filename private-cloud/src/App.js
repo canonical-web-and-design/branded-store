@@ -4,13 +4,11 @@ import './App.css'
 import If from 'toolkit/If'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
-import CardsList from 'toolkit/CardsList/CardsList'
-import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 
 import cards from './cards-data'
 
 import SnapPageWrapper from './SnapPage/SnapPageWrapper'
-import Banner from './Banner/Banner'
+import HomePage from './HomePage'
 
 import createHistory from 'history/createBrowserHistory'
 
@@ -20,12 +18,6 @@ const publicUrl = process.env.PUBLIC_URL
 const snapwebUrl = 'http://localhost:3001/'
 const history = createHistory()
 const sections = ['service']
-
-const bannerData = {
-  photo: '',
-  deviceName: 'Self-hosted private cloud suite',
-  deviceId: 'An Ubuntu snap-based solution for forward-thinking enterprises to own and control their own data.',
-}
 
 const brandData = {
     name: 'KEYMILE',
@@ -63,6 +55,7 @@ class App extends Component {
 
   handleNavigation(location) {
     this.setState({ location: location })
+    window.scrollTo(0, 0)
   }
 
   onMenuItemClick(id) {
@@ -103,25 +96,14 @@ class App extends Component {
           logo={`${publicUrl}/brands/${brandData.id}/logo.png`}
           customColor={brandData.color}
         />
+
         <main className='App-content'>
           <If cond={currentSection === 'home'}>
-            <div>
-              <ContentWrapper>
-                <Banner
-                  photo={bannerData.photo}
-                  name={bannerData.deviceName}
-                  id={bannerData.deviceId}
-                />
-              </ContentWrapper>
-              <ContentWrapper background bordered>
-                <CardsList
-                  title='All Services'
-                  cards={installedServices}
-                  cardImgRootUrl={cardImgRootUrl}
-                  onCardClick={this.onOpenService}
-                />
-              </ContentWrapper>
-            </div>
+            <HomePage
+              cardImgRootUrl={cardImgRootUrl}
+              services={installedServices}
+              onOpenService={this.onOpenService}
+            />
           </If>
           <If cond={currentSection === 'service'}>
             <SnapPageWrapper
