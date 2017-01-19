@@ -13,7 +13,15 @@ export default function HomePage({
   onOpenSnap,
 }) {
 
-  const cards = snaps
+  const addCard = {
+    id: 'add',
+    name: 'Add more snaps for this device',
+    action: 'Browse store',
+    image: 'add-snap',
+  }
+
+  const cards = [
+    ...snaps
     // store the index to keep the sorting order
     .map((snap, i) => [i, snap])
     .sort((a, b) => {
@@ -22,13 +30,9 @@ export default function HomePage({
       return a[0] - b[0]
     })
     // back to objects
-    .map(s => s[1])
-    .concat([{
-      id: 'add',
-      name: 'Add more snaps for this device',
-      action: 'Browse store',
-      image: 'add-snap',
-    }])
+    .map(s => s[1]),
+    addCard
+  ]
 
   const photo = brandData.id? (
     `${publicUrl}/brands/${brandData.id}/banner-photo.jpg`
