@@ -3,6 +3,7 @@ import './App.css'
 
 import If from 'toolkit/If'
 
+import Link from 'toolkit/Link/Link'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import ThemeChanger from './ThemeChanger/ThemeChanger'
@@ -267,7 +268,8 @@ class App extends Component {
     if ((currentSection === 'store' || currentSection === 'snap') && currSnap) {
       waitingPayment = (
         currSnap.status === 'wait-confirm' ||
-        currSnap.status === 'confirming'
+        currSnap.status === 'confirming1' ||
+        currSnap.status === 'confirming2'
       )
     }
 
@@ -278,7 +280,8 @@ class App extends Component {
         currSnap.status === 'authorizing'
       )
       waitPayToStore = (
-        currSnap.status === 'confirming'
+        currSnap.status === 'confirming1' ||
+        currSnap.status === 'confirming2'
       )
     }
 
@@ -373,8 +376,23 @@ class App extends Component {
           label={
             waitStoreToPay
             ? 'Talking to my.ubuntu.com…'
-            : 'Returning you to the store…'
+            : (
+              currSnap && currSnap.status === 'confirming1'
+              ? 'Your payment was successful.'
+              : 'Redirecting you to the Store to complete installation…'
+            )
           }
+          label2={(
+            <a
+              role='button'
+              style={{
+                textDecoration: 'underline',
+                color: '#E95420',
+              }}
+            >
+              Click here if you are not being redirected
+            </a>
+          )}
         />
       </div>
     )

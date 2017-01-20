@@ -2,19 +2,13 @@ import React from 'react'
 import './Loader.css'
 import spinner from './spinner.png';
 
-export default function Loader({ visible, label }) {
+export default function Loader({ visible, label, label2 }) {
   return (
     <div className='Loader' style={{
-      position: 'fixed',
-      left: '0',
-      right: '0',
       top: visible? 0 : '100%',
-      bottom: '0',
-      background: '#FFF',
       opacity: visible? 1 : 0,
-      transition: 'opacity 150ms ease-in-out',
     }}>
-    <p>
+    <p className='Loader-label'>
       <img
         src={spinner}
         width={82/2}
@@ -25,6 +19,11 @@ export default function Loader({ visible, label }) {
         {label}
       </span>
     </p>
+    {label2 && (
+      <p className='Loader-label2'>
+        {label2}
+      </p>
+    )}
   </div>
   )
 }
