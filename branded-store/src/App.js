@@ -238,7 +238,12 @@ class App extends Component {
       )
     )
 
-    const featuredSnaps = this.snapIdsToSnaps(featuredSnapIds)
+    const featuredSnaps = this.snapIdsToSnaps(
+      featuredSnapIds
+        .concat(featuredSnapIds)
+        .concat(featuredSnapIds)
+        .slice(0, 20)
+    )
 
     const currentSection = sectionFromPath(location.pathname)
 
