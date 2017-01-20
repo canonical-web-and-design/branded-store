@@ -10,7 +10,7 @@ import ThemeChanger from './ThemeChanger/ThemeChanger'
 
 import HomePage from './HomePage'
 import StorePage from './StorePage'
-import SnapPageWrapper from './SnapPageWrapper'
+import SnapPage from './SnapPage'
 import SettingsPage from './SettingsPage/SettingsPage'
 import MyUbuntu from './MyUbuntu'
 
@@ -309,18 +309,20 @@ class App extends Component {
                 />
               </If>
               <If cond={currentSection === 'snap'}>
-                <SnapPageWrapper
-                  cardImgRootUrl={cardImgRootUrl}
-                  snap={allSnaps.find(snap => (
-                    snap.id === snapIdFromPath(location.pathname)
-                  ))}
-                  onRequestInstall={this.requestInstall}
-                  onRequestRemove={this.requestRemove}
-                  onRequestSignin={this.requestSignin}
-                  onRequestAuthorize={this.requestAuthorize}
-                  onRequestConfirm={this.requestConfirm}
-                  onRequestCancel={this.requestCancel}
-                />
+                <div className='App-SnapPage'>
+                  <SnapPage
+                    cardImgRootUrl={cardImgRootUrl}
+                    snap={allSnaps.find(snap => (
+                      snap.id === snapIdFromPath(location.pathname)
+                    ))}
+                    onRequestInstall={this.requestInstall}
+                    onRequestRemove={this.requestRemove}
+                    onRequestSignin={this.requestSignin}
+                    onRequestAuthorize={this.requestAuthorize}
+                    onRequestConfirm={this.requestConfirm}
+                    onRequestCancel={this.requestCancel}
+                  />
+                </div>
               </If>
               <If cond={currentSection === 'settings'}>
                 <SettingsPage
