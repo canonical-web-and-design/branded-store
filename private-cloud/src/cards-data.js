@@ -24,7 +24,7 @@ const adminPages = [
   'https://www.collabora.com/',
 ]
 
-const abouts = [
+const descriptions = [
   'Wekan is an open source Kanban workflow tool that allows you to create boards, on which cards can be moved around between a number of columns. Boards can have many members, allowing for easy collaboration, just add everyone that should be able to work with you on the board to it, and you are good to go! ',
   'Nextcloud is a safe home for all your data. Access, share and protect your files, calendars, contacts and communication and more. Nextcloud comes with a feature rich set of pre-integrated services and is developed using a fully open source platform designed to give enterprises full control and privacy.',
   'Rocket.Chat is a dynamic and innovative toolkit providing group messaging and video communication and collaboration. It is a great solution for communities and companies wanting to privately host their own chat service.',
@@ -46,17 +46,15 @@ const history = [
 function cards(count) {
   const cards = []
   let name = ''
-  let about = ''
 
   if (count > names.length) count = names.length
 
   while (count--) {
     name = names[names.length - count - 1]
-    about = abouts[names.length - count - 1]
     cards.push({
       id: name.toLowerCase(),
       name: name,
-      about: about,
+      description: descriptions[names.length - count - 1],
       action: actions[0],
       image: name.toLowerCase(),
       adminPage: adminPages[names.length - count - 1],

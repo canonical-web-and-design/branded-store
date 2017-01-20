@@ -23,7 +23,6 @@ export default function HomePage({
       <ContentWrapper>
         <Banner
           photo={`${publicUrl}/${bannerData.photo}`}
-          //photo={bannerData.photo}
           name={bannerData.deviceName}
           id={bannerData.deviceId}
         />

@@ -2,9 +2,9 @@ import React from 'react'
 import './SnapPage.css'
 
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
-import SnapPageDetails from 'toolkit/SnapPage/SnapPageDetails'
-import SnapPageAbout from 'toolkit/SnapPage/SnapPageAbout'
-import SnapPageInterfaces from 'toolkit/SnapPage/SnapPageInterfaces'  
+import Details from 'toolkit/SnapPage/SnapPageDetails'
+import About from 'toolkit/SnapPage/SnapPageAbout'
+import Interfaces from 'toolkit/SnapPage/SnapPageInterfaces'  
 import Button from 'toolkit/Button/Button'
 
 import SnapPageSummary from './SnapPageSummary'
@@ -56,28 +56,38 @@ function SnapPage(props) {
       </ContentWrapper>
 
       <ContentWrapper>
-        <div className='SnapPage-content'>
+          <div className='SnapPage-content'>
 
-          <div>
-            <SnapPageDetails
-              items={[
-                ['Size', '65.7MB'],
-                ['Version', '3.7'],
-              ]}
-            />
-            <div className='SnapPage-SnapPageAbout'>
-              <SnapPageAbout
-                content={snap.about}
+            <div>
+              <Details
+                items={[
+                  ['Category', 'Databases'],
+                  ['Size', '65.7MB'],
+                  ['Version', '3.7'],
+                  ['Channel', 'Stable'],
+                  ['Updated', '12 August 2016 12:37:06'],
+                ]}
+              />
+              <div className='SnapPage-SnapPageAbout'>
+                <About
+                  content={snap.description}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Interfaces
+                items={[
+                  'Network',
+                  'Network Bind',
+                  'Mount Observe',
+                ]}
               />
             </div>
-          </div>
-          <div>
-          </div>
-        </div>
-      </ContentWrapper>
 
-      {props.children}
-
+          </div>
+        </ContentWrapper>
+        {props.children}
     </div>
   )
 }
