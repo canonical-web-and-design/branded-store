@@ -37,7 +37,7 @@ function ServicePage(props) {
               <Summary
                 icon={icon}
                 name={service.name}
-                description={'This service has been ' + runningStatusText + ' since ' + service.history[0].substr(service.history[0].indexOf(" ") + 1)} 
+                description={'This service has been ' + runningStatusText + ' since ' + service.history[0][1]} 
               />
             </div>
             <div className='ServicePage-buttonContainer'>
@@ -70,7 +70,7 @@ function ServicePage(props) {
                   ['Size', '65.7MB'],
                   ['Version', '3.7'],
                   ['Channel', 'Stable'],
-                  ['Updated', '12 August 2016 12:37:06'],
+                  ['Updated', '12 Aug 2016 12:37:06'],
                 ]}
               />
               <div className='ServicePage-ServicePageAbout'>
@@ -94,7 +94,7 @@ function ServicePage(props) {
         </ContentWrapper>
         <ContentWrapper bordered>
           <History 
-            history={service.history}
+            items={service.history}
           />
         </ContentWrapper>
     </div>

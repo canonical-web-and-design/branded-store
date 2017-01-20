@@ -37,13 +37,8 @@ const services = [
     }
   ]
 
-const actions = [
-  'Running',
-  'Stopped'
-]
-
 const history = [
-  'Started 19/01/2017 00:00:00'
+  ['Running', '19 Jan 2017 00:00:00']
 ]
 
 // Generate services data
@@ -52,7 +47,7 @@ function servicesData() {
   // add attributes that are the same for each service
   services.forEach(function (element) {
     element.history = history.slice()
-    element.action = 'Running'
+    element.action = history[0][0]
     element.image = element.name.toLowerCase()
     element.id = element.name.toLowerCase()
   })

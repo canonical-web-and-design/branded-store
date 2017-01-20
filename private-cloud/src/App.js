@@ -50,19 +50,22 @@ function openNewTab(url) {
 function getTimeStamp() {
   const today = new Date();
   let dd = today.getDate();
-  let mm = today.getMonth()+1;
+  let mm = today.getMonth();
   const yyyy = today.getFullYear();
   let hours = today.getHours()
   let mins = today.getMinutes()
   let secs = today.getSeconds()
 
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+
   if(dd<10) dd='0'+dd
-  if(mm<10) mm='0'+mm
   if(hours<10) hours='0'+hours
   if(mins<10) mins='0'+mins
   if(secs<10) secs='0'+secs
 
-  return dd+'/'+mm+'/'+yyyy+' '+hours+':'+mins+':'+secs;
+  return dd+' '+monthNames[mm]+' '+yyyy+' '+hours+':'+mins+':'+secs;
 }
 
 class App extends Component {
@@ -109,7 +112,7 @@ class App extends Component {
                                                       service.id === id))
     if (newServices[index].action === 'Running') {
       newServices[index].action = 'Stopped'
-      newServices[index].history.unshift('Stopped ' + getTimeStamp())
+      newServices[index].history.unshift(['Stopped', getTimeStamp()])
       this.setState({installedServices: newServices})
     }
   }
@@ -119,7 +122,7 @@ class App extends Component {
                                                       service.id === id))
     if (newServices[index].action === 'Stopped') {
       newServices[index].action = 'Running'
-      newServices[index].history.unshift('Started ' + getTimeStamp())
+      newServices[index].history.unshift(['Running', getTimeStamp()])
       this.setState({installedServices: newServices})
     }
   }

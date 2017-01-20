@@ -5,11 +5,15 @@ export default function HistoryList(props) {
   return (
     <div className='HistoryList'>
       <h2>History</h2>
-      {(() => props.history.map((entry,i) => (
-        <div key={i}>
-          {entry}
-        </div>
-      )))()}
+      <ul>
+        {props.items.map((item, i) => (
+          <li key={i}>
+            <div>{item[0]}</div>
+            <div>{item[1]}</div>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
+
