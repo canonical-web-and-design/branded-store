@@ -1,19 +1,19 @@
 import React from 'react'
-import './SnapPage.css'
+import './ServicePage.css'
 
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import Details from 'toolkit/SnapPage/SnapPageDetails'
 import About from 'toolkit/SnapPage/SnapPageAbout'
 import Interfaces from 'toolkit/SnapPage/SnapPageInterfaces'  
 import Button from 'toolkit/Button/Button'
-import HistoryList from './HistoryList/HistoryList'
+import History from './HistoryList'
 
-import SnapPageSummary from './SnapPageSummary'
+import Summary from './ServicePageSummary'
 
-function SnapPage(props) {
+function ServicePage(props) {
 
   const {
-    snap,
+    service,
     cardImgRootUrl,
     isRunning,
     onRequestStop,
@@ -21,36 +21,36 @@ function SnapPage(props) {
     onRequestAdminPage,
   } = props
 
-  if (!snap) return null
+  if (!service) return null
 
-  const icon = `${cardImgRootUrl}${snap.id}.png`
+  const icon = `${cardImgRootUrl}${service.id}.png`
 
   return (
-    <div className='SnapPage'>
+    <div className='ServicePage'>
 
       <ContentWrapper background>
-        <div className='SnapPage-header'>
+        <div className='ServicePage-header'>
 
-          <div className='SnapPage-headerParts'>
+          <div className='ServicePage-headerParts'>
             <div>
-              <SnapPageSummary
+              <Summary
                 icon={icon}
-                name={snap.name}
+                name={service.name}
               />
             </div>
-            <div className='SnapPage-buttonContainer'>
-              <div className='SnapPage-button'>
+            <div className='ServicePage-buttonContainer'>
+              <div className='ServicePage-button'>
                 <Button
                   label={'Admin interface'}
                   disabled={!isRunning}
-                  onClick={() => { onRequestAdminPage(snap.id) }}
+                  onClick={() => { onRequestAdminPage(service.id) }}
                 />
               </div>
-              <div className='SnapPage-button'>
+              <div className='ServicePage-button'>
                 <Button
                   label={isRunning?'Stop':'Start'}
                   type={isRunning?'strong':'positive'}
-                  onClick={() => { isRunning?onRequestStop(snap.id):onRequestStart(snap.id) }}
+                  onClick={() => { isRunning?onRequestStop(service.id):onRequestStart(service.id) }}
                 />
               </div>
             </div>
@@ -59,7 +59,7 @@ function SnapPage(props) {
       </ContentWrapper>
 
       <ContentWrapper>
-          <div className='SnapPage-content'>
+          <div className='ServicePage-content'>
 
             <div>
               <Details
@@ -71,9 +71,9 @@ function SnapPage(props) {
                   ['Updated', '12 August 2016 12:37:06'],
                 ]}
               />
-              <div className='SnapPage-SnapPageAbout'>
+              <div className='ServicePage-ServicePageAbout'>
                 <About
-                  content={snap.description}
+                  content={service.description}
                 />
               </div>
             </div>
@@ -91,12 +91,12 @@ function SnapPage(props) {
           </div>
         </ContentWrapper>
         <ContentWrapper bordered>
-          <HistoryList 
-            history={snap.history}
+          <History 
+            history={service.history}
           />
         </ContentWrapper>
     </div>
   )
 }
 
-export default SnapPage
+export default ServicePage

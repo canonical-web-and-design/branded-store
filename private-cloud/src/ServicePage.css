@@ -1,31 +1,31 @@
-.SnapPage-header {
+.ServicePage-header {
   padding: 45px 0 40px;
 }
-.SnapPage-headerParts {
+.ServicePage-headerParts {
   display: flex;
   justify-content: space-between;
 }
-.SnapPage-buttonContainer {
+.ServicePage-buttonContainer {
   align-self: flex-end;
 }
-.SnapPage-button {
+.ServicePage-button {
   margin-top: 15px;
 }
-.SnapPage-header > div {
+.ServicePage-header > div {
   align-self: center;
 }
-.SnapPage-content {
+.ServicePage-content {
   display: flex;
   padding-top: 25px;
 }
-.SnapPage-SnapPageAbout {
+.ServicePage-ServicePageAbout {
   margin: 40px 0;
 }
-.SnapPage-content > div + div {
+.ServicePage-content > div + div {
   flex-shrink: 0;
   width: 308px;
   margin-left: 122px;
 }
-.SnapPage-purchase {
+.ServicePage-purchase {
   margin-top: 60px;
 }
