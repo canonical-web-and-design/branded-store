@@ -5,7 +5,7 @@ import If from 'toolkit/If'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 
-import cards from './cards-data'
+import createServices from './services-data'
 
 import HomePage from './HomePage'
 import ServicePage from './ServicePage'
@@ -71,7 +71,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      installedServices: cards(7),
+      installedServices: createServices(),
       location: history.location,
     }
 
