@@ -1,5 +1,6 @@
 .App-content {
   min-height: 100px;
+  min-height: calc(100vh - 50px - 89px);
 }
 .App-SnapPage {
   padding-bottom: 50px;
