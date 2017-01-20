@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import './App.css'
-import './Loader.css'
 
 import If from 'toolkit/If'
 
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import ThemeChanger from './ThemeChanger/ThemeChanger'
+import Loader from './Loader/Loader'
 
 import HomePage from './HomePage'
 import StorePage from './StorePage'
@@ -346,32 +346,14 @@ class App extends Component {
           />
         </If>
 
-        <div className='Loader' style={{
-          position: 'fixed',
-          left: '0',
-          right: '0',
-          top: waitStoreToPay || waitPayToStore? 0 : '100%',
-          bottom: '0',
-          background: '#FFF',
-          opacity: waitStoreToPay || waitPayToStore? 1 : 0,
-          transition: 'opacity 150ms ease-in-out',
-        }}>
-          <p>
-            <img
-              src={`${pub}/spinner-2.png`}
-              width={82/2}
-              height={82/2}
-              alt=''
-            />
-            <span>
-              {
-                !waitStoreToPay
-                  ? 'Returning you to the store…'
-                  : 'Talking to my.ubuntu.com…'
-              }
-            </span>
-          </p>
-        </div>
+        <Loader
+          visible={waitStoreToPay || waitPayToStore}
+          label={
+            waitStoreToPay
+            ? 'Talking to my.ubuntu.com…'
+            : 'Returning you to the store…'
+          }
+        />
       </div>
     )
   }
