@@ -230,7 +230,7 @@ class App extends Component {
       deviceId: 'Cisco CGR1120 C02PQ53JFVH8',
     }
 
-    const themeChanger = (
+    const themeChanger = brands.length < 2? null : (
       <ThemeChanger
         brands={brands}
         onChangeBrand={this.changeBrand}
