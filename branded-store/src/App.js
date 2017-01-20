@@ -375,7 +375,7 @@ class App extends Component {
           visible={waitStoreToPay || waitPayToStore}
           label={
             waitStoreToPay
-            ? 'Talking to my.ubuntu.com…'
+            ? 'You are being redirected to the payment portal my.ubuntu.com…'
             : (
               currSnap && currSnap.status === 'confirming1'
               ? 'Your payment was successful.'
