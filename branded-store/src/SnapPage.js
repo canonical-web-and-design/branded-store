@@ -64,6 +64,7 @@ class SnapPage extends Component {
                   icon={icon}
                   name={snap.name}
                   author={snap.author}
+                  rating={3}
                 />
                 <Tags
                   tags={['databases', 'cassandra', 'app-deployment']}

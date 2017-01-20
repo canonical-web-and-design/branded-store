@@ -4,11 +4,11 @@ import './ServicePage.css'
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import Details from 'toolkit/SnapPage/SnapPageDetails'
 import About from 'toolkit/SnapPage/SnapPageAbout'
-import Interfaces from 'toolkit/SnapPage/SnapPageInterfaces'  
+import Interfaces from 'toolkit/SnapPage/SnapPageInterfaces'
 import Button from 'toolkit/Button/Button'
-import History from './HistoryList'
+import Summary from 'toolkit/SnapPage/SnapPageSummary'
 
-import Summary from './ServicePageSummary'
+import History from './HistoryList'
 
 function ServicePage(props) {
 
@@ -24,6 +24,7 @@ function ServicePage(props) {
   if (!service) return null
 
   const icon = `${cardImgRootUrl}${service.id}.png`
+  const runningStatusText = isRunning?'running':'stopped'
 
   return (
     <div className='ServicePage'>
@@ -36,6 +37,7 @@ function ServicePage(props) {
               <Summary
                 icon={icon}
                 name={service.name}
+                description={'This service has been ' + runningStatusText + ' since ' + service.history[0].substr(service.history[0].indexOf(" ") + 1)} 
               />
             </div>
             <div className='ServicePage-buttonContainer'>
