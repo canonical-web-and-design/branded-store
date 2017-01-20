@@ -142,6 +142,7 @@ export default function createStore(brand) {
     authTimer = setTimeout(() => {
       snap.status = 'wait-confirm'
       emit('ALL_SNAPS', { snaps: allSnaps })
+      window.scrollTo(0, 0)
     }, 1000)
   }
 
