@@ -51,9 +51,19 @@ function snapToStoreCard(snap) {
     id: snap.id,
     name: snap.name,
     author: snap.author,
-    action: snap.price === 'free'? 'Install' : snap.price,
+    action: snap.status === 'installing'? 'Installing' : (
+      snap.status === 'installed'? 'Remove' : (
+        snap.price === 'free'? 'Install' : snap.price
+      )
+    ),
     image: snap.id,
     rating: snap.rating,
+    installProgress: (
+      snap.status === 'installing'
+        ? snap.installProgress
+        : -1
+    ),
+    snap: snap,
   }
 }
 
@@ -70,6 +80,7 @@ function snapToHomeCard(snap) {
         ? snap.installProgress
         : -1
     ),
+    snap: snap,
   }
 }
 
@@ -88,6 +99,7 @@ class App extends Component {
       brands: [],
       brand: DEFAULT_BRAND,
       // waitingPayment: true,
+      quickBuySnap: '',
     }
 
     history.listen(this.handleNavigation)
@@ -104,8 +116,11 @@ class App extends Component {
   }
 
   goto = (path) => {
-    this.state.store.cancelPurchases()
-    history.push('/' + (path || ''))
+    const pathname = `/${path || ''}`
+    if (pathname !== this.state.location.pathname) {
+      this.state.store.cancelPurchases()
+      history.push(pathname)
+    }
   }
 
   handleStoreEvents = (event) => {
@@ -136,6 +151,10 @@ class App extends Component {
     window.scrollTo(0, 0)
   }
 
+  getSnap = (id) => (
+    this.state.allSnaps.find(snap => snap.id === id)
+  )
+
   requestInstall = (snapId) => {
     this.state.store.install(snapId)
   }
@@ -155,6 +174,22 @@ class App extends Component {
     this.state.store.cancelPurchases()
   }
 
+  quickRemove = (snapId) => {
+    const snap = this.getSnap(snapId)
+    if (!snap) return
+    this.state.store.remove(snapId)
+  }
+
+  quickInstall = (snapId) => {
+    const snap = this.getSnap(snapId)
+    if (!snap) return
+
+    this.requestInstall(snapId)
+    if (snap.price !== 'free' ) {
+      this.setState({ quickBuySnap: snapId })
+    }
+  }
+
   onMenuItemClick = (id) => {
     // if (id === 'home') {
       // if (this.state.waitingPayment) {
@@ -171,8 +206,9 @@ class App extends Component {
     if (id === 'add') {
       return this.goto('store')
     }
-    const snap = this.state.allSnaps.find(snap => snap.id === id)
-    if (snap && !snap.preinstalled) {
+    const snap = this.getSnap(id)
+    // if (snap && !snap.preinstalled) {
+    if (snap) {
       this.goto(`snap/${id}`)
     }
   }
@@ -181,25 +217,8 @@ class App extends Component {
   }
 
   snapIdsToSnaps = (ids) => (
-    ids.map(id => (
-      this.state.allSnaps.find(snap => snap.id === id)
-    )).filter(snap => snap)
+    ids.map(this.getSnap).filter(snap => snap)
   )
-
-  snapFromId = (id) => (
-    this.state.allSnaps.find(snap => snap.id === id)
-  )
-
-  // waitPayment = () => {
-  //   this.setState({
-  //     waitingPayment: true,
-  //   })
-  // }
-  // stopWaitPayment = () => {
-  //   this.setState({
-  //     waitingPayment: false,
-  //   })
-  // }
 
   render() {
 
@@ -209,13 +228,12 @@ class App extends Component {
       featuredSnapIds,
       brand,
       brands,
-      // waitingPayment,
     } = this.state
 
     const homeSnaps = allSnaps.filter(
       snap => (
-        snap.status === 'installed' ||
-        snap.status === 'installing'
+        snap.status === 'installed'
+        // || snap.status === 'installing'
       )
     )
 
@@ -241,11 +259,12 @@ class App extends Component {
     const currentSettingScreen = settingScreenFromPath(location.pathname)
 
     const currSnap = allSnaps.find(snap => (
-      snap.id === snapIdFromPath(location.pathname)
+      snap.id === snapIdFromPath(location.pathname) ||
+      snap.id === this.state.quickBuySnap
     ))
 
     let waitingPayment = false
-    if (currentSection === 'snap' && currSnap) {
+    if ((currentSection === 'store' || currentSection === 'snap') && currSnap) {
       waitingPayment = (
         currSnap.status === 'wait-confirm' ||
         currSnap.status === 'confirming'
@@ -254,7 +273,7 @@ class App extends Component {
 
     let waitStoreToPay = false
     let waitPayToStore = false
-    if (currentSection === 'snap' && currSnap) {
+    if ((currentSection === 'store' || currentSection === 'snap') && currSnap) {
       waitStoreToPay = (
         currSnap.status === 'authorizing'
       )
@@ -306,6 +325,8 @@ class App extends Component {
                   cardImgRootUrl={cardImgRootUrl}
                   featuredSnaps={featuredSnaps.map(snapToStoreCard)}
                   onOpenSnap={this.onOpenSnap}
+                  onInstallSnap={this.quickInstall}
+                  onRemoveSnap={this.quickRemove}
                 />
               </If>
               <If cond={currentSection === 'snap'}>

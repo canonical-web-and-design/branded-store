@@ -1,7 +1,5 @@
 import React from 'react'
 
-import If from 'toolkit/If'
-
 const icons = {
   external: (
     <g>

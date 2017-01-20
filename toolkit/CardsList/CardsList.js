@@ -53,6 +53,7 @@ class CardsList extends Component {
 
   render() {
     const {
+      children,
       title,
       cards,
       cardImgRootUrl,
@@ -72,7 +73,7 @@ class CardsList extends Component {
           )}
         </div>
         <div className='CardsList-content'>
-          {cards.map((card, i) => (
+          {children || cards.map((card, i) => (
             <CardWrapper
               key={card.id + i}
               card={card}
