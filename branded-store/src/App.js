@@ -383,15 +383,20 @@ class App extends Component {
             )
           }
           label2={(
-            <a
-              role='button'
-              style={{
-                textDecoration: 'underline',
-                color: '#E95420',
-              }}
-            >
-              Click here if you are not being redirected
-            </a>
+            <span style={{
+              fontSize: '14px'
+            }}>
+              <a
+                role='button'
+                style={{
+                  textDecoration: 'underline',
+                  color: '#119136',
+                }}
+              >
+                Click here
+              </a>
+              {' if you are not being redirected.'}
+            </span>
           )}
         />
       </div>
