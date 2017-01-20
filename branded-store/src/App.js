@@ -8,11 +8,11 @@ import Footer from 'toolkit/Footer/Footer'
 import ThemeChanger from './ThemeChanger/ThemeChanger'
 import Loader from './Loader/Loader'
 
-import HomePage from './HomePage'
-import StorePage from './StorePage'
-import SnapPage from './SnapPage'
+import HomePage from './HomePage/HomePage'
+import StorePage from './StorePage/StorePage'
+import SnapPage from './SnapPage/SnapPage'
 import SettingsPage from './SettingsPage/SettingsPage'
-import MyUbuntu from './MyUbuntu'
+import MyUbuntu from './MyUbuntu/MyUbuntu'
 
 // import createHistory from 'history/createBrowserHistory'
 import createHistory from 'history/createHashHistory'
@@ -296,9 +296,9 @@ class App extends Component {
               <If cond={currentSection === 'home'}>
                 <HomePage
                   cardImgRootUrl={cardImgRootUrl}
-                  brandData={brandData}
                   snaps={homeSnaps.map(snapToHomeCard)}
                   onOpenSnap={this.onOpenSnap}
+                  brandData={brandData}
                 />
               </If>
               <If cond={currentSection === 'store'}>
@@ -332,7 +332,8 @@ class App extends Component {
               </If>
             </main>
             <Footer 
-              firstLine={themeChanger} 
+              firstLine={themeChanger}
+              copyright={`© ${(new Date()).getFullYear()} ${brandData.name}`}
               logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
             />
           </div>

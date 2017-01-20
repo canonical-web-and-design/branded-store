@@ -41,6 +41,7 @@ const brandContent = {
     'Device ID: OrcaX MX1 (VDSL2) HAJA77669A',
   ].join('\n'),
 }
+
 function fetchBrandSettings(brandId) {
   return Promise.resolve(brandContent[brandId])
   // fetch(`${baseUrl}/${id}/settings.txt`)
@@ -48,19 +49,23 @@ function fetchBrandSettings(brandId) {
   //   .then(res => res? res.text() : null)
 }
 
+function getBrandsIndex(url) {
+  return Promise.resolve([
+    'lime' //, 'keymile', 'bosch',
+  ])
+  // return fetch(url)
+  //   .then(res => res.text())
+  //   .then(data => (
+  //     data
+  //       .split('\n')
+  //       .map(id => id.trim())
+  //       .filter(id => id)
+  //   ))
+}
+
 export default function createApi(baseUrl) {
   return function getBrands() {
-    // return fetch(`${baseUrl}/brands-index.txt`)
-    //   .then(res => res.text())
-    //   .then(data => (
-    //     data
-    //       .split('\n')
-    //       .map(id => id.trim())
-    //       .filter(id => id)
-    //   ))
-    return Promise.resolve([
-        'keymile', 'lime', 'bosch',
-      ])
+    return getBrandsIndex(`${baseUrl}/brands-index.txt`)
       .then(ids => (
         Promise.all(
           ids.map(id => (

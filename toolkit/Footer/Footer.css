@@ -6,12 +6,12 @@
 .Footer-in {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   max-width: 980px;
   margin: 0 auto;
 }
 .Footer-logo {
   margin-left: 15px;
-  margin-top: 10px;
 }
 .Footer-copyright {
   font-size: 12px;

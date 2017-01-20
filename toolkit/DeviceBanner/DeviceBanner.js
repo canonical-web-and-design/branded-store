@@ -1,6 +1,7 @@
 import React from 'react'
 import './DeviceBanner.css'
 
+import Link from 'toolkit/Link/Link'
 import photo from './photo.jpg'
 
 export default function DeviceBanner(props) {
@@ -21,7 +22,11 @@ export default function DeviceBanner(props) {
           <span>{' ' + idParts.slice(1).join(' ')}</span>
         </p>
         <p>
-          <a role='button' className='link external-branded'>Developer documentation</a>
+          <Link
+            label='Developer documentation'
+            color={props.color}
+            external={true}
+          />
         </p>
       </div>
     </section>

@@ -1,26 +1,30 @@
 import React from 'react'
 import './Footer.css'
+
 import defaultLogo from './assets/logo.png'
-
 const defaultName = 'Ubuntu'
+const defaultCopyright = '© 2017 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.'
 
-function Footer(props) {
+function Footer({
+  children,
+  firstLine,
+  copyright = defaultCopyright,
+  logo = defaultLogo,
+  name = defaultName,
+}) {
   return (
     <footer className='Footer'>
-      {props.children || (
+      {children || (
         <div className='Footer-in'>
           <div className='Footer-infos'>
-            <p>
-              <strong>Snappy version 1.0</strong>
-              {props.firstLine}
-            </p>
+            <p>{firstLine}</p>
             <p className='Footer-copyright'>
-              © 2017 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.
+              {copyright}
             </p>
           </div>
           <img className='Footer-logo'
-            src={props.logo || defaultLogo}
-            alt={props.name || defaultName}
+            src={logo}
+            alt={name}
             height='48'
           />
         </div>

@@ -1,4 +1,7 @@
 .Card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 230px;
   border-radius: 3px;
   border: 1px solid #CDCDCD;

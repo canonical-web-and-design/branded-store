@@ -45,6 +45,7 @@ export default function HomePage({
           photo={photo}
           name={brandData.deviceName}
           id={brandData.deviceId}
+          color={brandData.color2 || brandData.color}
         />
       </ContentWrapper>
       <ContentWrapper background bordered>

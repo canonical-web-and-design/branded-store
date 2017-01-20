@@ -15,20 +15,16 @@ import Purchase from 'toolkit/SnapPage/SnapPagePurchase'
 class SnapPage extends Component {
 
   onRequestSignin = () => {
-    const { snap, onRequestSignin } = this.props
-    onRequestSignin(snap.id)
+    this.props.onRequestSignin(this.props.snap.id)
   }
   onRequestAuthorize = () => {
-    const { snap, onRequestAuthorize } = this.props
-    onRequestAuthorize(snap.id)
+    this.props.onRequestAuthorize(this.props.snap.id)
   }
   onRequestConfirm = () => {
-    const { snap, onRequestConfirm } = this.props
-    onRequestConfirm(snap.id)
+    this.props.onRequestConfirm(this.props.snap.id)
   }
   onRequestCancel = () => {
-    const { snap, onRequestCancel } = this.props
-    onRequestCancel(snap.id)
+    this.props.onRequestCancel(this.props.snap.id)
   }
 
   render() {
