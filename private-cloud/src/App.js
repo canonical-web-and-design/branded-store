@@ -39,12 +39,11 @@ function serviceIdFromPath(path) {
 }
 
 function openNewTab(url) {
-  console.log(url)
   const win = window.open(url, '_blank');
-        if (win) {
-          //Browser has allowed it to be opened
-          win.focus();
-        }
+  if (win) {
+    //Browser has allowed it to be opened
+    win.focus();
+  }
 }
 
 function getTimeStamp() {
@@ -84,6 +83,7 @@ class App extends Component {
     this.onRequestStop = this.onRequestStop.bind(this)
     this.onRequestStart = this.onRequestStart.bind(this)
     this.onRequestAdminPage = this.onRequestAdminPage.bind(this)
+    this.onRequestServicePage = this.onRequestServicePage.bind(this)
   }
 
   findServiceById(id) {
@@ -132,6 +132,11 @@ class App extends Component {
     if (service) openNewTab(service.adminPage)
   }
 
+  onRequestServicePage(id) {
+    const service = this.findServiceById(id)
+    if (service) openNewTab(service.servicePage)
+  }
+
   render() {
 
     const {
@@ -176,6 +181,7 @@ class App extends Component {
               onRequestStop={this.onRequestStop}
               onRequestStart={this.onRequestStart}
               onRequestAdminPage={this.onRequestAdminPage}
+              onRequestServicePage={this.onRequestServicePage}
             />
           </If>
         </main>

@@ -1,6 +1,7 @@
 import React from 'react'
 import './ServicePage.css'
 
+import If from 'toolkit/If'
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import Details from 'toolkit/SnapPage/SnapPageDetails'
 import About from 'toolkit/SnapPage/SnapPageAbout'
@@ -19,12 +20,15 @@ function ServicePage(props) {
     onRequestStop,
     onRequestStart,
     onRequestAdminPage,
+    onRequestServicePage,
   } = props
 
   if (!service) return null
 
   const icon = `${cardImgRootUrl}${service.id}.png`
   const runningStatusText = isRunning?'running':'stopped'
+  const hasButtonToStopService = false
+  const hasButtonToOpenService = true
 
   return (
     <div className='ServicePage'>
@@ -48,13 +52,24 @@ function ServicePage(props) {
                   onClick={() => { onRequestAdminPage(service.id) }}
                 />
               </div>
-              <div className='ServicePage-button'>
-                <Button
+              <If cond={hasButtonToOpenService}>
+                <div className='ServicePage-button'>
+                  <Button
+                    label={'Open'}
+                    disabled={!isRunning}
+                    onClick={() => { onRequestServicePage(service.id) }}
+                  />
+                </div>
+              </If>
+              <If cond={hasButtonToStopService}>
+                <div className='ServicePage-button'>
+                  <Button
                   label={isRunning?'Stop':'Start'}
                   disabled={false}
                   onClick={() => { isRunning?onRequestStop(service.id):onRequestStart(service.id) }}
                 />
-              </div>
+                </div>
+              </If>
             </div>
           </div>
         </div>
