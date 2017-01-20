@@ -38,6 +38,10 @@ const actions = [
   'Stopped'
 ]
 
+const history = [
+  'Started 19/01/2017 00:00:00'
+]
+
 // Generate cards
 function cards(count) {
   const cards = []
@@ -55,7 +59,8 @@ function cards(count) {
       about: about,
       action: actions[0],
       image: name.toLowerCase(),
-      adminPage: abouts[names.length - count - 1],
+      adminPage: adminPages[names.length - count - 1],
+      history: history.slice(), //always create a new history instance
     })
   }
   return cards

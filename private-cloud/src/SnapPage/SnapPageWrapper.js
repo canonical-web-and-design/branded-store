@@ -27,7 +27,9 @@ export default function SnapPageWrapper({
         onRequestAdminPage={() => { onRequestAdminPage(snap.id) }}
       >
         <ContentWrapper bordered>
-          <HistoryList />
+          <HistoryList 
+            history={snap.history}
+          />
         </ContentWrapper>
       </SnapPage>
     </div>

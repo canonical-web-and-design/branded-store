@@ -46,6 +46,25 @@ function openNewTab(url) {
           win.focus();
         }
 }
+
+function getTimeStamp() {
+  const today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth()+1;
+  const yyyy = today.getFullYear();
+  let hours = today.getHours()
+  let mins = today.getMinutes()
+  let secs = today.getSeconds()
+
+  if(dd<10) dd='0'+dd
+  if(mm<10) mm='0'+mm
+  if(hours<10) hours='0'+hours
+  if(mins<10) mins='0'+mins
+  if(secs<10) secs='0'+secs
+
+  return dd+'/'+mm+'/'+yyyy+' '+hours+':'+mins+':'+secs;
+}
+
 class App extends Component {
 
   constructor(props) {
@@ -85,18 +104,24 @@ class App extends Component {
   }
 
   onRequestStop(id) {
-    const newValue = this.state.installedServices
+    const newServices = this.state.installedServices
     const index = this.state.installedServices.findIndex(service => (
                                                       service.id === id))
-    newValue[index].action = 'Stopped'
-    this.setState({installedServices: newValue})
+    if (newServices[index].action === 'Running') {
+      newServices[index].action = 'Stopped'
+      newServices[index].history.unshift('Stopped ' + getTimeStamp())
+      this.setState({installedServices: newServices})
+    }
   }
   onRequestStart(id) {
-    const newValue = this.state.installedServices
+    const newServices = this.state.installedServices
     const index = this.state.installedServices.findIndex(service => (
                                                       service.id === id))
-    newValue[index].action = 'Running'
-    this.setState({installedServices: newValue})
+    if (newServices[index].action === 'Stopped') {
+      newServices[index].action = 'Running'
+      newServices[index].history.unshift('Started ' + getTimeStamp())
+      this.setState({installedServices: newServices})
+    }
   }
 
   onRequestAdminPage(id) {
