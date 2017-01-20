@@ -49,7 +49,7 @@ function ServicePage(props) {
               <div className='ServicePage-button'>
                 <Button
                   label={isRunning?'Stop':'Start'}
-                  type={isRunning?'strong':'positive'}
+                  disabled={false}
                   onClick={() => { isRunning?onRequestStop(service.id):onRequestStart(service.id) }}
                 />
               </div>
