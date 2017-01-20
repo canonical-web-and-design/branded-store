@@ -6,6 +6,7 @@ import Details from 'toolkit/SnapPage/SnapPageDetails'
 import About from 'toolkit/SnapPage/SnapPageAbout'
 import Interfaces from 'toolkit/SnapPage/SnapPageInterfaces'  
 import Button from 'toolkit/Button/Button'
+import HistoryList from './HistoryList/HistoryList'
 
 import SnapPageSummary from './SnapPageSummary'
 
@@ -13,7 +14,7 @@ function SnapPage(props) {
 
   const {
     snap,
-    icon,
+    cardImgRootUrl,
     isRunning,
     onRequestStop,
     onRequestStart,
@@ -21,6 +22,8 @@ function SnapPage(props) {
   } = props
 
   if (!snap) return null
+
+  const icon = `${cardImgRootUrl}${snap.id}.png`
 
   return (
     <div className='SnapPage'>
@@ -40,14 +43,14 @@ function SnapPage(props) {
                 <Button
                   label={'Admin interface'}
                   disabled={!isRunning}
-                  onClick={onRequestAdminPage}
+                  onClick={() => { onRequestAdminPage(snap.id) }}
                 />
               </div>
               <div className='SnapPage-button'>
                 <Button
                   label={isRunning?'Stop':'Start'}
                   type={isRunning?'strong':'positive'}
-                  onClick={isRunning?onRequestStop:onRequestStart}
+                  onClick={() => { isRunning?onRequestStop(snap.id):onRequestStart(snap.id) }}
                 />
               </div>
             </div>
@@ -87,7 +90,11 @@ function SnapPage(props) {
 
           </div>
         </ContentWrapper>
-        {props.children}
+        <ContentWrapper bordered>
+          <HistoryList 
+            history={snap.history}
+          />
+        </ContentWrapper>
     </div>
   )
 }

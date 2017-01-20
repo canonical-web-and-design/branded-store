@@ -7,8 +7,8 @@ import Footer from 'toolkit/Footer/Footer'
 
 import cards from './cards-data'
 
-import SnapPageWrapper from './SnapPage/SnapPageWrapper'
 import HomePage from './HomePage'
+import SnapPage from './SnapPage/SnapPage'
 
 import createHistory from 'history/createBrowserHistory'
 
@@ -162,10 +162,13 @@ class App extends Component {
             />
           </If>
           <If cond={currentSection === 'service'}>
-            <SnapPageWrapper
+            <SnapPage
               cardImgRootUrl={cardImgRootUrl}
               snap={installedServices.find(service => (
                   service.id === serviceIdFromPath(location.pathname)
+                ))}
+              isRunning={installedServices.find(service => (
+                  service.id === serviceIdFromPath(location.pathname) && service.action === 'Running'
                 ))}
               onRequestStop={this.onRequestStop}
               onRequestStart={this.onRequestStart}
