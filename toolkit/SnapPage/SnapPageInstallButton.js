@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './SnapPageInstallButton.css'
 
+import If from 'toolkit/If'
 import Button from 'toolkit/Button/Button'
 import ProgressBar from 'toolkit/ProgressBar/ProgressBar'
 
@@ -13,7 +14,17 @@ const ProgressBarWrapper = ({ label, progress }) => (
   </div>
 )
 
-const ButtonWrapper = ({ label, disabled, buttonLabel, type, onClick }) => (
+const ButtonWrapper = ({
+  label,
+  disabled,
+  buttonLabel,
+  type,
+  onClick,
+  disabled2,
+  buttonLabel2,
+  type2,
+  onClick2,
+}) => (
   <div>
     <div className='SnapPageInstallButton-price'>
       {label === 'free' ? 'Free' : ( label? (
@@ -23,11 +34,26 @@ const ButtonWrapper = ({ label, disabled, buttonLabel, type, onClick }) => (
         </span>
       ) : null)}
     </div>
+
+    <If cond={buttonLabel2}>
+      <Button
+        style={{
+          marginRight: '10px'
+        }}
+        variableWidth={true}
+        onClick={onClick2}
+        label={buttonLabel2}
+        type={type2}
+        disabled={disabled2}
+      />
+    </If>
+
     <Button
       onClick={onClick}
       label={buttonLabel}
       type={type}
       disabled={disabled}
+      variableWidth={buttonLabel2}
     />
   </div>
 )
@@ -68,7 +94,7 @@ class SnapPageInstallButton extends Component {
       if (status === 'installed') return 'Remove'
       if (priceLabel === 'free') return 'Install'
       if (processing) return 'Processing…'
-      return `Purchase ${snapName}`
+      return `Buy ${snapName}`
     })()
 
     return (
@@ -85,6 +111,11 @@ class SnapPageInstallButton extends Component {
             type={status === 'uninstalled'? 'positive' : 'normal'}
             onClick={this.handleButtonClick}
             disabled={processing}
+
+            buttonLabel2={status === 'installed'? 'Open' : ''}
+            type2={'normal'}
+            onClick2={() => {}}
+            disabled2={false}
           />
         )}
       </div>
