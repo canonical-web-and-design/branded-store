@@ -368,6 +368,7 @@ class App extends Component {
             onPurchase={this.requestConfirm}
             onCancel={this.requestCancel}
             snap={currSnap}
+            cardImgRootUrl={cardImgRootUrl}
           />
         </If>
 

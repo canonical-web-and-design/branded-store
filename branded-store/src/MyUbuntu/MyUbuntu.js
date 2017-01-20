@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import './MyUbuntu.css'
 
+import Link from 'toolkit/Link/Link'
 import classes from 'toolkit/classes'
 import Button from 'toolkit/Button/Button'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
+import Summary from 'toolkit/SnapPage/SnapPageSummary'
+
+const linkColor = '#119136'
 
 const pub = process.env.PUBLIC_URL
 
@@ -14,8 +18,15 @@ export default class MyUbuntu extends Component {
     this.props.onPurchase(this.props.snap.id)
   }
   render() {
-    const snap = this.props.snap
+
+    const {
+      snap={},
+      cardImgRootUrl,
+    } = this.props
+
     const name = (snap && snap.name) || 'Cassandra'
+    const icon = `${cardImgRootUrl}${snap.id}.png`
+
     const content = {
       title: `Purchasing ${name}`,
       listTitle: `Buying ${name} is easy, all you need to do is:`,
@@ -28,11 +39,12 @@ export default class MyUbuntu extends Component {
       youAreSignedIn: `You are signed in with the email address`,
       email: `lola.chang@canonical.com`,
       notYou: `Not Lola? `,
-      manage: `Manage your SSO account`,
+      manage: `Sign in with a different account`,
     }
 
     const { onCancel } = this.props
     const onPurchase = this.onPurchase
+
     return (
       <div>
         <Header
@@ -43,65 +55,95 @@ export default class MyUbuntu extends Component {
           <div className='App-payment'>
             <ContentWrapper background>
               <div className='MyUbuntu-content'>
-                <Block>
-                  <h1>{content.title}</h1>
-                  <div className='MyUbuntuBlock-list' style={{ display: 'none' }}>
-                    <h2>{content.listTitle}</h2>
-                    <ul>
-                      {content.listItems.map((item, i) => (
-                        <li key={i}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <p>{content.par1}</p>
-                </Block>
-                <Block leftspace>
-                  <div className='MyUbuntuBlock-title-check'>
-                    {content.welcome}
-                  </div>
-                  <p style={{
-                    marginBottom: '10px',
-                  }}>
-                    <span>{content.youAreSignedIn}</span>
-                    <span>{' '}</span>
-                    <strong>{content.email}</strong>
-                    <span>{'.'}</span>
-                  </p>
-                  <p>
-                    <strong>{content.notYou}</strong>
-                    <a role='button' className='external'>{content.manage}</a>
-                  </p>
-                </Block>
-                <Block>
-                  <div style={{
-                    marginLeft: '33px'
-                  }}>
-                    <div className='MyUbuntuBlock-title-check'>
-                      {'Payment Details'}
-                      <img
-                        style={{ marginLeft: '11px' }}
-                        src={`${pub}/128bits.png`}
-                        width={442/2}
-                        height={34/2}
-                        alt=''
-                      />
-                    </div>
-                  </div>
-                  <img
-                    src={`${pub}/payment-details.png`}
-                    width={1834/2}
-                    height={410/2}
-                    alt=''
-                  />
-                </Block>
+                <div className='MyUbuntu-content-in'>
+                  <Block>
+                    <h1>{content.title}</h1>
 
-                <Block>
-                  <PurchaseSummary
-                    items={[]}
-                    onPurchase={onPurchase}
-                    onCancel={onCancel}
-                  />
-                </Block>
+                    <div className='MyUbuntuBlock-app'>
+                      <Summary
+                        icon={icon}
+                        name={snap.name}
+                        author={snap.author}
+                        rating={-1}
+                      />
+                      <span className='MyUbuntuBlock-app-price'>
+                        {snap.price}
+                      </span>
+                    </div>
+
+                    <div className='MyUbuntuBlock-list' style={{ display: 'none' }}>
+                      <h2>{content.listTitle}</h2>
+                      <ul>
+                        {content.listItems.map((item, i) => (
+                          <li key={i}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Block>
+                  <Block>
+                    <div className='MyUbuntuBlock-row'>
+                      <div>
+                        <div className='MyUbuntuBlock-title'>
+                          {content.welcome}
+                        </div>
+                        <p>
+                          <span>{content.youAreSignedIn}</span>
+                          <span>{' '}</span>
+                          <span>{content.email}</span>
+                          <span>{'.'}</span>
+                        </p>
+                      </div>
+                      <p>
+                        <strong style={{ marginRight: '5px' }}>
+                          {content.notYou}
+                        </strong>
+
+                        <Link
+                          color={linkColor}
+                          label={content.manage}
+                          external
+                        />
+                      </p>
+                    </div>
+                  </Block>
+                  <Block>
+                    <div className='MyUbuntuBlock-row'>
+                      <div>
+                        <div className='MyUbuntuBlock-title'>
+                          {'Stored payment details'}
+                          <img
+                            style={{ marginLeft: '11px' }}
+                            src={`${pub}/128bits.png`}
+                            width={442/2}
+                            height={34/2}
+                            alt=''
+                          />
+                        </div>
+                        <p>
+                          <strong>Mastercard - xxxx-xxx-xxxx-xxxx-4567</strong>
+                        </p>
+                        <p>
+                          Expires: 09/2020
+                        </p>
+                      </div>
+                      <p>
+                        <Link
+                          color={linkColor}
+                          label={'Edit payment details'}
+                          external
+                        />
+                      </p>
+                    </div>
+                  </Block>
+
+                  <Block noborder>
+                    <PurchaseSummary
+                      items={[]}
+                      onPurchase={onPurchase}
+                      onCancel={onCancel}
+                    />
+                  </Block>
+                </div>
               </div>
             </ContentWrapper>
           </div>
@@ -128,7 +170,8 @@ class PurchaseSummary extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      password: ''
+      password: '',
+      checked: false,
     }
   }
   passwordUpdate = (event) => {
@@ -136,39 +179,34 @@ class PurchaseSummary extends React.Component {
       password: event.currentTarget.value
     })
   }
+  checkboxUpdate = (event) => {
+    this.setState({
+      checked: event.currentTarget.checked
+    })
+  }
   render() {
     const { onCancel, onPurchase } = this.props
     return (
       <div className='PurchaseSummary'>
-        <div className='MyUbuntuBlock-title'>Purchase summary</div>
-        <img
-          alt=''
-          width={1822/2}
-          height={172/2}
-          src={`${pub}/purchase-summary.png`}
-          style={{
-            marginBottom: '36px',
-          }}
-        />
+        <div className='MyUbuntuBlock-title'>Confirm your password to complete purchase</div>
 
-        <div style={{
-          width: '100%',
-          fontSize: '21px',
-          marginBottom: '20px',
-        }}>
-          Enter your password to confirm your purchase
-        </div>
+        <p>
+          Once you authorize the payment you’ll be returned to the store.
+        </p>
 
         <div className='MyUbuntuBlock-authorize' style={{
-          display: 'flex',
-          alignItems: 'flex-end',
+          marginTop: '30px',
         }}>
           <div style={{
             width: '50%',
           }}>
             <form autoComplete='off'>
-              <label htmlFor='password'>Payment password</label>
+              <label htmlFor='password' style={{
+                display: 'block',
+                marginBottom: '10px',
+              }}>Enter your SSO password</label>
               <input
+                className='PurchaseSummary-input'
                 type='password'
                 id='password'
                 onChange={this.passwordUpdate}
@@ -176,12 +214,30 @@ class PurchaseSummary extends React.Component {
               />
             </form>
           </div>
+          <p style={{
+            marginTop: '5px',
+            marginBottom: '26px',
+          }}>
+            <label style={{ cursor: 'pointer' }}>
+              <input
+                type='checkbox'
+                onChange={this.checkboxUpdate}
+                value={this.state.checked}
+              />
+              <span style={{ marginLeft: '5px' }}>
+                {'I have read and agree to the '}
+                <Link
+                  color={linkColor}
+                  label={'terms and conditions'}
+                  external
+                />
+              </span>
+            </label>
+          </p>
           <div className='SnapPageLogin-validateGroup'
             style={{
               display: 'flex',
-              justifyContent: 'flex-end',
               width: '50%',
-              marginLeft: '10px',
             }}
           >
             <a
@@ -195,9 +251,12 @@ class PurchaseSummary extends React.Component {
               Cancel
             </a>
             <Button
-              label={'Purchase'}
+              label={'Buy and install'}
               type='positive'
-              disabled={this.state.password === ''}
+              disabled={
+                this.state.password === '' ||
+                !this.state.checked
+              }
               onClick={onPurchase}
               variableWidth={true}
             />
@@ -219,11 +278,12 @@ class PurchaseSummary extends React.Component {
     // </table>
 }
 
-function Block({ leftspace, children }) {
+function Block({ noborder, leftspace, children }) {
   return (
     <div className={classes({
       'MyUbuntuBlock': true,
       'MyUbuntuBlock-leftspace': leftspace,
+      'MyUbuntuBlock-noborder': noborder,
     })}>
       {children}
     </div>
