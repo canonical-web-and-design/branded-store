@@ -25,7 +25,7 @@ function ServicePage(props) {
 
   if (!service) return null
 
-  const icon = `${cardImgRootUrl}${service.id}.png`
+  const icon = `${cardImgRootUrl}${service.image}.png`
   const runningStatusText = isRunning?'running':'stopped'
   const hasButtonToStopService = false
   const hasButtonToOpenService = true

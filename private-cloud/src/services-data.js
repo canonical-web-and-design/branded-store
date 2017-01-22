@@ -29,6 +29,7 @@ const services = [
       description: 'Spreed is a private video and chat messaging service based on WebRTC and is available through Nextcloud. The service brings you easy to use web conferencing, one to one calls, chat and is designed to give the enterprise full control of its communication.',
       adminPage: 'https://spreed.me/',
       servicePage: 'https://spreed.me/',
+      image: 'spreed2'
     },
     {
       name: 'iRedMail',
@@ -57,7 +58,7 @@ function servicesData() {
 
     // @todo: change this attribute to 'status' once the toolkit CardList api has been improved
     element.action = history[0][0]
-    element.image = element.name.toLowerCase()
+    if (!element.image) element.image = element.name.toLowerCase()
     element.id = element.name.toLowerCase()
   })
     

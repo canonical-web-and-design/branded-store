@@ -39,7 +39,7 @@ function serviceIdFromPath(path) {
 }
 
 function openNewTab(url) {
-  const win = window.open(url, '_blank');
+  const win = window.open(url, '_blank'); 
   if (win) {
     //Browser has allowed it to be opened
     win.focus();
