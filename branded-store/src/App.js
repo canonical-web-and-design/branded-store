@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import './App.css'
-import './Loader.css'
 
 import If from 'toolkit/If'
 
+import Link from 'toolkit/Link/Link'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 import ThemeChanger from './ThemeChanger/ThemeChanger'
+import Loader from './Loader/Loader'
 
-import HomePage from './HomePage'
-import StorePage from './StorePage'
-import SnapPage from './SnapPage'
+import HomePage from './HomePage/HomePage'
+import StorePage from './StorePage/StorePage'
+import SnapPage from './SnapPage/SnapPage'
 import SettingsPage from './SettingsPage/SettingsPage'
-import MyUbuntu from './MyUbuntu'
+import MyUbuntu from './MyUbuntu/MyUbuntu'
 
 // import createHistory from 'history/createBrowserHistory'
 import createHistory from 'history/createHashHistory'
@@ -51,9 +52,19 @@ function snapToStoreCard(snap) {
     id: snap.id,
     name: snap.name,
     author: snap.author,
-    action: snap.price === 'free'? 'Install' : snap.price,
+    action: snap.status === 'installing'? 'Installing' : (
+      snap.status === 'installed'? 'Remove' : (
+        snap.price === 'free'? 'Install' : snap.price
+      )
+    ),
     image: snap.id,
     rating: snap.rating,
+    installProgress: (
+      snap.status === 'installing'
+        ? snap.installProgress
+        : -1
+    ),
+    snap: snap,
   }
 }
 
@@ -70,6 +81,7 @@ function snapToHomeCard(snap) {
         ? snap.installProgress
         : -1
     ),
+    snap: snap,
   }
 }
 
@@ -88,6 +100,7 @@ class App extends Component {
       brands: [],
       brand: DEFAULT_BRAND,
       // waitingPayment: true,
+      quickBuySnap: '',
     }
 
     history.listen(this.handleNavigation)
@@ -104,8 +117,11 @@ class App extends Component {
   }
 
   goto = (path) => {
-    this.state.store.cancelPurchases()
-    history.push('/' + (path || ''))
+    const pathname = `/${path || ''}`
+    if (pathname !== this.state.location.pathname) {
+      this.state.store.cancelPurchases()
+      history.push(pathname)
+    }
   }
 
   handleStoreEvents = (event) => {
@@ -136,6 +152,10 @@ class App extends Component {
     window.scrollTo(0, 0)
   }
 
+  getSnap = (id) => (
+    this.state.allSnaps.find(snap => snap.id === id)
+  )
+
   requestInstall = (snapId) => {
     this.state.store.install(snapId)
   }
@@ -155,6 +175,22 @@ class App extends Component {
     this.state.store.cancelPurchases()
   }
 
+  quickRemove = (snapId) => {
+    const snap = this.getSnap(snapId)
+    if (!snap) return
+    this.state.store.remove(snapId)
+  }
+
+  quickInstall = (snapId) => {
+    const snap = this.getSnap(snapId)
+    if (!snap) return
+
+    this.requestInstall(snapId)
+    if (snap.price !== 'free' ) {
+      this.setState({ quickBuySnap: snapId })
+    }
+  }
+
   onMenuItemClick = (id) => {
     // if (id === 'home') {
       // if (this.state.waitingPayment) {
@@ -171,8 +207,9 @@ class App extends Component {
     if (id === 'add') {
       return this.goto('store')
     }
-    const snap = this.state.allSnaps.find(snap => snap.id === id)
-    if (snap && !snap.preinstalled) {
+    const snap = this.getSnap(id)
+    // if (snap && !snap.preinstalled) {
+    if (snap) {
       this.goto(`snap/${id}`)
     }
   }
@@ -181,25 +218,8 @@ class App extends Component {
   }
 
   snapIdsToSnaps = (ids) => (
-    ids.map(id => (
-      this.state.allSnaps.find(snap => snap.id === id)
-    )).filter(snap => snap)
+    ids.map(this.getSnap).filter(snap => snap)
   )
-
-  snapFromId = (id) => (
-    this.state.allSnaps.find(snap => snap.id === id)
-  )
-
-  // waitPayment = () => {
-  //   this.setState({
-  //     waitingPayment: true,
-  //   })
-  // }
-  // stopWaitPayment = () => {
-  //   this.setState({
-  //     waitingPayment: false,
-  //   })
-  // }
 
   render() {
 
@@ -209,17 +229,21 @@ class App extends Component {
       featuredSnapIds,
       brand,
       brands,
-      // waitingPayment,
     } = this.state
 
     const homeSnaps = allSnaps.filter(
       snap => (
-        snap.status === 'installed' ||
-        snap.status === 'installing'
+        snap.status === 'installed'
+        // || snap.status === 'installing'
       )
     )
 
-    const featuredSnaps = this.snapIdsToSnaps(featuredSnapIds)
+    const featuredSnaps = this.snapIdsToSnaps(
+      featuredSnapIds
+        .concat(featuredSnapIds)
+        .concat(featuredSnapIds)
+        .slice(0, 20)
+    )
 
     const currentSection = sectionFromPath(location.pathname)
 
@@ -230,7 +254,7 @@ class App extends Component {
       deviceId: 'Cisco CGR1120 C02PQ53JFVH8',
     }
 
-    const themeChanger = (
+    const themeChanger = brands.length < 2? null : (
       <ThemeChanger
         brands={brands}
         onChangeBrand={this.changeBrand}
@@ -241,25 +265,28 @@ class App extends Component {
     const currentSettingScreen = settingScreenFromPath(location.pathname)
 
     const currSnap = allSnaps.find(snap => (
-      snap.id === snapIdFromPath(location.pathname)
+      snap.id === snapIdFromPath(location.pathname) ||
+      snap.id === this.state.quickBuySnap
     ))
 
     let waitingPayment = false
-    if (currentSection === 'snap' && currSnap) {
+    if ((currentSection === 'store' || currentSection === 'snap') && currSnap) {
       waitingPayment = (
         currSnap.status === 'wait-confirm' ||
-        currSnap.status === 'confirming'
+        currSnap.status === 'confirming1' ||
+        currSnap.status === 'confirming2'
       )
     }
 
     let waitStoreToPay = false
     let waitPayToStore = false
-    if (currentSection === 'snap' && currSnap) {
+    if ((currentSection === 'store' || currentSection === 'snap') && currSnap) {
       waitStoreToPay = (
         currSnap.status === 'authorizing'
       )
       waitPayToStore = (
-        currSnap.status === 'confirming'
+        currSnap.status === 'confirming1' ||
+        currSnap.status === 'confirming2'
       )
     }
 
@@ -296,9 +323,9 @@ class App extends Component {
               <If cond={currentSection === 'home'}>
                 <HomePage
                   cardImgRootUrl={cardImgRootUrl}
-                  brandData={brandData}
                   snaps={homeSnaps.map(snapToHomeCard)}
                   onOpenSnap={this.onOpenSnap}
+                  brandData={brandData}
                 />
               </If>
               <If cond={currentSection === 'store'}>
@@ -306,6 +333,8 @@ class App extends Component {
                   cardImgRootUrl={cardImgRootUrl}
                   featuredSnaps={featuredSnaps.map(snapToStoreCard)}
                   onOpenSnap={this.onOpenSnap}
+                  onInstallSnap={this.quickInstall}
+                  onRemoveSnap={this.quickRemove}
                 />
               </If>
               <If cond={currentSection === 'snap'}>
@@ -332,7 +361,8 @@ class App extends Component {
               </If>
             </main>
             <Footer 
-              firstLine={themeChanger} 
+              firstLine={themeChanger}
+              copyright={`© ${(new Date()).getFullYear()} ${brandData.name}`}
               logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
             />
           </div>
@@ -343,35 +373,38 @@ class App extends Component {
             onPurchase={this.requestConfirm}
             onCancel={this.requestCancel}
             snap={currSnap}
+            cardImgRootUrl={cardImgRootUrl}
           />
         </If>
 
-        <div className='Loader' style={{
-          position: 'fixed',
-          left: '0',
-          right: '0',
-          top: waitStoreToPay || waitPayToStore? 0 : '100%',
-          bottom: '0',
-          background: '#FFF',
-          opacity: waitStoreToPay || waitPayToStore? 1 : 0,
-          transition: 'opacity 150ms ease-in-out',
-        }}>
-          <p>
-            <img
-              src={`${pub}/spinner-2.png`}
-              width={82/2}
-              height={82/2}
-              alt=''
-            />
-            <span>
-              {
-                !waitStoreToPay
-                  ? 'Returning you to the store…'
-                  : 'Talking to my.ubuntu.com…'
-              }
+        <Loader
+          visible={waitStoreToPay || waitPayToStore}
+          label={
+            waitStoreToPay
+            ? 'You are being redirected to the payment portal my.ubuntu.com…'
+            : (
+              currSnap && currSnap.status === 'confirming1'
+              ? 'Your payment was successful.'
+              : 'Redirecting you to the Store to complete installation…'
+            )
+          }
+          label2={(
+            <span style={{
+              fontSize: '14px'
+            }}>
+              <a
+                role='button'
+                style={{
+                  textDecoration: 'underline',
+                  color: '#119136',
+                }}
+              >
+                Click here
+              </a>
+              {' if you are not being redirected.'}
             </span>
-          </p>
-        </div>
+          )}
+        />
       </div>
     )
   }

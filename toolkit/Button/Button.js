@@ -10,6 +10,7 @@ export default function Button({
   label,
   loading,
   variableWidth,
+  style={},
 }) {
   return (
     <button
@@ -22,6 +23,7 @@ export default function Button({
         'Button-variable': variableWidth,
       })}
       onClick={onClick}
+      style={style}
     >
       <span>
         {loading

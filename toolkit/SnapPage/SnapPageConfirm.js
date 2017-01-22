@@ -14,11 +14,14 @@ export default class SnapPageConfirm extends Component {
   render() {
     const { status, onCancel } = this.props
 
-    const waiting = status === 'confirming'
+    const waiting = (
+      status === 'confirming1' ||
+      status === 'confirming2'
+    )
 
     const buttonLabel = (() => {
       if (status === 'wait-confirm') return 'Confirm purchase'
-      if (status === 'confirming') return 'Purchasing…'
+      if (status === 'confirming1' || status === 'confirming2') return 'Purchasing…'
     })()
 
     return (

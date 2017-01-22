@@ -20,7 +20,8 @@ export default function SnapPagePurchase({
 
   const confirmSteps = [
     'wait-confirm',
-    'confirming',
+    'confirming1',
+    'confirming2',
   ].includes(status)
 
   return (

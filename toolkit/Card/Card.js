@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import './Card.css'
 
 import classes from 'toolkit/classes'
@@ -29,78 +29,118 @@ export function CardAuthor({ name }) {
   )
 }
 
-function Card({
-  children,
-  positive,
-  alignBottom,
-  onClick,
-  image,
-  name,
-  author,
-  type,
-  rating,
-  installProgress = -1,
-  action,
-}) {
-  const installing = installProgress !== -1
-  return (
-    <div
-      className={classes({
-        'Card': true,
-        'Card-positive': positive,
-        'Card-alignBottom': alignBottom,
-      })}
-      role='button'
-      onClick={onClick}
-    >
+class Card extends PureComponent {
+
+  onCardClick = () => {
+    if (!this.props.onActionClick) {
+      this.props.onClick()
+    }
+  }
+
+  onMainClick = () => {
+    if (this.props.onActionClick) {
+      this.props.onClick()
+    }
+  }
+
+  onActionClick = () => {
+    if (this.props.onActionClick) {
+      this.props.onActionClick()
+    }
+  }
+
+  render() {
+
+    const {
+      children,
+      positive,
+      alignBottom,
+      image,
+      name,
+      author,
+      type,
+      rating,
+      action,
+      installProgress,
+    } = this.props
+
+    const installing = installProgress !== -1
+    // console.log(action)
+
+    return (
       <div
-        className='Card-main'
+        className={classes({
+          'Card': true,
+          'Card-positive': positive,
+          'Card-alignBottom': alignBottom,
+        })}
+        role='button'
+        onClick={this.onCardClick}
       >
-        <CardIcon
-          image={image}
-        />
-        {children || (
-          <div className='Card-content'>
-            <div>
-              <CardName
-                name={name}
-              />
-            </div>
-            {author? (
+        <div
+          className='Card-main'
+          onClick={this.onMainClick}
+        >
+          <CardIcon
+            image={image}
+          />
+          {children || (
+            <div className='Card-content'>
               <div>
-                <CardAuthor
-                  name={author}
+                <CardName
+                  name={name}
                 />
               </div>
-            ) : null}
-            {type? (
-              <div style={{ color: '#888888', fontWeight: '400' }}>{type}</div>
-            ) : null}
-            {rating? (
-              <div>
-                <RatingStars />
-              </div>
-            ) : null}
+              {author? (
+                <div>
+                  <CardAuthor
+                    name={author}
+                  />
+                </div>
+              ) : null}
+              {type? (
+                <div style={{ color: '#888888', fontWeight: '400' }}>{type}</div>
+              ) : null}
+              {rating? (
+                <div>
+                  <RatingStars />
+                </div>
+              ) : null}
+            </div>
+          )}
+        </div>
+        <div
+          className={classes({
+            'Card-footer': true,
+            'Card-footer-installing': installing,
+          })}
+        >
+          {installing && (
+            <div className='Card-footer-installProgress'>
+              <ProgressBar progress={installProgress} />
+            </div>
+          )}
+          <div className='Card-action-wrapper'>
+            <div
+              className='Card-action'
+              onClick={this.onActionClick}
+            >
+              {
+                action === 'open'? (
+                  <a
+                    role='button'
+                    className='external-branded'
+                  >
+                    Open
+                  </a>
+                ) : action
+              }
+            </div>
           </div>
-        )}
-      </div>
-      <div className={classes({
-        'Card-footer': true,
-        'Card-footer-installing': installing,
-      })}>
-        {installing && (
-          <div className='Card-footer-installProgress'>
-            <ProgressBar progress={installProgress} />
-          </div>
-        )}
-        <div className='Card-action'>{
-          action === 'open'? (
-            <a role='button' className='external-branded'>Open</a>
-          ) : action
-        }</div>
       </div>
     </div>
-  )
+    )
+  }
 }
 
 Card.propTypes = {
@@ -110,10 +150,12 @@ Card.propTypes = {
   image: React.PropTypes.string,
   action: React.PropTypes.string,
   onClick: React.PropTypes.func,
+  onActionClick: React.PropTypes.func,
 }
 
 Card.defaultProps = {
   onClick: () => {},
+  installProgress: -1,
 }
 
 export default Card

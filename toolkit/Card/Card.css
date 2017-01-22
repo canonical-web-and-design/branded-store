@@ -1,4 +1,7 @@
 .Card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 230px;
   border-radius: 3px;
   border: 1px solid #CDCDCD;
@@ -41,7 +44,6 @@
 }
 .Card-footer {
   position: relative;
-  overflow: hidden;
   padding: 10px 15px;
 }
 .Card-footer:before {
@@ -63,9 +65,12 @@
   margin-top: -10px;
   margin-bottom: 4px;
 }
+.Card-action-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
 .Card-action {
-  padding-right: 10px;
-  text-align: right;
+  padding: 0 10px;
   line-height: 1.7em;
   height: 1.7em;
   font-size: 16px;

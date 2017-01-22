@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './SnapPage.css'
 
+import If from 'toolkit/If'
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import ReviewList from 'toolkit/ReviewList/ReviewList'
 
@@ -12,23 +13,21 @@ import Interfaces from 'toolkit/SnapPage/SnapPageInterfaces'
 import InstallButton from 'toolkit/SnapPage/SnapPageInstallButton'
 import Purchase from 'toolkit/SnapPage/SnapPagePurchase'
 
+const defaultDesc = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+
 class SnapPage extends Component {
 
   onRequestSignin = () => {
-    const { snap, onRequestSignin } = this.props
-    onRequestSignin(snap.id)
+    this.props.onRequestSignin(this.props.snap.id)
   }
   onRequestAuthorize = () => {
-    const { snap, onRequestAuthorize } = this.props
-    onRequestAuthorize(snap.id)
+    this.props.onRequestAuthorize(this.props.snap.id)
   }
   onRequestConfirm = () => {
-    const { snap, onRequestConfirm } = this.props
-    onRequestConfirm(snap.id)
+    this.props.onRequestConfirm(this.props.snap.id)
   }
   onRequestCancel = () => {
-    const { snap, onRequestCancel } = this.props
-    onRequestCancel(snap.id)
+    this.props.onRequestCancel(this.props.snap.id)
   }
 
   render() {
@@ -70,17 +69,19 @@ class SnapPage extends Component {
                   tags={['databases', 'cassandra', 'app-deployment']}
                 />
               </div>
-              <div className='SnapPage-installButton'>
-                <InstallButton
-                  priceLabel={snap.price}
-                  installProgress={installProgress}
-                  status={snap.status}
-                  snapId={snap.id}
-                  snapName={snap.name}
-                  onRequestInstall={onRequestInstall}
-                  onRequestRemove={onRequestRemove}
-                />
-              </div>
+              <If cond={!snap.preinstalled}>
+                <div className='SnapPage-installButton'>
+                  <InstallButton
+                    priceLabel={snap.price}
+                    installProgress={installProgress}
+                    status={snap.status}
+                    snapId={snap.id}
+                    snapName={snap.name}
+                    onRequestInstall={onRequestInstall}
+                    onRequestRemove={onRequestRemove}
+                  />
+                </div>
+              </If>
             </div>
 
             {(() => {
@@ -120,7 +121,7 @@ class SnapPage extends Component {
               />
               <div className='SnapPage-SnapPageAbout'>
                 <About
-                  content={snap.description}
+                  content={snap.description || defaultDesc}
                 />
               </div>
             </div>
@@ -138,9 +139,11 @@ class SnapPage extends Component {
           </div>
         </ContentWrapper>
 
-        <ContentWrapper bordered>
-          <ReviewList />
-        </ContentWrapper>
+        <If cond={!snap.preinstalled}>
+          <ContentWrapper bordered>
+            <ReviewList />
+          </ContentWrapper>
+        </If>
       </div>
     )
   }

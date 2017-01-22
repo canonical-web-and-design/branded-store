@@ -88,7 +88,10 @@ export default function createStore(brand) {
     const snap = allSnaps.find(snap => snap.id === snapId)
     if (!snap) return
 
-    if (snap.price !== 'free' && snap.status !== 'confirming') {
+    if (snap.price !== 'free'
+        && snap.status !== 'confirming1'
+        && snap.status !== 'confirming2'
+    ) {
       // snap.status = 'wait-signin'
       // snap.status = 'authorizing'
 
@@ -139,19 +142,24 @@ export default function createStore(brand) {
     authTimer = setTimeout(() => {
       snap.status = 'wait-confirm'
       emit('ALL_SNAPS', { snaps: allSnaps })
+      window.scrollTo(0, 0)
     }, 1000)
   }
 
   const confirm = (snapId) => {
     const snap = allSnaps.find(snap => snap.id === snapId)
     if (!snap || snap.status !== 'wait-confirm') return
-    snap.status = 'confirming'
+    snap.status = 'confirming1'
     emit('ALL_SNAPS', { snaps: allSnaps })
     clearTimeout(authTimer)
     authTimer = setTimeout(() => {
-      window.scrollTo(0, 0)
-      install(snapId)
-    }, 1000)
+      snap.status = 'confirming2'
+      emit('ALL_SNAPS', { snaps: allSnaps })
+      authTimer = setTimeout(() => {
+        window.scrollTo(0, 0)
+        install(snapId)
+      }, 1500)
+    }, 1500)
   }
 
   const cancelPurchases = (except = null) => {
@@ -162,7 +170,8 @@ export default function createStore(brand) {
       'wait-authorize',
       'authorizing',
       'wait-confirm',
-      'confirming',
+      'confirming1',
+      'confirming2',
     ]
 
     let touched = false
