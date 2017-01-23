@@ -45,8 +45,22 @@ const services = [
     }
   ]
 
-const history = [
+const defaultHistory = [
   ['Running', '19 Jan 2017 00:00:00']
+]
+
+const defaultDetails = [
+  ['Category', 'Databases'],
+  ['Size', '65.7MB'],
+  ['Version', '3.7'],
+  ['Channel', 'Stable'],
+  ['Updated', '12 Aug 2016 12:37:06'],
+]
+
+const defaultInterfaces = [
+  'Network',
+  'Network Bind',
+  'Mount Observe',
 ]
 
 // Generate services data
@@ -54,12 +68,16 @@ function servicesData() {
 
   // add attributes that are the same for each service
   services.forEach(function (element) {
-    element.history = history.slice()
+    
+    element.id = element.name.toLowerCase()
+
+    if (!element.image) element.image = element.name.toLowerCase()
+    if (!element.details) element.details = defaultDetails.slice()
+    if (!element.interfaces) element.interfaces = defaultInterfaces.slice()
+    if(!element.history) element.history = defaultHistory.slice()
 
     // @todo: change this attribute to 'status' once the toolkit CardList api has been improved
-    element.action = history[0][0]
-    if (!element.image) element.image = element.name.toLowerCase()
-    element.id = element.name.toLowerCase()
+    element.action = element.history[0][0]
   })
     
   return services

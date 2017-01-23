@@ -79,15 +79,11 @@ function ServicePage(props) {
           <div className='ServicePage-content'>
 
             <div>
-              <Details
-                items={[
-                  ['Category', 'Databases'],
-                  ['Size', '65.7MB'],
-                  ['Version', '3.7'],
-                  ['Channel', 'Stable'],
-                  ['Updated', '12 Aug 2016 12:37:06'],
-                ]}
-              />
+              <If cond={service.details}>
+                <Details
+                  items={service.details}
+                />
+              </If>
               <div className='ServicePage-ServicePageAbout'>
                 <About
                   content={service.description}
@@ -96,13 +92,11 @@ function ServicePage(props) {
             </div>
 
             <div>
-              <Interfaces
-                items={[
-                  'Network',
-                  'Network Bind',
-                  'Mount Observe',
-                ]}
-              />
+              <If cond={service.interfaces}>
+                <Interfaces
+                  items={service.interfaces}
+                />
+              </If>
             </div>
 
           </div>
