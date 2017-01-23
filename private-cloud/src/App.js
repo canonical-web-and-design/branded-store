@@ -20,7 +20,7 @@ const history = createHistory()
 const sections = ['service']
 
 const brandData = {
-    name: 'KEYMILE',
+    name: 'Keymile',
     id: 'keymile',
     color: '#FF7301',
 }
@@ -187,6 +187,8 @@ class App extends Component {
         </main>
 
         <Footer 
+          firstLine={null}
+          copyright={`© ${(new Date()).getFullYear()} ${brandData.name}`}
           logo={`${publicUrl}/brands/${brandData.id}/logo.png`}
         />
       </div>
