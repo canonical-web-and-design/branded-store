@@ -53,7 +53,7 @@ function snapToStoreCard(snap) {
     name: snap.name,
     author: snap.author,
     action: snap.status === 'installing'? 'Installing' : (
-      snap.status === 'installed'? 'Remove' : (
+      snap.status === 'installed'? 'open' : (
         snap.price === 'free'? 'Install' : snap.price
       )
     ),

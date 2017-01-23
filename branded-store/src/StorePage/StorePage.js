@@ -71,7 +71,8 @@ class StorePage extends Component {
 
   onActionClick = (snap) => {
     if (snap.status === 'installed') {
-      this.props.onRemoveSnap(snap.id)
+      // this.props.onOpenSnap(snap.id)
+      // this.props.onRemoveSnap(snap.id)
       return
     }
 
@@ -161,7 +162,7 @@ class StorePage extends Component {
               <StoreCard
                 key={card.id + i}
                 card={card}
-                action={card.installed? 'Remove' : ''}
+                action={card.installed? 'open' : ''}
                 image={`${cardImgRootUrl}${card.image}.png`}
                 onClick={onOpenSnap}
                 onActionClick={this.onActionClick}
