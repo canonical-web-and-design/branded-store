@@ -12,7 +12,7 @@ export default function SettingsPage({ screenId, onNavChange }) {
     ['users', 'Users'],
     ['updates', 'Updates'],
     ['date-time', 'Date and time'],
-    ['customization', 'Customization'],
+    // ['customization', 'Customization'],
   ]
 
   const screen = screens.find(
