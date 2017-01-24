@@ -6,13 +6,8 @@ import CardsList from 'toolkit/CardsList/CardsList'
 
 const publicUrl =  process.env.PUBLIC_URL
 
-const bannerData = {
-  photo: 'banner-photo.png', 
-  deviceName: 'Self-hosted private cloud suite',
-  deviceId: 'An Ubuntu snap-based solution for forward-thinking enterprises to own and control their own data.',
-}
-
 export default function HomePage({
+  bannerData,
   services,
   cardImgRootUrl,
   onOpenService,

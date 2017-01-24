@@ -25,6 +25,12 @@ const brandData = {
     color: '#E95420',
 }
 
+const bannerData = {
+  photo: 'banner-photo.png', 
+  deviceName: 'Ubuntu self-hosted private cloud suite',
+  deviceId: 'System Admin',
+}
+
 function sectionFromPath(path) {
   return path === '/' ? 'home' : (
     sections.find(section => (
@@ -164,6 +170,7 @@ class App extends Component {
         <main className='App-content'>
           <If cond={currentSection === 'home'}>
             <HomePage
+              bannerData={bannerData}
               cardImgRootUrl={cardImgRootUrl}
               services={installedServices}
               onOpenService={this.onOpenService}
