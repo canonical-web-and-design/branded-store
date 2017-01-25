@@ -5,7 +5,7 @@ import If from 'toolkit/If'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 
-import createServices from './end-user-services-data'
+import createServices from './services-data-user'
 
 import HomePage from './HomePage'
 import ServicePage from './ServicePage'
@@ -16,6 +16,7 @@ const publicUrl = process.env.PUBLIC_URL
 
 // @todo: Replace this url with the real snapweb link on the device
 const snapwebUrl = 'http://localhost:3001/'
+const defaultProfileName = 'Lola Chang'
 const history = createHistory()
 const sections = ['service']
 
@@ -164,6 +165,7 @@ class App extends Component {
           name={brandData.name}
           logo={`${publicUrl}/brands/${brandData.id}/logo.png`}
           customColor={brandData.color}
+          profilename={defaultProfileName}
         />
 
         <main className='App-content'>

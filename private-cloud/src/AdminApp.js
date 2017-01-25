@@ -5,7 +5,7 @@ import If from 'toolkit/If'
 import Header from 'toolkit/Header/Header'
 import Footer from 'toolkit/Footer/Footer'
 
-import createServices from './services-data'
+import createServices from './services-data-admin'
 
 import HomePage from './HomePage'
 import ServicePage from './ServicePage'

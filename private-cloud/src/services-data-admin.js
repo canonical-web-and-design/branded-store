@@ -38,7 +38,8 @@ const services = [
       servicePage: 'http://www.iredmail.org/',
     },
     {
-      name: 'Collabora',
+      name: 'Collabora Online',
+      id: 'collabora',
       description: 'Collaborative editing with LibreOffice using your own private cloud. Collabora Online is for enterprises that want a powerful self-hosted office suite that protects their privacy and allows them to keep full control of their sensitive corporate data.',
       adminPage: 'https://www.collabora.com/',
       servicePage: 'https://www.collabora.com/',
@@ -68,10 +69,8 @@ function servicesData() {
 
   // add attributes that are the same for each service
   services.forEach(function (element) {
-    
-    element.id = element.name.toLowerCase()
-
-    if (!element.image) element.image = element.name.toLowerCase()
+    if (!element.id) element.id = element.name.toLowerCase()
+    if (!element.image) element.image = element.id
     if (!element.details) element.details = defaultDetails.slice()
     if (!element.interfaces) element.interfaces = defaultInterfaces.slice()
     if(!element.history) element.history = defaultHistory.slice()
