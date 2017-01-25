@@ -32,7 +32,7 @@ const bannerData = {
   photo: 'banner-photo.png', 
   deviceName: 'Ubuntu self-hosted private cloud suite',
   deviceId: 'System Admin',
-  //secondaryColor: '#19B6EE',
+  secondaryColor: '#19B6EE',
 }
 
 function sectionFromPath(path) {
