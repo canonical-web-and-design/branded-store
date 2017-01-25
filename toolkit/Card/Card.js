@@ -126,13 +126,9 @@ class Card extends PureComponent {
               onClick={this.onActionClick}
             >
               {
-                action === 'open'? (
-                  <a
-                    role='button'
-                  >
-                    Open
-                  </a>
-                ) : action
+                action === 'open'? 
+                  'Open'
+                 : action
               }
             </div>
           </div>
