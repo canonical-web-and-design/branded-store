@@ -396,7 +396,7 @@ class App extends Component {
                 role='button'
                 style={{
                   textDecoration: 'underline',
-                  color: '#119136',
+                  color: '#007AA6',
                 }}
               >
                 Click here

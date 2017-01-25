@@ -9,7 +9,7 @@ import Footer from 'toolkit/Footer/Footer'
 import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 import Summary from 'toolkit/SnapPage/SnapPageSummary'
 
-const linkColor = '#119136'
+const linkColor = '#007AA6'
 
 const pub = process.env.PUBLIC_URL
 
