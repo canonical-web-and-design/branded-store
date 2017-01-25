@@ -65,8 +65,9 @@ export default class MyUbuntu extends Component {
                         name={snap.name}
                         author={snap.author}
                         rating={-1}
-                      />
+                      />                    
                       <span className='MyUbuntuBlock-app-price'>
+                        <span>Snap Price: </span>
                         {snap.price}
                       </span>
                     </div>
