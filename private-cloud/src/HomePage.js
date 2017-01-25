@@ -20,6 +20,8 @@ export default function HomePage({
           photo={`${publicUrl}/${bannerData.photo}`}
           name={bannerData.deviceName}
           id={bannerData.deviceId}
+          primaryColor={bannerData.primaryColor}
+          secondaryColor={bannerData.secondaryColor}
         />
       </ContentWrapper>
       <ContentWrapper background bordered>

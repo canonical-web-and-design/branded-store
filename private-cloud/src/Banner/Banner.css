@@ -8,12 +8,12 @@
   align-items: center;
   margin-right: 40px;
 }
-.Banner-name {
+.Banner-primaryText {
   font-size: 45px;
   line-height: 1.4em;
   margin-bottom: 10px;
 }
-.Banner-id {
+.Banner-secondaryText {
   margin-bottom: 10px;
-  font-size: 23px;
+  font-size: 33px;
 }
