@@ -129,7 +129,6 @@ class Card extends PureComponent {
                 action === 'open'? (
                   <a
                     role='button'
-                    className='external-branded'
                   >
                     Open
                   </a>
