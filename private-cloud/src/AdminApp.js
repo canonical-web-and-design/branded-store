@@ -18,7 +18,7 @@ const publicUrl = process.env.PUBLIC_URL
 const snapwebUrl = 'http://localhost:3001/'
 
 // @todo: Come up with a better admin profile name
-const defaultProfileName = 'Admin' 
+const defaultProfileName = 'Shawn Brannon' 
 const history = createHistory()
 const sections = ['service']
 
@@ -32,7 +32,7 @@ const bannerData = {
   photo: 'banner-photo.png', 
   deviceName: 'Ubuntu self-hosted private cloud suite',
   deviceId: 'System Admin',
-  secondaryColor: '#19B6EE',
+  //secondaryColor: '#19B6EE',
 }
 
 function sectionFromPath(path) {
