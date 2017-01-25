@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './App.css'
+import './AdminApp.css'
 
 import If from 'toolkit/If'
 import Header from 'toolkit/Header/Header'
@@ -16,6 +16,9 @@ const publicUrl = process.env.PUBLIC_URL
 
 // @todo: Replace this url with the real snapweb link on the device
 const snapwebUrl = 'http://localhost:3001/'
+
+// @todo: Come up with a better admin profile name
+const defaultProfileName = 'Admin' 
 const history = createHistory()
 const sections = ['service']
 
@@ -29,6 +32,7 @@ const bannerData = {
   photo: 'banner-photo.png', 
   deviceName: 'Ubuntu self-hosted private cloud suite',
   deviceId: 'System Admin',
+  //secondaryColor: '#19B6EE',
 }
 
 function sectionFromPath(path) {
@@ -165,6 +169,7 @@ class App extends Component {
           name={brandData.name}
           logo={`${publicUrl}/brands/${brandData.id}/logo.png`}
           customColor={brandData.color}
+          profilename={defaultProfileName}
         />
 
         <main className='App-content'>
