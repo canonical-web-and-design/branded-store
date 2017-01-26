@@ -12,6 +12,9 @@ cp -rf src/index.js tmp_build/index.js
 # use index-admin.js 
 cp -rf src/index-admin.js src/index.js
 
+echo " "
+echo "**** Build Admin UI ****"
+
 # Build admin UI
 npm run build
 
@@ -20,6 +23,9 @@ mv ./build/ tmp_build/build-admin/
 
 # use index-enduser.js 
 cp -rf src/index-enduser.js src/index.js
+
+echo " "
+echo "**** Build End user UI ****"
 
 # Build enduser UI
 npm run build
