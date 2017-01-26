@@ -153,7 +153,9 @@ export default class MyUbuntu extends Component {
         <Footer>
           <div className='Footer-MyUbuntu'>
             <ContentWrapper>
-              <p>© 2016 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.</p>
+              <p>
+                {`© ${(new Date()).getFullYear()} Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.`}
+              </p>
               <p>
                 <a className='link'>Terms of Service</a>
                 <span>{' · '}</span>

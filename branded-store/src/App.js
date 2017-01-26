@@ -385,7 +385,7 @@ class App extends Component {
             : (
               currSnap && currSnap.status === 'confirming1'
               ? 'Your payment was successful.'
-              : 'Redirecting you to the Store to complete installation…'
+              : 'Redirecting you to the store to complete installation…'
             )
           }
           label2={(
