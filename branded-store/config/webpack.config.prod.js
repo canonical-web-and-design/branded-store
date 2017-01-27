@@ -82,7 +82,7 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     extensions: ['.js', '.json', '.jsx', ''],
     alias: {
-      toolkit: paths.toolkit
+      toolkit: 'snapweb-toolkit', //paths.toolkit
     },
   },
 
@@ -97,7 +97,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         loader: 'eslint',
-        include: [ paths.appSrc, paths.toolkit ],
+        include: [ paths.appSrc ],
       }
     ],
     loaders: [
@@ -130,7 +130,7 @@ module.exports = {
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
-        include: [ paths.appSrc, paths.toolkit ],
+        include: [ paths.appSrc ],
         loader: 'babel',
         query: {
           presets: 'react-app',
@@ -150,7 +150,7 @@ module.exports = {
       // in the main CSS file.
       {
         test: /\.css$/,
-        include: [ paths.appSrc, paths.toolkit ],
+        include: [ paths.appSrc ],
         loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss')
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },
@@ -158,13 +158,13 @@ module.exports = {
       // allow it implicitly so we also enable it.
       {
         test: /\.json$/,
-        include: [ paths.appSrc, paths.toolkit ],
+        include: [ paths.appSrc ],
         loader: 'json'
       },
       // "file" loader for svg
       {
         test: /\.svg$/,
-        include: [ paths.appSrc, paths.toolkit ],
+        include: [ paths.appSrc ],
         loader: 'file',
         query: {
           name: 'static/media/[name].[hash:8].[ext]'

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './SettingsNavigation.css'
 
-import classes from 'toolkit/classes'
+import { classes } from 'toolkit'
 
 const pub = process.env.PUBLIC_URL
 

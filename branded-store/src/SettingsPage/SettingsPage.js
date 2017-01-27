@@ -1,8 +1,8 @@
 import React from 'react'
 import './SettingsPage.css'
 
+import { ContentWrapper } from 'toolkit'
 import SettingsNavigation from './SettingsNavigation'
-import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
 
 export default function SettingsPage({ screenId, onNavChange }) {
 

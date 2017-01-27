@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import If from 'toolkit/If'
+import 'toolkit/lib/bundle.css'
 
-import Link from 'toolkit/Link/Link'
-import Header from 'toolkit/Header/Header'
-import Footer from 'toolkit/Footer/Footer'
+import {
+  If,
+  Header,
+  Footer,
+} from 'toolkit'
+
 import ThemeChanger from './ThemeChanger/ThemeChanger'
 import Loader from './Loader/Loader'
 
@@ -15,14 +18,12 @@ import SnapPage from './SnapPage/SnapPage'
 import SettingsPage from './SettingsPage/SettingsPage'
 import MyUbuntu from './MyUbuntu/MyUbuntu'
 
-// import createHistory from 'history/createBrowserHistory'
 import createHistory from 'history/createHashHistory'
 
 import createStore from './store/store'
 import createBrands from './brands'
 
-// const DEFAULT_BRAND = 'ubuntu'
-const DEFAULT_BRAND = 'keymile'
+const DEFAULT_BRAND = 'lime'
 
 const pub = process.env.PUBLIC_URL
 const history = createHistory()

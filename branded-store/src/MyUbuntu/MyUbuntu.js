@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import './MyUbuntu.css'
 
-import Link from 'toolkit/Link/Link'
-import classes from 'toolkit/classes'
-import Button from 'toolkit/Button/Button'
-import Header from 'toolkit/Header/Header'
-import Footer from 'toolkit/Footer/Footer'
-import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
-import Summary from 'toolkit/SnapPage/SnapPageSummary'
+import {
+  Link,
+  classes,
+  Button,
+  Header,
+  Footer,
+  ContentWrapper,
+  SnapPageSummary as Summary,
+} from 'toolkit'
 
 const linkColor = '#007AA6'
 

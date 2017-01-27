@@ -1,8 +1,10 @@
 import React from 'react'
 
-import ContentWrapper from 'toolkit/ContentWrapper/ContentWrapper'
-import DeviceBanner from 'toolkit/DeviceBanner/DeviceBanner'
-import CardsList from 'toolkit/CardsList/CardsList'
+import {
+  ContentWrapper,
+  DeviceBanner,
+  CardsList,
+} from 'toolkit'
 
 const publicUrl = process.env.PUBLIC_URL
 

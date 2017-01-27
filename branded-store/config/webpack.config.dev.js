@@ -74,7 +74,7 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     extensions: ['.js', '.json', '.jsx', ''],
     alias: {
-      toolkit: paths.toolkit
+      toolkit: 'snapweb-toolkit', //paths.toolkit
     },
   },
 
@@ -89,7 +89,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         loader: 'eslint',
-        include: [ paths.appSrc, paths.toolkit ],
+        include: [ paths.appSrc ],
         exclude: /node_modules/,
       }
     ],
@@ -125,7 +125,7 @@ module.exports = {
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
-        include: [ paths.appSrc, paths.toolkit ],
+        include: [ paths.appSrc ],
         exclude: /node_modules/,
         loader: 'babel',
         query: {
@@ -145,20 +145,20 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       {
         test: /\.css$/,
-        include: [ paths.appSrc, paths.toolkit ],
+        // include: [ paths.appSrc ],
         loader: 'style!css?importLoaders=1!postcss'
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
       {
         test: /\.json$/,
-        include: [ paths.appSrc, paths.toolkit ],
+        include: [ paths.appSrc ],
         loader: 'json'
       },
       // "file" loader for svg
       {
         test: /\.svg$/,
-        include: [ paths.appSrc, paths.toolkit ],
+        include: [ paths.appSrc ],
         loader: 'file',
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
