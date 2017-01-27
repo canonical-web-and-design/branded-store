@@ -21,8 +21,8 @@ const services = [
       description: 'Rocket.Chat is a dynamic and innovative toolkit providing group messaging and video communication and collaboration. It is a great solution for communities and companies wanting to privately host their own chat service.',
       adminPage: 'https://rocket.chat/',
       servicePage: 'https://rocket.chat/',
-      state: 'not_running',
-      status: 'Not Running',
+      state: 'stopped',
+      status: 'Stopped',
     },
     {
       name: 'Gogs',
