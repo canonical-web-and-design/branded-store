@@ -117,24 +117,53 @@ class App extends Component {
   }
 
   onRequestStop(id) {
-    const newServices = this.state.installedServices
-    const index = this.state.installedServices.findIndex(service => (
-                                                      service.id === id))
-    if (newServices[index].action === 'Running') {
-      newServices[index].action = 'Stopped'
-      newServices[index].history.unshift(['Stopped', getTimeStamp()])
-      this.setState({installedServices: newServices})
+    const { installedServices } = this.state
+    const index = installedServices.findIndex(service => service.id === id)
+
+    if (installedServices[index].action !== 'Running') {
+      return
     }
+
+    this.setState({
+      installedServices: [
+        ...installedServices.slice(0, index),
+        Object.assign({}, installedServices[index], {
+          action: 'Stopped',
+          status: 'Stopped',
+          state: 'stopped',
+          history: [
+            [ 'Stopped', getTimeStamp() ],
+            ...installedServices[index].history,
+          ],
+        }),
+        ...installedServices.slice(index + 1),
+      ]
+    })
+
   }
   onRequestStart(id) {
-    const newServices = this.state.installedServices
-    const index = this.state.installedServices.findIndex(service => (
-                                                      service.id === id))
-    if (newServices[index].action === 'Stopped') {
-      newServices[index].action = 'Running'
-      newServices[index].history.unshift(['Running', getTimeStamp()])
-      this.setState({installedServices: newServices})
+    const { installedServices } = this.state
+    const index = installedServices.findIndex(service => service.id === id)
+
+    if (installedServices[index].action !== 'Stopped') {
+      return
     }
+
+    this.setState({
+      installedServices: [
+        ...installedServices.slice(0, index),
+        Object.assign({}, installedServices[index], {
+          action: 'Running',
+          status: 'Running',
+          state: 'running',
+          history: [
+            [ 'Running', getTimeStamp() ],
+            ...installedServices[index].history,
+          ],
+        }),
+        ...installedServices.slice(index + 1),
+      ]
+    })
   }
 
   onRequestAdminPage(id) {

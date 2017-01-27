@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import './ServicePage.css'
 
 import If from 'toolkit/If'
@@ -11,103 +11,122 @@ import Summary from 'toolkit/SnapPage/SnapPageSummary'
 
 import History from './HistoryList'
 
-function ServicePage(props) {
+class ServicePage extends Component {
 
-  const {
-    service,
-    cardImgRootUrl,
-    isRunning,
-    onRequestStop,
-    onRequestStart,
-    onRequestAdminPage,
-    onRequestServicePage,
-  } = props
+  onButtonToOpenAdminClicked = () => {
+    const { service, onRequestAdminPage } = this.props
+    onRequestAdminPage(service.id)
+  }
 
-  if (!service) return null
+  onButtonToStopServiceClicked = () => {
+    const { service, onRequestStop, onRequestStart } = this.props
+    const callback = service.state === 'running'? onRequestStop : onRequestStart
+    callback(service.id)
+  }
 
-  const icon = `${cardImgRootUrl}${service.image}.png`
-  const runningStatusText = isRunning?'running':'stopped'
-  const hasButtonToStopService = false
-  const hasButtonToOpenService = true
+  onButtonToOpenServiceClicked = () => {
+    const { service, onRequestServicePage } = this.props
+    onRequestServicePage(service.id)
+  }
 
-  return (
-    <div className='ServicePage'>
+  render () {
 
-      <ContentWrapper background>
-        <div className='ServicePage-header'>
+    const {
+      cardImgRootUrl,
+      service,
+    } = this.props
 
-          <div className='ServicePage-headerParts'>
-            <div>
-              <Summary
-                icon={icon}
-                name={service.name}
-                description={'This service has been ' + runningStatusText + ' since ' + service.history[0][1]} 
-              />
-            </div>
-            <div className='ServicePage-buttonContainer'>
-              <div className='ServicePage-button'>
-                <Button
-                  label={'Admin interface'}
-                  disabled={!isRunning}
-                  onClick={() => { onRequestAdminPage(service.id) }}
+    const hasButtonToStopService = true
+    const hasButtonToOpenService = false
+
+    const isRunning = service.state === 'running'
+    const runningStatusText = service.status
+    const icon = `${cardImgRootUrl}${service.image}.png`
+
+    const runningSince = `
+      This service has been ${runningStatusText.toLowerCase()}
+      since ${service.history[0][1]}
+    `
+
+    return (
+      <div className='ServicePage'>
+
+        <ContentWrapper background>
+          <div className='ServicePage-header'>
+
+            <div className='ServicePage-headerParts'>
+              <div>
+                <Summary
+                  icon={icon}
+                  name={service.name}
+                  description={runningSince}
                 />
               </div>
-              <If cond={hasButtonToOpenService}>
+              <div className='ServicePage-buttonContainer'>
                 <div className='ServicePage-button'>
                   <Button
-                    label={'Open'}
+                    label={'Admin interface'}
                     disabled={!isRunning}
-                    onClick={() => { onRequestServicePage(service.id) }}
+                    onClick={this.onButtonToOpenAdminClicked}
                   />
                 </div>
-              </If>
-              <If cond={hasButtonToStopService}>
-                <div className='ServicePage-button'>
-                  <Button
-                  label={isRunning?'Stop':'Start'}
-                  disabled={false}
-                  onClick={() => { isRunning?onRequestStop(service.id):onRequestStart(service.id) }}
-                />
-                </div>
-              </If>
-            </div>
-          </div>
-        </div>
-      </ContentWrapper>
-
-      <ContentWrapper>
-          <div className='ServicePage-content'>
-
-            <div>
-              <If cond={service.details}>
-                <Details
-                  items={service.details}
-                />
-              </If>
-              <div className='ServicePage-ServicePageAbout'>
-                <About
-                  content={service.description}
-                />
+                <If cond={hasButtonToOpenService}>
+                  <div className='ServicePage-button'>
+                    <Button
+                      label={'Open'}
+                      disabled={!isRunning}
+                      onClick={this.onButtonToOpenServiceClicked}
+                    />
+                  </div>
+                </If>
+                <If cond={hasButtonToStopService}>
+                  <div className='ServicePage-button'>
+                    <Button
+                      label={isRunning? 'Stop' : 'Start'}
+                      disabled={false}
+                      onClick={this.onButtonToStopServiceClicked}
+                    />
+                  </div>
+                </If>
               </div>
             </div>
-
-            <div>
-              <If cond={service.interfaces}>
-                <Interfaces
-                  items={service.interfaces}
-                />
-              </If>
-            </div>
-
           </div>
         </ContentWrapper>
-        <ContentWrapper bordered>
-          <History 
-            items={service.history}
-          />
-        </ContentWrapper>
-    </div>
-  )
+
+        <ContentWrapper>
+            <div className='ServicePage-content'>
+
+              <div>
+                <If cond={service.details}>
+                  <Details
+                    items={service.details}
+                  />
+                </If>
+                <div className='ServicePage-ServicePageAbout'>
+                  <About
+                    content={service.description}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <If cond={service.interfaces}>
+                  <Interfaces
+                    items={service.interfaces}
+                  />
+                </If>
+              </div>
+
+            </div>
+          </ContentWrapper>
+          <ContentWrapper bordered>
+            <History 
+              items={service.history}
+            />
+          </ContentWrapper>
+      </div>
+    )
+  }
 }
 
 export default ServicePage
