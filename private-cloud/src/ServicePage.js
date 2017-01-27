@@ -13,36 +13,40 @@ import History from './HistoryList'
 
 class ServicePage extends Component {
 
-  constructor(props) {
-    super(props)
+  onButtonToOpenAdminClicked = () => {
+    const { service, onRequestAdminPage } = this.props
+    onRequestAdminPage(service.id)
+  }
 
-    this.state = {
-      service: props.service,
-      location: history.location,
-      isRunning: props.service.state==='running',
-      runningStatusText: props.service.status,
-      icon: `${props.cardImgRootUrl}${props.service.image}.png`,
-      hasButtonToStopService: false,
-      hasButtonToOpenService: true
-    }
+  onButtonToStopServiceClicked = () => {
+    const { service, onRequestStop, onRequestStart } = this.props
+    const callback = service.state === 'running'? onRequestStop : onRequestStart
+    callback(service.id)
+  }
+
+  onButtonToOpenServiceClicked = () => {
+    const { service, onRequestServicePage } = this.props
+    onRequestServicePage(service.id)
   }
 
   render () {
-    const {
-      icon,
-      service,
-      isRunning,
-      runningStatusText,
-      hasButtonToStopService,
-      hasButtonToOpenService
-    } = this.state
 
     const {
-      onRequestAdminPage,
-      onRequestServicePage,
-      onRequestStart,
-      onRequestStop,
+      cardImgRootUrl,
+      service,
     } = this.props
+
+    const hasButtonToStopService = true
+    const hasButtonToOpenService = false
+
+    const isRunning = service.state === 'running'
+    const runningStatusText = service.status
+    const icon = `${cardImgRootUrl}${service.image}.png`
+
+    const runningSince = `
+      This service has been ${runningStatusText.toLowerCase()}
+      since ${service.history[0][1]}
+    `
 
     return (
       <div className='ServicePage'>
@@ -55,7 +59,7 @@ class ServicePage extends Component {
                 <Summary
                   icon={icon}
                   name={service.name}
-                  description={'This service has been ' + runningStatusText.toLowerCase() + ' since ' + service.history[0][1]} 
+                  description={runningSince}
                 />
               </div>
               <div className='ServicePage-buttonContainer'>
@@ -63,7 +67,7 @@ class ServicePage extends Component {
                   <Button
                     label={'Admin interface'}
                     disabled={!isRunning}
-                    onClick={() => { onRequestAdminPage(service.id) }}
+                    onClick={this.onButtonToOpenAdminClicked}
                   />
                 </div>
                 <If cond={hasButtonToOpenService}>
@@ -71,17 +75,17 @@ class ServicePage extends Component {
                     <Button
                       label={'Open'}
                       disabled={!isRunning}
-                      onClick={() => { onRequestServicePage(service.id) }}
+                      onClick={this.onButtonToOpenServiceClicked}
                     />
                   </div>
                 </If>
                 <If cond={hasButtonToStopService}>
                   <div className='ServicePage-button'>
                     <Button
-                    label={isRunning?'Stop':'Start'}
-                    disabled={false}
-                    onClick={() => { isRunning?onRequestStop(service.id):onRequestStart(service.id) }}
-                  />
+                      label={isRunning? 'Stop' : 'Start'}
+                      disabled={false}
+                      onClick={this.onButtonToStopServiceClicked}
+                    />
                   </div>
                 </If>
               </div>
