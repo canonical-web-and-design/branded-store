@@ -18,8 +18,8 @@ export default function HomePage({
       <ContentWrapper>
         <Banner
           photo={`${publicUrl}/${bannerData.photo}`}
-          name={bannerData.deviceName}
-          id={bannerData.deviceId}
+          primaryText={bannerData.primaryText}
+          secondaryText={bannerData.secondaryText}
           primaryColor={bannerData.primaryColor}
           secondaryColor={bannerData.secondaryColor}
         />

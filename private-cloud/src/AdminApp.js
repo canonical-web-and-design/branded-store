@@ -30,9 +30,8 @@ const brandData = {
 
 const bannerData = {
   photo: 'banner-photo.png', 
-  deviceName: 'Ubuntu self-hosted private cloud suite',
-  deviceId: 'System Admin',
-  //secondaryColor: '#19B6EE',
+  primaryText: 'Ubuntu secure service suite',
+  secondaryText: 'System Admin',
 }
 
 function sectionFromPath(path) {

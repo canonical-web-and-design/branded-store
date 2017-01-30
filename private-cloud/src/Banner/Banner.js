@@ -20,8 +20,8 @@ export default function Banner(props) {
         />
       </div>
       <div>
-        <h1 className='Banner-primaryText' style={primaryStyle}>{props.name}</h1>
-        <p className='Banner-secondaryText' style={secondaryStyle}>{props.id}</p>
+        <h1 className='Banner-primaryText' style={primaryStyle}>{props.primaryText}</h1>
+        <p className='Banner-secondaryText' style={secondaryStyle}>{props.secondaryText}</p>
       </div>
     </section>
   )

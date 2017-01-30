@@ -28,8 +28,8 @@ const brandData = {
 
 const bannerData = {
   photo: 'banner-photo.png', 
-  deviceName: 'Ubuntu self-hosted private cloud suite',
-  deviceId: 'Greetings Lola',
+  primaryText: 'Ubuntu secure service suite',
+  secondaryText: 'Greetings Lola',
 }
 
 function sectionFromPath(path) {
