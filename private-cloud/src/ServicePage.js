@@ -36,8 +36,8 @@ class ServicePage extends Component {
       service,
     } = this.props
 
-    const hasButtonToStopService = true
-    const hasButtonToOpenService = false
+    const hasButtonToStopService = false
+    const hasButtonToOpenService = true
 
     const isRunning = service.state === 'running'
     const runningStatusText = service.status
