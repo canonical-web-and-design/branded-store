@@ -1,27 +1,19 @@
-# Stores
+# branded-store
 
-This repository contains two prototypes built using a shared set of components.
-
-In the future, the three root directories will be three separate projects.
+This repository contains a prototype for the snapweb branded store.
 
 ## Develop
 
 Install the dependencies:
 
 ```
-cd toolkit && npm install
-cd branded-store && npm install
-cd private-cloud && npm install
+npm install
 ```
 
-Run the branded stores demo:
+Run the development server:
 
 ```
-cd branded-store && npm start
+npm start
 ```
 
-Run the private cloud demo:
-
-```
-cd private-cloud && npm start
-```
+And open `http://localhost:3000/` in your browser.
