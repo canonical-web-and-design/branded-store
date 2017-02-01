@@ -209,7 +209,7 @@ class PurchaseSummary extends React.Component {
               <label htmlFor='password' style={{
                 display: 'block',
                 marginBottom: '10px',
-              }}>Enter your SSO password</label>
+              }}>Enter your Ubuntu password</label>
               <input
                 className='PurchaseSummary-input'
                 type='password'
