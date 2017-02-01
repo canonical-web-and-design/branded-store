@@ -6,6 +6,27 @@ import {
   CardsList,
 } from 'toolkit'
 
+function snapToStoreCard(snap) {
+  return {
+    id: snap.id,
+    name: snap.name,
+    author: snap.author,
+    action: snap.status === 'installing'? 'Installing' : (
+      snap.status === 'installed'? 'open' : (
+        snap.price === 'free'? 'Install' : snap.price
+      )
+    ),
+    image: snap.id,
+    rating: snap.rating,
+    installProgress: (
+      snap.status === 'installing'
+        ? snap.installProgress
+        : -1
+    ),
+    snap: snap,
+  }
+}
+
 const publicUrl = process.env.PUBLIC_URL
 
 class StoreCard extends Component {
@@ -96,10 +117,11 @@ class StorePage extends Component {
 
   render() {
     const {
-      featuredSnaps,
       cardImgRootUrl,
       onOpenSnap,
     } = this.props
+
+    const featuredSnaps = this.props.featuredSnaps.map(snapToStoreCard)
 
     const header = (
       <div>

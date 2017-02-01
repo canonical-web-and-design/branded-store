@@ -19,6 +19,7 @@ import SettingsPage from './SettingsPage/SettingsPage'
 import MyUbuntu from './MyUbuntu/MyUbuntu'
 
 import createHistory from 'history/createHashHistory'
+import miniroutes from 'miniroutes'
 
 import createStore from './store/store'
 import createBrands from './brands'
@@ -26,48 +27,26 @@ import createBrands from './brands'
 const DEFAULT_BRAND = 'lime'
 
 const pub = process.env.PUBLIC_URL
-const history = createHistory()
-const sections = [ 'store', 'settings', 'snap' ]
+
+const ROUTES = [
+  ['store', /^store$/],
+  ['store-category', /^store\/category\/(.+)?/],
+  ['settings', /^settings(?:\/(.+))?$/],
+  ['snap', /^snap\/(.+)$/],
+  ['snap-store', /^store\/snap\/(.+)$/],
+  ['snap-category', /^store\/category\/([^\/]+)\/snap\/(.+)$/],
+  ['home', /.*/],
+]
+
+// section based on route name
+const sections = {
+  'store': ['store', 'store-category'],
+  'settings': ['settings'],
+  'snap': ['snap', 'snap-store', 'snap-category'],
+  'home': ['home'],
+}
 
 const getBrands = createBrands(`${pub}/brands`)
-
-function sectionFromPath(path) {
-  const parts = path.split('/').slice(1)
-  return parts[0] === ''? 'home' : (
-    sections.find(section => parts[0] === section) || ''
-  )
-}
-
-function settingScreenFromPath(path) {
-  const parts = path.split('/').slice(1)
-  return (parts[0] === 'settings' && parts[1]) || ''
-}
-
-function snapIdFromPath(path) {
-  const parts = path.split('/').slice(1)
-  return (parts[0] === 'snap' && parts[1]) || ''
-}
-
-function snapToStoreCard(snap) {
-  return {
-    id: snap.id,
-    name: snap.name,
-    author: snap.author,
-    action: snap.status === 'installing'? 'Installing' : (
-      snap.status === 'installed'? 'open' : (
-        snap.price === 'free'? 'Install' : snap.price
-      )
-    ),
-    image: snap.id,
-    rating: snap.rating,
-    installProgress: (
-      snap.status === 'installing'
-        ? snap.installProgress
-        : -1
-    ),
-    snap: snap,
-  }
-}
 
 function snapToHomeCard(snap) {
   return {
@@ -94,7 +73,8 @@ class App extends Component {
     const store = createStore()
 
     this.state = {
-      location: history.location,
+      route: { name: '', params: [], value: '' },
+      // location: history.location,
       store: store,
       allSnaps: [],
       featuredSnapIds: [],
@@ -104,24 +84,29 @@ class App extends Component {
       quickBuySnap: '',
     }
 
-    history.listen(this.handleNavigation)
+    this.routing = miniroutes(ROUTES, this.handleRouteUpdate)
+    this.history = createHistory()
+    this.history.listen((location) => {
+      this.routing(location.pathname.slice(1))
+    })
   }
 
   componentDidMount() {
-    this.reloadBrands()
     this.state.store.listen(this.handleStoreEvents)
+    this.reloadBrands()
+    this.routing(this.history.location.pathname.slice(1))
   }
 
-  handleNavigation = (location) => {
-    this.setState({ location })
+  handleRouteUpdate = (route, previous) => {
+    this.setState({ route })
     window.scrollTo(0, 0)
   }
 
   goto = (path) => {
-    const pathname = `/${path || ''}`
-    if (pathname !== this.state.location.pathname) {
+    const pathname = `/${!path || path === 'home'? '' : path}`
+    if (path !== this.state.route.path) {
       this.state.store.cancelPurchases()
-      history.push(pathname)
+      this.history.push(pathname)
     }
   }
 
@@ -222,14 +207,23 @@ class App extends Component {
     ids.map(this.getSnap).filter(snap => snap)
   )
 
+  getFeaturedSnaps = () => {
+    const { featuredSnapIds } = this.state
+    return this.snapIdsToSnaps(
+      featuredSnapIds
+        .concat(featuredSnapIds)
+        .concat(featuredSnapIds)
+        .slice(0, 20)
+    )
+  }
+
   render() {
 
     const {
-      location,
       allSnaps,
-      featuredSnapIds,
       brand,
       brands,
+      route,
     } = this.state
 
     const homeSnaps = allSnaps.filter(
@@ -239,14 +233,9 @@ class App extends Component {
       )
     )
 
-    const featuredSnaps = this.snapIdsToSnaps(
-      featuredSnapIds
-        .concat(featuredSnapIds)
-        .concat(featuredSnapIds)
-        .slice(0, 20)
+    const section = Object.keys(sections).find(
+      name => sections[name].includes(route.name)
     )
-
-    const currentSection = sectionFromPath(location.pathname)
 
     const cardImgRootUrl = `${pub}/icons/cards/`
 
@@ -264,15 +253,13 @@ class App extends Component {
       />
     )
 
-    const currentSettingScreen = settingScreenFromPath(location.pathname)
-
     const currSnap = allSnaps.find(snap => (
-      snap.id === snapIdFromPath(location.pathname) ||
+      snap.id === route.params[route.params.length - 1] ||
       snap.id === this.state.quickBuySnap
     ))
 
     let waitingPayment = false
-    if ((currentSection === 'store' || currentSection === 'snap') && currSnap) {
+    if ((section === 'store' || section === 'snap') && currSnap) {
       waitingPayment = (
         currSnap.status === 'wait-confirm' ||
         currSnap.status === 'confirming1' ||
@@ -282,7 +269,7 @@ class App extends Component {
 
     let waitStoreToPay = false
     let waitPayToStore = false
-    if ((currentSection === 'store' || currentSection === 'snap') && currSnap) {
+    if ((section === 'store' || section === 'snap') && currSnap) {
       waitStoreToPay = (
         currSnap.status === 'authorizing'
       )
@@ -310,7 +297,7 @@ class App extends Component {
               menuitems={[
                 { id: 'home', name: brandData.systemName },
               ]}
-              currentSection={currentSection === 'snap'? 'store' : currentSection}
+              currentSection={section}
               onMenuItemClick={this.onMenuItemClick}
               logo={
                 // brandData.id
@@ -321,7 +308,7 @@ class App extends Component {
               customColor={brandData.color}
             />
             <main className='App-content'>
-              <If cond={currentSection === 'home'}>
+              <If cond={section === 'home'}>
                 <HomePage
                   cardImgRootUrl={cardImgRootUrl}
                   snaps={homeSnaps.map(snapToHomeCard)}
@@ -329,21 +316,21 @@ class App extends Component {
                   brandData={brandData}
                 />
               </If>
-              <If cond={currentSection === 'store'}>
+              <If cond={section === 'store'}>
                 <StorePage
                   cardImgRootUrl={cardImgRootUrl}
-                  featuredSnaps={featuredSnaps.map(snapToStoreCard)}
+                  featuredSnaps={this.getFeaturedSnaps()}
                   onOpenSnap={this.onOpenSnap}
                   onInstallSnap={this.quickInstall}
                   onRemoveSnap={this.quickRemove}
                 />
               </If>
-              <If cond={currentSection === 'snap'}>
+              <If cond={section === 'snap'}>
                 <div className='App-SnapPage'>
                   <SnapPage
                     cardImgRootUrl={cardImgRootUrl}
                     snap={allSnaps.find(snap => (
-                      snap.id === snapIdFromPath(location.pathname)
+                      snap.id === route.params[route.params.length - 1]
                     ))}
                     onRequestInstall={this.requestInstall}
                     onRequestRemove={this.requestRemove}
@@ -354,9 +341,9 @@ class App extends Component {
                   />
                 </div>
               </If>
-              <If cond={currentSection === 'settings'}>
+              <If cond={section === 'settings'}>
                 <SettingsPage
-                  screenId={currentSettingScreen}
+                  screenId={route.params[0]}
                   onNavChange={this.settingsNavChange}
                 />
               </If>

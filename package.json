@@ -50,6 +50,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "history": "^4.5.1",
+    "miniroutes": "^0.1.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "snapweb-toolkit": "git://github.com/ubuntudesign/snapweb-toolkit.git#master"
