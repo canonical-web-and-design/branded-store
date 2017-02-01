@@ -24,6 +24,7 @@ export default function HomePage({
   }
 
   const cards = [
+    addCard,
     ...snaps
     // store the index to keep the sorting order
     .map((snap, i) => [i, snap])
@@ -34,7 +35,6 @@ export default function HomePage({
     })
     // back to objects
     .map(s => s[1]),
-    addCard
   ]
 
   const photo = brandData.id? (

@@ -27,9 +27,6 @@ button, [role=button] {
   user-select: none;
   cursor: pointer;
 }
-.link {
-  /* text-decoration: underline; */
-}
 .external {
   padding-right: 20px;
   color: #335280;
