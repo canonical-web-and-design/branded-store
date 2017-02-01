@@ -1,9 +1,10 @@
 const TAGS = [
-  ['Name', 'name'],
+  ['Brand Name', 'brandName'],
   ['Color', 'color'],
   ['Color2', 'color2'],
+  ['System Name', 'systemName'],
   ['Device Name', 'deviceName'],
-  ['Device ID', 'deviceId'],
+  ['Device Name 2', 'deviceName2'],
 ]
 
 function parseBrandSettings(data) {
@@ -16,29 +17,32 @@ function parseBrandSettings(data) {
     if (!value) return
     brand[tag[1]] = value.trim()
   })
-  return brand.name? brand : null
+  return brand
 }
 
 const brandContent = {
   lime: [
-    'Name: Lime Microsystems',
+    'Brand Name: Lime Microsystems',
     'Color: #BAD72D',
     'Color2: #2E893A',
-    'Device Name: LimeNET',
-    'Device ID: LimeSDR LM677 NLM871000',
+    'System Name: LimeNET',
+    'Device Name: LimeSDR',
+    'Device Name 2: LM677 NLM871000',
   ].join('\n'),
   bosch: [
-    'Name: BOSCH',
+    'Brand Name: BOSCH',
     'Color: #FE000C',
-    'Device Name: Smart Home Controller',
-    'Device ID: Bosch 8750000001 4057749314475',
+    'System Name: Smart Home',
+    'Device Name: Bosch',
+    'Device Name 2: 8750000001 4057749314475',
   ].join('\n'),
   keymile: [
-    'Name: KEYMILE',
+    'Brand Name: KEYMILE',
     'Color: #FF7301',
     'Color2: #FF7301',
-    'Device Name: OrcaX access node',
-    'Device ID: OrcaX MX1 (VDSL2) HAJA77669A',
+    'System Name: OrcaX',
+    'Device Name: OrcaX MX1',
+    'Device Name 2: (VDSL2) HAJA77669A',
   ].join('\n'),
 }
 
@@ -66,15 +70,13 @@ function getBrandsIndex(url) {
 export default function createApi(baseUrl) {
   return function getBrands() {
     return getBrandsIndex(`${baseUrl}/brands-index.txt`)
-      .then(ids => (
-        Promise.all(
-          ids.map(id => (
-            fetchBrandSettings(id).then(text => ({
-              id: id,
-              text: text,
-            }))
-          ))
-        )
+      .then(ids => Promise.all(
+        ids.map(id => (
+          fetchBrandSettings(id).then(text => ({
+            id: id,
+            text: text,
+          }))
+        ))
       ))
       .then(brands => (
         brands
