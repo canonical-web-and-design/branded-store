@@ -2,9 +2,10 @@ import React from 'react'
 
 import {
   ContentWrapper,
-  DeviceBanner,
   CardsList,
 } from 'toolkit'
+
+import DeviceBanner from '../DeviceBanner/DeviceBanner'
 
 const publicUrl = process.env.PUBLIC_URL
 
@@ -44,9 +45,10 @@ export default function HomePage({
     <div>
       <ContentWrapper>
         <DeviceBanner
-          photo={photo}
-          name={brandData.deviceName}
-          id={brandData.deviceId}
+          image={photo}
+          brandName={brandData.brandName}
+          deviceName={brandData.deviceName}
+          deviceId={brandData.deviceName2}
           color={brandData.color2 || brandData.color}
         />
       </ContentWrapper>
