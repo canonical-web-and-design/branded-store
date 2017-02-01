@@ -307,8 +307,7 @@ class App extends Component {
           <div className='App-main'>
             <Header
               menuitems={[
-                { id: 'store', name: 'Store' },
-                { id: 'settings', name: 'Settings' },
+                { id: 'home', name: brandData.systemName },
               ]}
               currentSection={currentSection === 'snap'? 'store' : currentSection}
               onMenuItemClick={this.onMenuItemClick}
