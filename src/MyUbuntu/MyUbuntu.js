@@ -30,7 +30,7 @@ export default class MyUbuntu extends Component {
     const icon = `${cardImgRootUrl}${snap.id}.png`
 
     const content = {
-      title: `Purchasing ${name}`,
+      title: `Purchasing`,
       listTitle: `Buying ${name} is easy, all you need to do is:`,
       listItems: [
         `Log in using Ubuntu Single Sign On`,
