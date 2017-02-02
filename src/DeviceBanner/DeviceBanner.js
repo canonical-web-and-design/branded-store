@@ -3,7 +3,6 @@ import './DeviceBanner.css'
 
 import {
   If,
-  Link,
   Button,
   Icon,
 } from 'toolkit'
@@ -17,7 +16,6 @@ class DeviceBanner extends PureComponent {
       image,
       deviceName,
       deviceId,
-      color,
     } = this.props
 
     return (
