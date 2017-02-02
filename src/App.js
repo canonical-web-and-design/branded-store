@@ -46,6 +46,14 @@ const sections = {
   'home': ['home'],
 }
 
+const categories = [
+  'databases',
+  'network',
+  'robotics',
+  'home',
+  'private',
+]
+
 const getBrands = createBrands(`${pub}/brands`)
 
 function snapToHomeCard(snap) {
@@ -74,7 +82,6 @@ class App extends Component {
 
     this.state = {
       route: { name: '', params: [], value: '' },
-      // location: history.location,
       store: store,
       allSnaps: [],
       featuredSnapIds: [],
@@ -189,6 +196,7 @@ class App extends Component {
 
     this.goto(id === 'home'? '' : id)
   }
+
   onOpenSnap = (id) => {
     if (id === 'add') {
       return this.goto('store')
@@ -199,6 +207,7 @@ class App extends Component {
       this.goto(`snap/${id}`)
     }
   }
+
   settingsNavChange = (id) => {
     this.goto(`settings${id? `/${id}` : ''}`)
   }
@@ -215,6 +224,10 @@ class App extends Component {
         .concat(featuredSnapIds)
         .slice(0, 20)
     )
+  }
+
+  handleTagClick = (name) => {
+    this.goto(`store/category/${name}`)
   }
 
   render() {
@@ -321,8 +334,12 @@ class App extends Component {
                   cardImgRootUrl={cardImgRootUrl}
                   featuredSnaps={this.getFeaturedSnaps()}
                   onOpenSnap={this.onOpenSnap}
+                  onTagClick={this.handleTagClick}
                   onInstallSnap={this.quickInstall}
                   onRemoveSnap={this.quickRemove}
+                  categories={categories}
+                  category={route.name === 'store-category'? route.params[0] : ''}
+                  brandData={brandData}
                 />
               </If>
               <If cond={section === 'snap'}>
@@ -350,7 +367,7 @@ class App extends Component {
             </main>
             <Footer 
               firstLine={themeChanger}
-              copyright={`© ${(new Date()).getFullYear()} ${brandData.name}`}
+              copyright={`© ${(new Date()).getFullYear()} ${brandData.brandName}`}
               logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
             />
           </div>

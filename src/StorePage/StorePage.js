@@ -1,10 +1,13 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 import {
   ContentWrapper,
-  Card,
   CardsList,
 } from 'toolkit'
+
+import Tag from './Tag'
+import StoreCard from './StoreCard'
+import Highlight from '../Highlight/Highlight'
 
 function snapToStoreCard(snap) {
   return {
@@ -27,63 +30,13 @@ function snapToStoreCard(snap) {
   }
 }
 
-const publicUrl = process.env.PUBLIC_URL
-
-class StoreCard extends Component {
-
-  onClick = () => {
-    this.props.onClick(this.props.card.id)
-  }
-
-  onActionClick = () => {
-    this.props.onActionClick(this.props.card.snap)
-  }
-
-  render() {
-    const {
-      card,
-      image,
-      readyToBuy,
-    } = this.props
-
-    const {
-      name,
-      author,
-      action,
-      rating,
-      id,
-      type,
-      installProgress = -1,
-      snap,
-    } = card
-
-    let finalAction = (
-      type? action : (action || 'open')
-    )
-
-    if ((readyToBuy && snap.status === 'uninstalled') || snap.status === 'authorizing') {
-      finalAction = 'Buy'
-    }
-
-    return (
-      <Card
-        name={name}
-        author={author}
-        action={finalAction}
-        type={type}
-        image={image}
-        onClick={this.onClick}
-        onActionClick={this.onActionClick}
-        rating={rating}
-        positive={id === 'add'}
-        alignBottom={id === 'add'}
-        installProgress={installProgress}
-      />
-    )
-  }
+function capitalize(str) {
+  return str.slice(0, 1).toUpperCase() + str.slice(1)
 }
 
-class StorePage extends Component {
+const publicUrl = process.env.PUBLIC_URL
+
+class StorePage extends PureComponent {
 
   constructor(props) {
     super(props)
@@ -115,51 +68,67 @@ class StorePage extends Component {
     this.setState({ readyToBuy: '' })
   }
 
+  handleTagClick = (tag) => {
+    this.props.onTagClick(tag)
+  }
+
   render() {
+
     const {
+      brandData,
       cardImgRootUrl,
       onOpenSnap,
+      categories,
+      featuredSnaps,
+      category = '',
     } = this.props
 
-    const featuredSnaps = this.props.featuredSnaps.map(snapToStoreCard)
+    const featuredSnapCards = featuredSnaps.map(snapToStoreCard)
 
     const header = (
       <div>
-        <div
-          style={{
-            display: 'flex',
-            marginTop: '25px',
-            marginBottom: '20px',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <h1 style={{ fontSize: '24px' }}>
-            Featured Snaps
-          </h1>
-          <p style={{ fontSize: '16px' }}>
-            {[
-              'databases',
-              'network',
-              'robotics',
-              'home',
-              'private',
-            ].map(tag => (
-              <span key={tag}>
-                <a role='button'>{tag}</a>
-                <span>{' '}</span>
-              </span>
-            ))}
-          </p>
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              marginTop: '25px',
+              marginBottom: '20px',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <h1 style={{ fontSize: '24px' }}>
+              {category? capitalize(category) : 'Featured Snaps'}
+            </h1>
+            <p style={{ fontSize: '16px' }}>
+              {categories.map(tag => (
+                <span key={tag}>
+                  <Tag
+                    name={tag}
+                    onClick={this.handleTagClick}
+                    color={brandData.color2}
+                  />
+                  <span>{' '}</span>
+                </span>
+              ))}
+            </p>
+          </div>
+          <div
+            style={{
+              width: '100%',
+              height: '0',
+              marginTop: '20px',
+              borderBottom: '1px dotted #D2D2D2',
+            }} 
+          />
         </div>
-        <div
-          style={{
-            width: '100%',
-            height: '0',
-            marginTop: '20px',
-            borderBottom: '1px dotted #D2D2D2',
-          }} 
-        />
+        {category? (
+          <div style={{
+            margin: '38px 0',
+          }}>
+            <Highlight />
+          </div>
+        ) : null}
       </div>
     )
 
@@ -178,11 +147,11 @@ class StorePage extends Component {
             alt='Search Field placeholder'
           />
           <CardsList
-            cards={featuredSnaps}
+            cards={featuredSnapCards}
             cardImgRootUrl={cardImgRootUrl}
             header={header}
           >
-            {featuredSnaps.map((card, i) => (
+            {featuredSnapCards.map((card, i) => (
               <StoreCard
                 key={card.id + i}
                 card={card}
