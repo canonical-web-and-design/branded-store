@@ -56,23 +56,6 @@ const categories = [
 
 const getBrands = createBrands(`${pub}/brands`)
 
-function snapToHomeCard(snap) {
-  return {
-    id: snap.id,
-    name: snap.name,
-    author: snap.author,
-    type: snap.type === 'Snap'? '' : snap.type,
-    action: snap.status === 'installing'? 'Installing' : null,
-    image: snap.id,
-    installProgress: (
-      snap.status === 'installing'
-        ? snap.installProgress
-        : -1
-    ),
-    snap: snap,
-  }
-}
-
 class App extends Component {
 
   constructor(props) {
@@ -197,7 +180,7 @@ class App extends Component {
     this.goto(id === 'home'? '' : id)
   }
 
-  onOpenSnap = (id) => {
+  handleOpenSnap = (id) => {
     if (id === 'add') {
       return this.goto('store')
     }
@@ -208,7 +191,11 @@ class App extends Component {
     }
   }
 
-  settingsNavChange = (id) => {
+  handleOpenSettings = () => {
+    this.goto('settings')
+  }
+
+  handleSettingsNavChange = (id) => {
     this.goto(`settings${id? `/${id}` : ''}`)
   }
 
@@ -324,8 +311,9 @@ class App extends Component {
               <If cond={section === 'home'}>
                 <HomePage
                   cardImgRootUrl={cardImgRootUrl}
-                  snaps={homeSnaps.map(snapToHomeCard)}
-                  onOpenSnap={this.onOpenSnap}
+                  snaps={homeSnaps}
+                  onOpenSnap={this.handleOpenSnap}
+                  onOpenSettings={this.handleOpenSettings}
                   brandData={brandData}
                 />
               </If>
@@ -333,7 +321,7 @@ class App extends Component {
                 <StorePage
                   cardImgRootUrl={cardImgRootUrl}
                   featuredSnaps={this.getFeaturedSnaps()}
-                  onOpenSnap={this.onOpenSnap}
+                  onOpenSnap={this.handleOpenSnap}
                   onTagClick={this.handleTagClick}
                   onInstallSnap={this.quickInstall}
                   onRemoveSnap={this.quickRemove}
@@ -361,7 +349,7 @@ class App extends Component {
               <If cond={section === 'settings'}>
                 <SettingsPage
                   screenId={route.params[0]}
-                  onNavChange={this.settingsNavChange}
+                  onNavChange={this.handleSettingsNavChange}
                 />
               </If>
             </main>

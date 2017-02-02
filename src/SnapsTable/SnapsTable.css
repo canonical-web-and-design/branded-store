@@ -1,0 +1,41 @@
+.SnapsTable-header {
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+.SnapsTable-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background: #FFF;
+}
+.SnapsTable-table-header {
+  border-bottom: 1px solid #333;
+}
+.SnapsTable-table-header th {
+  padding: 15px 20px;
+  font-weight: 300;
+  color: #888;
+  text-align: left;
+  font-size: 14px;
+}
+.SnapsTable-table-row {
+  border-top: 1px dotted #CDCDCD;
+  cursor: pointer;
+}
+.SnapsTable-table-header + .SnapsTable-table-row {
+  border-top: 0;
+}
+.SnapsTable-table-row td {
+  vertical-align: middle;
+  padding: 10px 0 10px 20px;
+}
+.SnapsTable-name {
+  color: #333;
+}
+.SnapsTable-name img {
+  vertical-align: middle;
+  margin-right: 20px;
+}
+.SnapsTable-author {
+  color: #888;
+}

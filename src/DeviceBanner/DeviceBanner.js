@@ -9,6 +9,10 @@ import {
 
 class DeviceBanner extends PureComponent {
 
+  handleSettingsClick = () => {
+    this.props.onSettingsClick()
+  }
+
   render() {
 
     const {
@@ -33,7 +37,7 @@ class DeviceBanner extends PureComponent {
             <span>{deviceId}</span>
           </p>
           <div className='DeviceBanner-buttoncontainer'>
-            <Button 
+            <Button
               style={{
                 marginRight: '10px',
               }}
@@ -47,6 +51,7 @@ class DeviceBanner extends PureComponent {
             </Button>
             <Button
               label={'Settings'}
+              onClick={this.handleSettingsClick}
             />
           </div>
           
