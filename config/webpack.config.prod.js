@@ -150,7 +150,7 @@ module.exports = {
       // in the main CSS file.
       {
         test: /\.css$/,
-        include: [ paths.appSrc ],
+        // include: [ paths.appSrc ],
         loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss')
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },
