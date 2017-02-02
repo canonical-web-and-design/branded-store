@@ -2,10 +2,6 @@
 # yarn lockfile v1
 
 
-"@ljharb/eslint-config@ljharb/eslint-config":
-  version "9.0.1"
-  resolved "https://codeload.github.com/ljharb/eslint-config/tar.gz/19dbfc7abb49a87e7dc22db03e5ab0756d2688b3"
-
 abab@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -3446,6 +3442,10 @@ minimist@^1.1.1, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
+miniroutes@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/miniroutes/-/miniroutes-0.1.1.tgz#d9008a4d1753d36f27cf23b350258e59b9ed8acd"
+
 mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
@@ -4626,6 +4626,10 @@ slash@^1.0.0:
 slice-ansi@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
+
+"snapweb-toolkit@git://github.com/ubuntudesign/snapweb-toolkit.git#master":
+  version "0.1.1"
+  resolved "git://github.com/ubuntudesign/snapweb-toolkit.git#9233644afe452cd143b445416264a9af46b69a5e"
 
 sntp@1.x.x:
   version "1.0.9"
