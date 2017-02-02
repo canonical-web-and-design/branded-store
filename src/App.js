@@ -167,7 +167,7 @@ class App extends Component {
     }
   }
 
-  onMenuItemClick = (id) => {
+  handleMenuItemClick = (id) => {
     // if (id === 'home') {
       // if (this.state.waitingPayment) {
       //   this.stopWaitPayment()
@@ -178,6 +178,10 @@ class App extends Component {
     // }
 
     this.goto(id === 'home'? '' : id)
+  }
+
+  handleLogoClick = () => {
+    window.open('http://www.limemicro.com/')
   }
 
   handleOpenSnap = (id) => {
@@ -298,7 +302,8 @@ class App extends Component {
                 { id: 'home', name: brandData.systemName },
               ]}
               currentSection={section}
-              onMenuItemClick={this.onMenuItemClick}
+              onMenuItemClick={this.handleMenuItemClick}
+              onLogoClick={this.handleLogoClick}
               logo={
                 // brandData.id
                 // ? `${pub}/brands/${brandData.id}/logo.png`
