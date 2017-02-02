@@ -4,6 +4,8 @@ import './DeviceBanner.css'
 import {
   If,
   Link,
+  Button,
+  Icon,
 } from 'toolkit'
 
 class DeviceBanner extends PureComponent {
@@ -32,13 +34,24 @@ class DeviceBanner extends PureComponent {
             <span>{' '}</span>
             <span>{deviceId}</span>
           </p>
-          <p>
-            <Link
-              label='Developer documentation'
-              color={color}
-              external={true}
+          <div className='DeviceBanner-buttoncontainer'>
+            <Button 
+              style={{
+                marginRight: '10px',
+              }}
+            >
+              <span>
+                Documentation
+                <span className='Link-external-icon'>
+                  <Icon name='external' />
+                </span>
+              </span>
+            </Button>
+            <Button
+              label={'Settings'}
             />
-          </p>
+          </div>
+          
         </div>
       </section>
     )
