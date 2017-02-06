@@ -358,6 +358,7 @@ class App extends Component {
               firstLine={themeChanger}
               copyright={`© ${(new Date()).getFullYear()} ${brandData.brandName}`}
               logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
+              link={brandData.website}
             />
           </div>
         </If>

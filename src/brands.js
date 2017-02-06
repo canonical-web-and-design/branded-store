@@ -1,5 +1,6 @@
 const TAGS = [
   ['Brand Name', 'brandName'],
+  ['Website', 'website'],
   ['Color', 'color'],
   ['Color2', 'color2'],
   ['System Name', 'systemName'],
@@ -23,12 +24,14 @@ function parseBrandSettings(data) {
 const brandContent = {
   ubuntu: [
     'Brand Name: Connected Grid Router',
+    'Website: http://www.ubuntu.com/',
     'System Name: Apps',
     'Device Name: Cisco',
     'Device Name 2: CGR1120 C02PQ53JFVH8',
   ].join('\n'),
   lime: [
     'Brand Name: Lime Microsystems',
+    'Website: http://www.limemicro.com/',
     'Color: #BAD72D',
     'Color2: #2E893A',
     'System Name: LimeNET',
@@ -44,6 +47,7 @@ const brandContent = {
   ].join('\n'),
   keymile: [
     'Brand Name: KEYMILE',
+    'Website: http://www.keymile.com',
     'Color: #FF7301',
     'Color2: #FF7301',
     'System Name: OrcaX',
@@ -61,9 +65,9 @@ function fetchBrandSettings(brandId) {
 
 function getBrandsIndex(url) {
   return Promise.resolve([
-    // 'ubuntu',
-    'lime',
-    // 'keymile',
+     //'ubuntu',
+     'lime',
+     //'keymile',
     // 'bosch',
   ])
   // return fetch(url)
