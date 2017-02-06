@@ -21,6 +21,12 @@ function parseBrandSettings(data) {
 }
 
 const brandContent = {
+  ubuntu: [
+    'Brand Name: Connected Grid Router',
+    'System Name: Apps',
+    'Device Name: Cisco',
+    'Device Name 2: CGR1120 C02PQ53JFVH8',
+  ].join('\n'),
   lime: [
     'Brand Name: Lime Microsystems',
     'Color: #BAD72D',
@@ -55,7 +61,10 @@ function fetchBrandSettings(brandId) {
 
 function getBrandsIndex(url) {
   return Promise.resolve([
-    'lime' //, 'keymile', 'bosch',
+    // 'ubuntu',
+    'lime',
+    // 'keymile',
+    // 'bosch',
   ])
   // return fetch(url)
   //   .then(res => res.text())

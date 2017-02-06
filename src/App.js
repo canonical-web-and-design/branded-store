@@ -243,11 +243,7 @@ class App extends Component {
 
     const cardImgRootUrl = `${pub}/icons/cards/`
 
-    const brandData = brands.find(br => br.id === brand) || {
-      id: 'default',
-      deviceName: 'Connected grid router',
-      deviceId: 'Cisco CGR1120 C02PQ53JFVH8',
-    }
+    const brandData = brands.find(br => br.id === brand) || {}
 
     const themeChanger = brands.length < 2? null : (
       <ThemeChanger

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import App from './App.js'
 import './index.css'
 
-// import Perf from 'react-addons-perf' // ES6
+// import Perf from 'react-addons-perf'
 
 // (() => {
 //   const div = document.createElement('div')
