@@ -41,7 +41,7 @@ export default class HomePage extends PureComponent {
 
     const addCard = {
       id: 'add',
-      name: 'Add more snaps for this device',
+      name: 'Add new snaps to this device',
       action: 'Browse store',
       image: 'add-snap',
     }
@@ -57,7 +57,6 @@ export default class HomePage extends PureComponent {
     const systemSnaps = snaps.filter(snap => SYSTEM_SNAP_TYPES.includes(snap.type))
 
     const cards = [
-      addCard,
       ...installedSnaps.map(snapToCard)
       // store the index to keep the sorting order
       .map((snap, i) => [i, snap])
@@ -68,6 +67,7 @@ export default class HomePage extends PureComponent {
       })
       // back to objects
       .map(s => s[1]),
+      addCard,
     ]
 
 
