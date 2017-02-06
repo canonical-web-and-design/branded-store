@@ -208,13 +208,7 @@ class App extends Component {
   )
 
   getFeaturedSnaps = () => {
-    const { featuredSnapIds } = this.state
-    return this.snapIdsToSnaps(
-      featuredSnapIds
-        .concat(featuredSnapIds)
-        .concat(featuredSnapIds)
-        .slice(0, 20)
-    )
+    return this.snapIdsToSnaps(this.state.featuredSnapIds)
   }
 
   handleTagClick = (name) => {
