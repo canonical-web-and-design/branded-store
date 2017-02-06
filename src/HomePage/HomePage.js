@@ -42,7 +42,7 @@ export default class HomePage extends PureComponent {
     const addCard = {
       id: 'add',
       name: 'Add new snaps to this device',
-      action: 'Browse store',
+      action: 'Store',
       image: 'add-snap',
     }
 
