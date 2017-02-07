@@ -158,20 +158,11 @@ class App extends Component {
   }
 
   handleMenuItemClick = (id) => {
-    // if (id === 'home') {
-      // if (this.state.waitingPayment) {
-      //   this.stopWaitPayment()
-      // } else {
-      //   this.waitPayment()
-      // }
-      // return
-    // }
-
     this.goto(id === 'home'? '' : id)
   }
 
   handleProfileClick = (id) => {
-    // do nothing for now 
+    // do nothing for now
   }
 
   handleLogoClick = () => {
@@ -286,7 +277,6 @@ class App extends Component {
               currentSection={section}
               onMenuItemClick={this.handleMenuItemClick}
               onProfileClick={this.handleProfileClick}
-
             />
             <main className='App-content'>
               <If cond={section === 'home'}>
