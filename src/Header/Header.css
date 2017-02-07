@@ -24,30 +24,29 @@
   left: 0;
   bottom: 0;
 }
+
 .Header-back {
   position: relative;
   display: flex;
   align-items: center;
   margin: 0 0 0 0;
   padding-right: 15px;
-  padding-left: 30px;
+  padding-left: 20px;
   white-space: nowrap;
   outline: 0;
 }
 .Header-back span:first-child {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 .Header-back:focus .Header-activeOverlay,
 .Header-back:active .Header-activeOverlay {
   background: rgba(0,0,0,0.05);
 }
 .Header-profile {
-  position: relative;
   display: flex;
   align-items: center;
-  margin: 0 0 0 auto;
-  padding-left: 15px;
-  padding-right: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
   white-space: nowrap;
   outline: 0;
 }
@@ -56,5 +55,20 @@
 }
 .Header-profile:focus .Header-activeOverlay,
 .Header-profile:active .Header-activeOverlay {
+  background: rgba(0,0,0,0.05);
+}
+.Header-signIn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-left: 1px solid #CDCDCD;
+  white-space: nowrap;
+  outline: 0;
+}
+
+.Header-signIn:focus .Header-activeOverlay,
+.Header-signIn:active .Header-activeOverlay {
   background: rgba(0,0,0,0.05);
 }

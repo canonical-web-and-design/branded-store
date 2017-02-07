@@ -9,6 +9,7 @@ import {
  } from 'toolkit'
 
 const defaultProfileName = 'Lola Chang'
+const singInText='Sign out'
 
 class Header extends Component {
   handleBackClick = (event) => {
@@ -23,6 +24,13 @@ class Header extends Component {
       this.props.onProfileClick()
     }
   }
+  handleSignInClick = (event) => {
+    event.currentTarget.blur()
+    if (this.props.onSignInClick) {
+      this.props.onSignInClick()
+    }
+  }
+
   render() {
     const { props } = this
     const styles = props.customColor? {
@@ -46,7 +54,7 @@ class Header extends Component {
               onClick={this.handleBackClick}
             >
               <span>
-                <Icon name='previous' size='30' />
+                <Icon name='previous' size='20px' />
               </span>
               <span>Back</span>
               <div className='Header-activeOverlay' />
@@ -60,6 +68,15 @@ class Header extends Component {
           >
             <img width='24' height='24' src={avatar} alt='' />
             <span>{props.profilename || defaultProfileName}</span>
+            <div className='Header-activeOverlay' />
+          </div>
+          <div
+            className='Header-signIn'
+            role='button'
+            tabIndex='0'
+            onClick={this.handleSignInClick}
+          >
+            <span>{singInText}</span>
             <div className='Header-activeOverlay' />
           </div>
         </div>
