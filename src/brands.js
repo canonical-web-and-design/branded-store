@@ -1,3 +1,7 @@
+import Papa from 'papaparse'
+
+const pub = process.env.PUBLIC_URL
+
 const TAGS = [
   ['Brand Name', 'brandName'],
   ['Website', 'website'],
@@ -7,6 +11,34 @@ const TAGS = [
   ['Device Name', 'deviceName'],
   ['Device Name 2', 'deviceName2'],
 ]
+
+const CSV_TAGS = {
+  'Brand Name': 'brandName',
+  'Brand URL': 'website',
+  'Color 1': 'color',
+  'Color 2': 'color2',
+  'Product Name': 'deviceName',
+  'Product Serial': 'systemName',
+  'Documentation URL': 'docUrl',
+  'Terms and condition URL': 'termsUrl',
+}
+
+function getBrandData(url) {
+  return new Promise((resolve) => {
+    Papa.parse(url, {
+      download: true,
+      header: true,
+      complete: resolve,
+    })
+  })
+  .then(rows => {
+    const row = rows.data[0]
+    return Object.keys(row).reduce((data, key) => {
+      data[CSV_TAGS[key]] = row[key]
+      return data
+    }, {})
+  })
+}
 
 function parseBrandSettings(data) {
   const brand = {}
@@ -58,6 +90,7 @@ const brandContent = {
 
 function fetchBrandSettings(brandId) {
   return Promise.resolve(brandContent[brandId])
+
   // fetch(`${baseUrl}/${id}/settings.txt`)
   //   .catch(reason => Promise.resolve(null))
   //   .then(res => res? res.text() : null)
@@ -82,25 +115,11 @@ function getBrandsIndex(url) {
 
 export default function createApi(baseUrl) {
   return function getBrands() {
-    return getBrandsIndex(`${baseUrl}/brands-index.txt`)
-      .then(ids => Promise.all(
-        ids.map(id => (
-          fetchBrandSettings(id).then(text => ({
-            id: id,
-            text: text,
-          }))
-        ))
-      ))
-      .then(brands => (
-        brands
-          .filter(brand => brand.text)
-          .map(brand => (
-            Object.assign(
-              { id: brand.id },
-              parseBrandSettings(brand.text)
-            )
-          ))
-          .filter(brand => brand)
-      ))
+    return getBrandData(`${pub}/brand-settings/brand.csv`)
+      .then(brandData => {
+        return [
+          Object.assign({ id: 'lime' }, brandData)
+        ]
+      })
   }
 }
