@@ -87,7 +87,7 @@ export default class HomePage extends PureComponent {
         <ContentWrapper bordered>
 
           <CardsList
-            title='Installed Snaps'
+            title='Installed'
             cards={cards}
             cardImgRootUrl={cardImgRootUrl}
             onCardClick={onOpenSnap}

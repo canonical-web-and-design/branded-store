@@ -98,7 +98,7 @@ class StorePage extends PureComponent {
             }}
           >
             <h1 style={{ fontSize: '24px' }}>
-              {category? capitalize(category) : 'Featured Snaps'}
+              {category? capitalize(category) : 'Featured'}
             </h1>
             <p style={{ fontSize: '16px' }}>
               {categories.map(tag => (
