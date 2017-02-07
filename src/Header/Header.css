@@ -24,55 +24,6 @@
   left: 0;
   bottom: 0;
 }
-.Header-logo {
-  position: relative;
-  flex-grow: 0;
-  margin: 0;
-  padding: 0 20px 0 30px;
-  outline: 0;
-}
-.Header-logo:focus .Header-activeOverlay,
-.Header-logo:active .Header-activeOverlay {
-  background: rgba(0,0,0,0.05);
-}
-.Header-logo img {
-  display: block;
-  max-height: 100%;
-}
-.Header-nav ul {
-  display: flex;
-  height: 48px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-left: 1px solid #E3E3E3;
-}
-.Header-nav li {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin-top: 0;
-  padding: 0 14px;
-  border-right: 1px solid #E3E3E3;
-  outline: 0;
-}
-.Header-nav img {
-  height: 20px;
-  margin-right: 10px;
-}
-.Header-nav .Header-nav-currentLine {
-  position: absolute;
-  left: -1px;
-  right: -1px;
-  bottom: 0;
-  height: 3px;
-  background: #E95420;
-}
-.Header-nav li:focus .Header-activeOverlay,
-.Header-nav li:active .Header-activeOverlay {
-  background: rgba(0,0,0,0.05);
-}
 .Header-back {
   position: relative;
   display: flex;
