@@ -14,10 +14,10 @@ export default function SettingsPage({ screenId, onNavChange }) {
 
   const screens = [
     ['info', 'Device information'],
-    ['profile', 'Profile'],
-    ['users', 'Users'],
-    ['updates', 'Updates'],
     ['date-time', 'Date and time'],
+    ['updates', 'Updates'],
+    ['users', 'Users'],
+    // ['profile', 'Profile'],
     // ['customization', 'Customization'],
   ]
 

@@ -180,6 +180,10 @@ class App extends Component {
     this.goto(id === 'home'? '' : id)
   }
 
+  handleProfileClick = (id) => {
+    // do nothing for now 
+  }
+
   handleLogoClick = () => {
     window.open('http://www.limemicro.com/')
   }
@@ -289,18 +293,12 @@ class App extends Component {
           <div className='App-main'>
             <Header
               menuitems={[
-                { id: 'home', name: brandData.systemName },
+                // no menu items
               ]}
               currentSection={section}
               onMenuItemClick={this.handleMenuItemClick}
-              onLogoClick={this.handleLogoClick}
-              logo={
-                // brandData.id
-                // ? `${pub}/brands/${brandData.id}/logo.png`
-                // : ''
-                `${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`
-              }
-              customColor={brandData.color}
+              onProfileClick={this.handleProfileClick}
+
             />
             <main className='App-content'>
               <If cond={section === 'home'}>
