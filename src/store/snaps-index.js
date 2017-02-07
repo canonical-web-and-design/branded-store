@@ -1,10 +1,21 @@
 const snaps = [
   {
+    id: 'hello-world',
+    name: 'Hello World',
+    type: 'Snap',
+    author: 'Canonical',
+    price: 'free',
+    rating: -1,
+    category: '',
+    description: '',
+    preinstalled: false,
+  },
+  {
     id: 'connected-grid-router',
     name: 'LimeNET',
     type: 'Gadget Snap',
     author: 'Lime Microsystems',
-    price: 0,
+    price: 'free',
     rating: -1,
     category: '',
     description: '',
@@ -15,7 +26,7 @@ const snaps = [
     name: 'Canonical-pc-linux',
     type: 'Kernel Snap',
     author: 'Canonical Ltd',
-    price: 0,
+    price: 'free',
     rating: -1,
     category: '',
     description: '',
@@ -26,7 +37,7 @@ const snaps = [
     name: 'Ubuntu-core',
     type: 'OS Snap',
     author: 'Canonical Ltd',
-    price: 0,
+    price: 'free',
     rating: -1,
     category: '',
     description: '',
@@ -37,7 +48,7 @@ const snaps = [
     name: 'Snapweb',
     type: 'Device Manager',
     author: 'Canonical Ltd',
-    price: 0,
+    price: 'free',
     rating: -1,
     category: '',
     description: '',
@@ -212,6 +223,7 @@ const snaps = [
 ]
 
 export const featuredSnaps = [
+  'hello-world',
   'amarisoft',
   'quortus',
   // 'discourse',

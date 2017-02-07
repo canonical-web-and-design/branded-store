@@ -23,8 +23,10 @@ import miniroutes from 'miniroutes'
 
 import createStore from './store/store'
 import createBrands from './brands'
+import createApi from './api'
 
 const DEFAULT_BRAND = 'lime'
+const DEFAULT_API_BASE_URL = 'http://192.168.50.220:4200/api/v2'
 
 const pub = process.env.PUBLIC_URL
 
@@ -62,10 +64,12 @@ class App extends Component {
     super(props)
 
     const store = createStore()
+    const api = createApi(DEFAULT_API_BASE_URL)
 
     this.state = {
       route: { name: '', params: [], value: '' },
       store: store,
+      api: api,
       allSnaps: [],
       featuredSnapIds: [],
       brands: [],
@@ -79,12 +83,17 @@ class App extends Component {
     this.history.listen((location) => {
       this.routing(location.pathname.slice(1))
     })
+    api.listen(this.handleApiMessage)
   }
 
   componentDidMount() {
     this.state.store.listen(this.handleStoreEvents)
     this.reloadBrands()
     this.routing(this.history.location.pathname.slice(1))
+  }
+
+  handleApiMessage = (message) => {
+    console.log(message)
   }
 
   handleRouteUpdate = (route, previous) => {
@@ -133,10 +142,14 @@ class App extends Component {
   )
 
   requestInstall = (snapId) => {
-    this.state.store.install(snapId)
+    const { store, api } = this.state
+    store.install(snapId)
+    api.request('enable', { name: snapId })
   }
   requestRemove = (snapId) => {
-    this.state.store.remove(snapId)
+    const { store, api } = this.state
+    store.remove(snapId)
+    api.request('disable', { name: snapId })
   }
   requestSignin = (snapId) => {
     this.state.store.signin(snapId)
