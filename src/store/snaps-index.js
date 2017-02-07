@@ -59,7 +59,7 @@ const snaps = [
     name: 'Amarisoft',
     type: 'Snap',
     author: 'LTE eNodeB',
-    price: 'free',
+    price: '$3.99',
     rating: 9,
     category: 'Telecommunications',
     description: `Access everything with the tools you are already using,
