@@ -74,14 +74,18 @@ export default class HomePage extends PureComponent {
     return (
       <div>
         <ContentWrapper background>
-          <DeviceBanner
-            image={photo}
-            brandName={brandData.brandName}
-            deviceName={brandData.deviceName}
-            deviceId={brandData.deviceName2}
-            color={brandData.color2 || brandData.color}
-            onSettingsClick={onOpenSettings}
-          />
+          <div style={{ minHeight: '290px' }}>
+            <div hidden={!photo}>
+              <DeviceBanner
+                image={photo}
+                brandName={brandData.brandName}
+                deviceName={brandData.deviceName}
+                deviceId={brandData.deviceName2}
+                color={brandData.color2 || brandData.color}
+                onSettingsClick={onOpenSettings}
+              />
+            </div>
+          </div>
         </ContentWrapper>
 
         <ContentWrapper bordered>
