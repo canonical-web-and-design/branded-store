@@ -5,7 +5,6 @@ import 'toolkit/lib/bundle.css'
 
 import {
   If,
-  Header,
   Footer,
 } from 'toolkit'
 
@@ -17,6 +16,7 @@ import StorePage from './StorePage/StorePage'
 import SnapPage from './SnapPage/SnapPage'
 import SettingsPage from './SettingsPage/SettingsPage'
 import MyUbuntu from './MyUbuntu/MyUbuntu'
+import Header from './Header/Header'
 
 import createStore from './store/store'
 import createBrands from './brands'
@@ -161,8 +161,12 @@ class App extends Component {
     this.goto(id === 'home'? '' : id)
   }
 
-  handleProfileClick = (id) => {
+  handleProfileClick = () => {
     // do nothing for now
+  }
+
+  handleBackClick = () => {
+    this.goto('')
   }
 
   handleLogoClick = () => {
@@ -271,12 +275,11 @@ class App extends Component {
         <If cond={!waitingPayment}>
           <div className='App-main'>
             <Header
-              menuitems={[
-                // no menu items
-              ]}
+              hasBack={section !== 'home'}
               currentSection={section}
               onMenuItemClick={this.handleMenuItemClick}
               onProfileClick={this.handleProfileClick}
+              onBackClick={this.handleBackClick}
             />
             <main className='App-content'>
               <If cond={section === 'home'}>
