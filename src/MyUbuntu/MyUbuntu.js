@@ -176,7 +176,7 @@ class PurchaseSummary extends React.Component {
     super(props)
     this.state = {
       password: '',
-      checked: false,
+      checked: true,
     }
   }
   passwordUpdate = (event) => {
@@ -227,7 +227,7 @@ class PurchaseSummary extends React.Component {
               <input
                 type='checkbox'
                 onChange={this.checkboxUpdate}
-                value={this.state.checked}
+                checked={this.state.checked}
               />
               <span style={{ marginLeft: '5px' }}>
                 {'I have read and agree to the '}
