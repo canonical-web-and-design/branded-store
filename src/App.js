@@ -18,35 +18,15 @@ import SnapPage from './SnapPage/SnapPage'
 import SettingsPage from './SettingsPage/SettingsPage'
 import MyUbuntu from './MyUbuntu/MyUbuntu'
 
-import createHistory from 'history/createHashHistory'
-import miniroutes from 'miniroutes'
-
 import createStore from './store/store'
 import createBrands from './brands'
 import createApi from './api'
+import createRouting, { routeSection } from './routing'
 
 const DEFAULT_BRAND = 'lime'
 const DEFAULT_API_BASE_URL = 'http://192.168.50.220:4200/api/v2'
 
 const pub = process.env.PUBLIC_URL
-
-const ROUTES = [
-  ['store', /^store$/],
-  ['store-category', /^store\/category\/(.+)?/],
-  ['settings', /^settings(?:\/(.+))?$/],
-  ['snap', /^snap\/(.+)$/],
-  ['snap-store', /^store\/snap\/(.+)$/],
-  ['snap-category', /^store\/category\/([^\/]+)\/snap\/(.+)$/],
-  ['home', /.*/],
-]
-
-// section based on route name
-const sections = {
-  'store': ['store', 'store-category'],
-  'settings': ['settings'],
-  'snap': ['snap', 'snap-store', 'snap-category'],
-  'home': ['home'],
-}
 
 const categories = [
   'databases',
@@ -76,20 +56,17 @@ class App extends Component {
       brand: DEFAULT_BRAND,
       // waitingPayment: true,
       quickBuySnap: '',
+      routing: () => {},
     }
-
-    this.routing = miniroutes(ROUTES, this.handleRouteUpdate)
-    this.history = createHistory()
-    this.history.listen((location) => {
-      this.routing(location.pathname.slice(1))
-    })
-    api.listen(this.handleApiMessage)
   }
 
   componentDidMount() {
     this.state.store.listen(this.handleStoreEvents)
+    this.state.api.listen(this.handleApiMessage)
     this.reloadBrands()
-    this.routing(this.history.location.pathname.slice(1))
+    this.setState({
+      routing: createRouting(this.handleRouteUpdate)
+    })
   }
 
   handleApiMessage = (message) => {
@@ -105,7 +82,7 @@ class App extends Component {
     const pathname = `/${!path || path === 'home'? '' : path}`
     if (path !== this.state.route.path) {
       this.state.store.cancelPurchases()
-      this.history.push(pathname)
+      this.state.routing(pathname)
     }
   }
 
@@ -248,10 +225,6 @@ class App extends Component {
       )
     )
 
-    const section = Object.keys(sections).find(
-      name => sections[name].includes(route.name)
-    )
-
     const cardImgRootUrl = `${pub}/icons/cards/`
 
     const brandData = brands.find(br => br.id === brand) || {}
@@ -268,6 +241,8 @@ class App extends Component {
       snap.id === route.params[route.params.length - 1] ||
       snap.id === this.state.quickBuySnap
     ))
+
+    const section = routeSection(route.name)
 
     let waitingPayment = false
     if ((section === 'store' || section === 'snap') && currSnap) {
