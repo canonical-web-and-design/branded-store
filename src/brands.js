@@ -35,7 +35,7 @@ const brandContent = {
     'Color: #BAD72D',
     'Color2: #2E893A',
     'System Name: LimeNET',
-    'Device Name: LimeSDR',
+    'Device Name: Lime SDR',
     'Device Name 2: LM677 NLM871000',
   ].join('\n'),
   bosch: [

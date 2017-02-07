@@ -17,6 +17,10 @@
   line-height: 1.4em;
   margin-bottom: 10px;
 }
+.DeviceBanner-brandName {
+  margin-bottom: 5px;
+  font-size: 23px;
+}
 .DeviceBanner-id {
   margin-bottom: 10px;
   font-size: 23px;
