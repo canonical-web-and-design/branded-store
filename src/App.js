@@ -24,8 +24,9 @@ import createApi from './api'
 import createRouting, { routeSection } from './routing'
 
 const DEFAULT_BRAND = 'lime'
-const DEFAULT_API_BASE_URL = 'http://192.168.50.220:4200/api/v2'
-
+const DEFAULT_API_BASE_URL = (
+  `${window.location.protocol}//${window.location.host}/api/v2`
+)
 const pub = process.env.PUBLIC_URL
 
 const categories = [
@@ -109,6 +110,7 @@ class App extends Component {
       }
     )
   }
+
   changeBrand = (id) => {
     this.setState({ brand: id })
     window.scrollTo(0, 0)
