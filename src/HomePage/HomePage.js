@@ -73,7 +73,7 @@ export default class HomePage extends PureComponent {
 
     return (
       <div>
-        <ContentWrapper background>
+        <ContentWrapper>
           <DeviceBanner
             image={photo}
             brandName={brandData.brandName}
@@ -84,7 +84,7 @@ export default class HomePage extends PureComponent {
           />
         </ContentWrapper>
 
-        <ContentWrapper bordered>
+        <ContentWrapper background bordered>
 
           <CardsList
             title='Installed'
