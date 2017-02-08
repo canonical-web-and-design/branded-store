@@ -203,7 +203,8 @@ class App extends Component {
   }
 
   handleTagClick = (name) => {
-    this.goto(`store/category/${name}`)
+    // tag clicks disabled for now
+    //this.goto(`store/category/${name}`)
   }
 
   render() {
