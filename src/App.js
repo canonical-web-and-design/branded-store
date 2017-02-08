@@ -278,6 +278,7 @@ class App extends Component {
           <div className='App-main'>
             <Header
               hasBack={section !== 'home'}
+              signedIn={true}
               currentSection={section}
               onMenuItemClick={this.handleMenuItemClick}
               onProfileClick={this.handleProfileClick}
