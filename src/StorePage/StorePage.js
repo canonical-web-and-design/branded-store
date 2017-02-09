@@ -91,7 +91,7 @@ class StorePage extends PureComponent {
           <div
             style={{
               display: 'flex',
-              marginTop: '25px',
+              paddingTop: '50px',
               marginBottom: '20px',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -133,8 +133,8 @@ class StorePage extends PureComponent {
     )
 
     return (
-      <ContentWrapper>
-        <div className='App-store'>
+      <div>
+        <ContentWrapper>
           <img
             style={{
               width: '100%',
@@ -146,6 +146,8 @@ class StorePage extends PureComponent {
             src={`${publicUrl}/search-field.png`}
             alt='Search Field placeholder'
           />
+        </ContentWrapper>
+        <ContentWrapper background>
           <CardsList 
             cards={featuredSnapCards}
             cardImgRootUrl={cardImgRootUrl}
@@ -164,8 +166,8 @@ class StorePage extends PureComponent {
               />
             ))}
           </CardsList>
-        </div>
-      </ContentWrapper>
+        </ContentWrapper>
+      </div>
     )
   }
 }
