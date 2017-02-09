@@ -40,11 +40,7 @@ class Header extends Component {
       <header
         className='Header'
         style={styles}
-      >
-        <div
-          className='Header-underline'
-          style={{ background: props.customColor || '#CDCDCD' }}
-        />  
+      > 
         <div className='Header-in'>
           <If cond={this.props.hasBack}>
             <div
@@ -54,13 +50,12 @@ class Header extends Component {
               onClick={this.handleBackClick}
             >
               <span>
-                <Icon name='previous' size='20px' />
+                <Icon name='previous' size='32px' />
               </span>
-              <span>Back</span>
               <div className='Header-activeOverlay' />
             </div>
           </If>
-          <If cond={this.props.signedIn}>
+          <If cond={this.props.signedIn && this.props.hasSignIn}>
             <div
               className='Header-profile'
               role='button'
@@ -72,15 +67,17 @@ class Header extends Component {
               <div className='Header-activeOverlay' />
             </div>
           </If>
-          <div
-            className='Header-signIn'
-            role='button'
-            tabIndex='0'
-            onClick={this.handleSignInClick}
-          >
-            <span>{signedInText}</span>
-            <div className='Header-activeOverlay' />
-          </div>
+          <If cond={this.props.hasSignIn}>
+            <div
+              className='Header-signIn'
+              role='button'
+              tabIndex='0'
+              onClick={this.handleSignInClick}
+            >
+              <span>{signedInText}</span>
+              <div className='Header-activeOverlay' />
+            </div>
+          </If>
         </div>
       </header>
     )

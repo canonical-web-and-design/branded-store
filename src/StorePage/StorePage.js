@@ -138,15 +138,15 @@ class StorePage extends PureComponent {
           <img
             style={{
               width: '100%',
-              marginTop: '20px',
-              marginBottom: '40px',
+              marginTop: '30px',
+              marginBottom: '30px',
             }}
             width={1968/2}
             height={84/2}
             src={`${publicUrl}/search-field.png`}
             alt='Search Field placeholder'
           />
-          <CardsList
+          <CardsList 
             cards={featuredSnapCards}
             cardImgRootUrl={cardImgRootUrl}
             header={header}

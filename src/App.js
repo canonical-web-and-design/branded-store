@@ -277,14 +277,17 @@ class App extends Component {
 
         <If cond={!waitingPayment}>
           <div className='App-main'>
-            <Header
-              hasBack={section !== 'home'}
-              signedIn={true}
-              currentSection={section}
-              onMenuItemClick={this.handleMenuItemClick}
-              onProfileClick={this.handleProfileClick}
-              onBackClick={this.handleBackClick}
-            />
+            <div className='App-header'>
+              <Header 
+                hasBack={section !== 'home'}
+                hasSignIn={section === 'home'}
+                signedIn={true}
+                currentSection={section}
+                onMenuItemClick={this.handleMenuItemClick}
+                onProfileClick={this.handleProfileClick}
+                onBackClick={this.handleBackClick}
+              />
+            </div>
             <main className='App-content'>
               <If cond={section === 'home'}>
                 <HomePage
