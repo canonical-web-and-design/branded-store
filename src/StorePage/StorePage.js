@@ -133,7 +133,13 @@ class StorePage extends PureComponent {
     )
 
     return (
-      <div>
+      <div 
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 'calc(100vh - 50px)' 
+        }}
+      >
         <ContentWrapper>
           <img
             style={{
@@ -147,7 +153,13 @@ class StorePage extends PureComponent {
             alt='Search Field placeholder'
           />
         </ContentWrapper>
-        <ContentWrapper background bordered>
+        <ContentWrapper 
+          background
+          bordered
+          style={{
+          flexGrow: '1',
+        }}
+        >
           <CardsList 
             cards={featuredSnapCards}
             cardImgRootUrl={cardImgRootUrl}

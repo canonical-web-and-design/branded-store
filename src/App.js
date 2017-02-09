@@ -334,12 +334,14 @@ class App extends Component {
                 />
               </If>
             </main>
-            <Footer 
-              firstLine={themeChanger}
-              copyright={`© ${(new Date()).getFullYear()} ${brandData.brandName}`}
-              logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
-              link={brandData.website}
-            />
+            <div className='App-footer'>
+              <Footer 
+                firstLine={themeChanger}
+                copyright={`© ${(new Date()).getFullYear()} ${brandData.brandName}`}
+                logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
+                link={brandData.website}
+              />
+            </div>
           </div>
         </If>
 

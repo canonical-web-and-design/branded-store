@@ -1,5 +1,8 @@
 .App-main {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   min-width: 1020px;
 }
 .App-header {
@@ -11,8 +14,11 @@
   padding-bottom: 25px;
 }
 .App-content {
-  min-height: 100px;
   min-height: calc(100vh - 50px - 89px);
+  flex-grow: 1;
+}
+.App-footer {
+  height: 50px;
 }
 .App-SnapPage {
   padding-bottom: 50px;
