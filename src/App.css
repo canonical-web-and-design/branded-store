@@ -1,10 +1,38 @@
 .App-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   min-width: 1020px;
 }
+.App-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+.App-header-static {
+  position: static;
+  border-bottom: 1px dotted #D2D2D2;
+}
 .App-content {
-  min-height: 100px;
   min-height: calc(100vh - 50px - 89px);
+  flex-grow: 1;
+}
+.App-footer {
+  height: 50px;
 }
 .App-SnapPage {
   padding-bottom: 50px;
+}
+
+@media (max-width: 1200px) {
+  .App-header {
+    position: static;
+    padding-top: 5px;
+    padding-bottom: 0px;
+    
+  }
 }

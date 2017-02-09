@@ -91,14 +91,14 @@ class StorePage extends PureComponent {
           <div
             style={{
               display: 'flex',
-              marginTop: '25px',
+              paddingTop: '50px',
               marginBottom: '20px',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}
           >
             <h1 style={{ fontSize: '24px' }}>
-              {category? capitalize(category) : 'Featured Snaps'}
+              {category? capitalize(category) : 'Featured'}
             </h1>
             <p style={{ fontSize: '16px' }}>
               {categories.map(tag => (
@@ -133,20 +133,34 @@ class StorePage extends PureComponent {
     )
 
     return (
-      <ContentWrapper>
-        <div className='App-store'>
+      <div 
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 'calc(100vh - 50px)' 
+        }}
+      >
+        <ContentWrapper>
           <img
             style={{
               width: '100%',
-              marginTop: '20px',
-              marginBottom: '40px',
+              marginTop: '30px',
+              marginBottom: '30px',
             }}
             width={1968/2}
             height={84/2}
             src={`${publicUrl}/search-field.png`}
             alt='Search Field placeholder'
           />
-          <CardsList
+        </ContentWrapper>
+        <ContentWrapper 
+          background
+          bordered
+          style={{
+          flexGrow: '1',
+        }}
+        >
+          <CardsList 
             cards={featuredSnapCards}
             cardImgRootUrl={cardImgRootUrl}
             header={header}
@@ -164,8 +178,8 @@ class StorePage extends PureComponent {
               />
             ))}
           </CardsList>
-        </div>
-      </ContentWrapper>
+        </ContentWrapper>
+      </div>
     )
   }
 }

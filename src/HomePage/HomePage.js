@@ -51,7 +51,7 @@ export default class HomePage extends PureComponent {
       `${publicUrl}/brands/${brandData.id}/banner-photo.jpg`
     ) : ''
 
-    const SYSTEM_SNAP_TYPES = ['OS Snap', 'Kernel Snap', 'Device Manager']
+    const SYSTEM_SNAP_TYPES = ['OS snap', 'Kernel snap', 'Device manager']
 
     const installedSnaps = snaps.filter(snap => !SYSTEM_SNAP_TYPES.includes(snap.type))
     const systemSnaps = snaps.filter(snap => SYSTEM_SNAP_TYPES.includes(snap.type))
@@ -73,25 +73,21 @@ export default class HomePage extends PureComponent {
 
     return (
       <div>
-        <ContentWrapper background>
-          <div style={{ minHeight: '290px' }}>
-            <div hidden={!photo}>
-              <DeviceBanner
-                image={photo}
-                brandName={brandData.brandName}
-                deviceName={brandData.deviceName}
-                deviceId={brandData.deviceName2}
-                color={brandData.color2 || brandData.color}
-                onSettingsClick={onOpenSettings}
-              />
-            </div>
-          </div>
+        <ContentWrapper>
+          <DeviceBanner
+            image={photo}
+            brandName={brandData.brandName}
+            deviceName={brandData.deviceName}
+            deviceId={brandData.deviceName2}
+            color={brandData.color2 || brandData.color}
+            onSettingsClick={onOpenSettings}
+          />
         </ContentWrapper>
 
-        <ContentWrapper bordered>
+        <ContentWrapper background bordered>
 
           <CardsList
-            title='Installed Snaps'
+            title='Installed'
             cards={cards}
             cardImgRootUrl={cardImgRootUrl}
             onCardClick={onOpenSnap}

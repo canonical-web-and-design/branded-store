@@ -55,7 +55,7 @@ class SnapPage extends Component {
     return (
       <div className='SnapPage'>
 
-        <ContentWrapper background>
+        <ContentWrapper>
           <div className='SnapPage-header'>
 
             <div className='SnapPage-headerParts'>
@@ -107,7 +107,7 @@ class SnapPage extends Component {
           </div>
         </ContentWrapper>
 
-        <ContentWrapper>
+        <ContentWrapper background bordered>
           <div className='SnapPage-content'>
 
             <div>

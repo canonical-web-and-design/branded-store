@@ -9,7 +9,6 @@ import {
  } from 'toolkit'
 
 const defaultProfileName = 'Lola Chang'
-const singInText='Sign out'
 
 class Header extends Component {
   handleBackClick = (event) => {
@@ -36,15 +35,12 @@ class Header extends Component {
     const styles = props.customColor? {
       borderColor: props.customColor,
     } : {}
+    const signedInText=props.signedIn? 'Sign out' : 'Sign in'
     return (
       <header
         className='Header'
         style={styles}
-      >
-        <div
-          className='Header-underline'
-          style={{ background: props.customColor || '#CDCDCD' }}
-        />  
+      > 
         <div className='Header-in'>
           <If cond={this.props.hasBack}>
             <div
@@ -54,31 +50,34 @@ class Header extends Component {
               onClick={this.handleBackClick}
             >
               <span>
-                <Icon name='previous' size='20px' />
+                <Icon name='previous' size='32px' />
               </span>
-              <span>Back</span>
               <div className='Header-activeOverlay' />
             </div>
           </If>
-          <div
-            className='Header-profile'
-            role='button'
-            tabIndex='0'
-            onClick={this.handleProfileClick}
-          >
-            <img width='24' height='24' src={avatar} alt='' />
-            <span>{props.profilename || defaultProfileName}</span>
-            <div className='Header-activeOverlay' />
-          </div>
-          <div
-            className='Header-signIn'
-            role='button'
-            tabIndex='0'
-            onClick={this.handleSignInClick}
-          >
-            <span>{singInText}</span>
-            <div className='Header-activeOverlay' />
-          </div>
+          <If cond={this.props.signedIn && this.props.hasSignIn}>
+            <div
+              className='Header-profile'
+              role='button'
+              tabIndex='0'
+              onClick={this.handleProfileClick}
+            >
+              <img width='24' height='24' src={avatar} alt='' />
+              <span>{props.profilename || defaultProfileName}</span>
+              <div className='Header-activeOverlay' />
+            </div>
+          </If>
+          <If cond={this.props.hasSignIn}>
+            <div
+              className='Header-signIn'
+              role='button'
+              tabIndex='0'
+              onClick={this.handleSignInClick}
+            >
+              <span>{signedInText}</span>
+              <div className='Header-activeOverlay' />
+            </div>
+          </If>
         </div>
       </header>
     )

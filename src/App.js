@@ -203,7 +203,8 @@ class App extends Component {
   }
 
   handleTagClick = (name) => {
-    this.goto(`store/category/${name}`)
+    // tag clicks disabled for now
+    //this.goto(`store/category/${name}`)
   }
 
   render() {
@@ -276,13 +277,17 @@ class App extends Component {
 
         <If cond={!waitingPayment}>
           <div className='App-main'>
-            <Header
-              hasBack={section !== 'home'}
-              currentSection={section}
-              onMenuItemClick={this.handleMenuItemClick}
-              onProfileClick={this.handleProfileClick}
-              onBackClick={this.handleBackClick}
-            />
+            <div className={section === 'settings'? 'App-header App-header-static' : 'App-header'}>
+              <Header 
+                hasBack={section !== 'home'}
+                hasSignIn={section === 'home' || section === 'settings'}
+                signedIn={true}
+                currentSection={section}
+                onMenuItemClick={this.handleMenuItemClick}
+                onProfileClick={this.handleProfileClick}
+                onBackClick={this.handleBackClick}
+              />
+            </div>
             <main className='App-content'>
               <If cond={section === 'home'}>
                 <HomePage
@@ -329,12 +334,14 @@ class App extends Component {
                 />
               </If>
             </main>
-            <Footer 
-              firstLine={themeChanger}
-              copyright={`© ${(new Date()).getFullYear()} ${brandData.brandName}`}
-              logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
-              link={brandData.website}
-            />
+            <div className='App-footer'>
+              <Footer 
+                firstLine={themeChanger}
+                copyright={`© ${(new Date()).getFullYear()} ${brandData.brandName}`}
+                logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
+                link={brandData.website}
+              />
+            </div>
           </div>
         </If>
 
