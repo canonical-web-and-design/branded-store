@@ -78,7 +78,7 @@ export default class HomePage extends PureComponent {
             image={photo}
             brandName={brandData.brandName}
             deviceName={brandData.deviceName}
-            deviceId={brandData.deviceName2}
+            deviceId={brandData.systemName}
             color={brandData.color2 || brandData.color}
             onSettingsClick={onOpenSettings}
           />

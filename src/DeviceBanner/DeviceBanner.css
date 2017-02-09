@@ -22,8 +22,8 @@
   font-size: 23px;
 }
 .DeviceBanner-id {
-  margin-bottom: 10px;
-  font-size: 23px;
+  margin-bottom: -10px;
+  color: #888;
 }
 .DeviceBanner-buttoncontainer {
   display: flex;
