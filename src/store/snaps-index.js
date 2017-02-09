@@ -24,7 +24,7 @@ const snaps = [
   {
     id: 'canonical-pc-linux',
     name: 'Canonical-pc-linux',
-    type: 'Kernel Snap',
+    type: 'Kernel snap',
     author: 'Canonical Ltd',
     price: 'free',
     rating: -1,
@@ -35,7 +35,7 @@ const snaps = [
   {
     id: 'ubuntu-core',
     name: 'Ubuntu-core',
-    type: 'OS Snap',
+    type: 'OS snap',
     author: 'Canonical Ltd',
     price: 'free',
     rating: -1,
@@ -46,7 +46,7 @@ const snaps = [
   {
     id: 'snapweb',
     name: 'Snapweb',
-    type: 'Device Manager',
+    type: 'Device manager',
     author: 'Canonical Ltd',
     price: 'free',
     rating: -1,
@@ -180,7 +180,7 @@ const snaps = [
     name: 'Quortus',
     type: 'Snap',
     author: 'Evolved Packed Core',
-    price: 'free',
+    price: '$3.99',
     rating: 9,
     category: 'Networks',
     description: `Access everything with the tools you are already using,
