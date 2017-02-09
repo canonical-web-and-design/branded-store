@@ -147,7 +147,7 @@ class StorePage extends PureComponent {
             alt='Search Field placeholder'
           />
         </ContentWrapper>
-        <ContentWrapper background>
+        <ContentWrapper background bordered>
           <CardsList 
             cards={featuredSnapCards}
             cardImgRootUrl={cardImgRootUrl}

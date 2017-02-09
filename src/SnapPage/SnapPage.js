@@ -107,7 +107,7 @@ class SnapPage extends Component {
           </div>
         </ContentWrapper>
 
-        <ContentWrapper background>
+        <ContentWrapper background bordered>
           <div className='SnapPage-content'>
 
             <div>
