@@ -1,4 +1,22 @@
-import allSnapsData, { featuredSnaps } from './snaps-index'
+import Papa from 'papaparse'
+import { renameKeys } from '../utils'
+import ALL_SNAPS from './snaps-index'
+
+const pub = process.env.PUBLIC_URL
+
+const CSV_TAGS = {
+  'Name': 'name',
+  'Price (USD)': 'price',
+  'Icon Name': 'image',
+  'Author': 'author',
+  'Description': 'description',
+  'Category': 'category',
+  'Size (MB)': 'size',
+  'Version': 'version',
+  'Interfaces (comma separated)': 'interfaces',
+  'Review Author': 'reviewAuthor',
+  'Review Text': 'reviewContent',
+}
 
 const INSTALL_TIME = 1000 * 10
 const INSTALL_STEPS = 5
@@ -11,21 +29,52 @@ function parseIds(ids) {
 
 function createAllSnaps(snapsData) {
   const installedIds = parseIds(localStorage.getItem('installed-snaps'))
-  return snapsData.map(snap => Object.assign({}, snap, {
-    status: (
-      installedIds.includes(snap.id) || snap.preinstalled
-        ? 'installed'
-        : 'uninstalled'
-    ),
-    installStart: -1,
-    installProgress: -1,
-  }))
+  return ALL_SNAPS
+    .filter(snap => snap.preinstalled)
+    .concat(snapsData)
+    .map(snap => Object.assign({}, snap, {
+      status: (
+        installedIds.includes(snap.id) || snap.preinstalled
+          ? 'installed'
+          : 'uninstalled'
+      ),
+      installStart: -1,
+      installProgress: -1,
+
+      // add
+      id: snap.id || snap.name.toLowerCase().split(' ').join('-'),
+      preinstalled: snap.preinstalled || false,
+      type: snap.type || 'Snap',
+      rating: -1,
+    }))
+}
+
+function getSnaps(url) {
+  return new Promise((resolve) => {
+    Papa.parse(url, {
+      download: true,
+      header: true,
+      complete: resolve,
+    })
+  })
+  .then(rows => (
+    rows.data
+      .map(row => {
+        const snap = renameKeys(row, CSV_TAGS)
+        console.log(snap.category)
+        snap.price = snap.price === '0'? 'free' : `$${snap.price}`
+        snap.size = `${snap.size}MB`
+        snap.interfaces = snap.interfaces.split(',')
+        return snap
+      })
+  ))
 }
 
 export default function createStore(brand) {
 
   // All snaps with their status
-  let allSnaps = createAllSnaps(allSnapsData)
+  let allSnaps = []
+  let featuredSnaps = []
 
   // Event emitter
   const listeners = []
@@ -46,6 +95,20 @@ export default function createStore(brand) {
         .map(snap => snap.id)
     ).join(','))
   }
+
+  getSnaps(`${pub}/brand-settings/snaps.csv`)
+    .then(snapsData => {
+
+      allSnaps = createAllSnaps(snapsData)
+
+      featuredSnaps = allSnaps
+        .filter(snap => !snap.preinstalled)
+        .map(snap => snap.id)
+
+
+      emit('FEATURED_SNAPS', { ids: featuredSnaps })
+      emit('ALL_SNAPS', { snaps: allSnaps })
+    })
 
   let authTimer = -1
   let installingTimer = -1

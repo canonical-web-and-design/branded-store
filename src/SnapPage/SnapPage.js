@@ -113,9 +113,9 @@ class SnapPage extends Component {
             <div>
               <Details
                 items={[
-                  ['Category', 'Databases'],
-                  ['Size', '65.7MB'],
-                  ['Version', '3.7'],
+                  ['Category', snap.category],
+                  ['Size', snap.size],
+                  ['Version', snap.version],
                   ['Channel', 'Stable'],
                   ['Updated', '12 August 2016 12:37:06'],
                 ]}
@@ -129,7 +129,7 @@ class SnapPage extends Component {
 
             <div>
               <Interfaces
-                items={[
+                items={snap.interfaces || [
                   'Network',
                   'Network Bind',
                   'Mount Observe',
