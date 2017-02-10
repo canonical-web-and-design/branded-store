@@ -102,13 +102,16 @@ class StorePage extends PureComponent {
             </h1>
             <p style={{ fontSize: '16px' }}>
               {categories.map(tag => (
-                <span key={tag}>
+                <span key={tag}
+                  style={{
+                    marginLeft: '20px',
+                  }}
+                >
                   <Tag
                     name={tag}
                     onClick={this.handleTagClick}
                     color={brandData.color2}
                   />
-                  <span>{' '}</span>
                 </span>
               ))}
             </p>
