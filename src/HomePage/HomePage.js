@@ -48,13 +48,11 @@ export default class HomePage extends PureComponent {
     }
 
     const photo = brandData.id? (
-      `${pub}/brands/${brandData.id}/banner-photo.jpg`
+      `${pub}/brand-settings/brand/product.jpg`
     ) : ''
 
-    const SYSTEM_SNAP_TYPES = ['OS app', 'Kernel app', 'Device manager']
-
-    const installedSnaps = snaps.filter(snap => !SYSTEM_SNAP_TYPES.includes(snap.type))
-    const systemSnaps = snaps.filter(snap => SYSTEM_SNAP_TYPES.includes(snap.type))
+    const installedSnaps = snaps.filter(snap => !snap.systemSnap)
+    const systemSnaps = snaps.filter(snap => snap.systemSnap)
 
     const cards = [
       ...installedSnaps.map(snapToCard)

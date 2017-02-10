@@ -33,6 +33,7 @@ function createAllSnaps(customSnapsData) {
     .filter(snap => snap.preinstalled)
     .map(snap => {
       snap.iconUrl = `${pub}/icons/cards/${snap.id}.png`
+      snap.systemSnap = true
       return snap
     })
     .concat(
@@ -40,6 +41,7 @@ function createAllSnaps(customSnapsData) {
         snap.iconUrl = `${pub}/brand-settings/snaps-icons/${snap.image}`
         snap.preinstalled = i === 0
         snap.type = i === 0? 'Gadget Snap' : ''
+        snap.systemSnap = false
         return snap
       })
     )
@@ -51,6 +53,8 @@ function createAllSnaps(customSnapsData) {
       ),
       installStart: -1,
       installProgress: -1,
+
+      interfaces: snap.interfaces.split(','),
 
       // add
       id: snap.id || snap.name.toLowerCase().split(' ').join('-'),
@@ -74,7 +78,6 @@ function getSnaps(url) {
         const snap = renameKeys(row, CSV_TAGS)
         snap.price = snap.price === '0'? 'free' : `$${snap.price}`
         snap.size = `${snap.size}MB`
-        snap.interfaces = snap.interfaces.split(',')
         return snap
       })
   ))
