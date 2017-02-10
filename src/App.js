@@ -336,9 +336,10 @@ class App extends Component {
             </main>
             <div className='App-footer'>
               <Footer 
+                name={brandData.brandName}
                 firstLine={themeChanger}
                 copyright={`© ${(new Date()).getFullYear()} ${brandData.brandName}`}
-                logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
+                logo={`${pub}/brand-settings/brand/logo.png`}
                 link={brandData.website}
               />
             </div>
