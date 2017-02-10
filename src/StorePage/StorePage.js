@@ -19,7 +19,7 @@ function snapToStoreCard(snap) {
         snap.price === 'free'? 'Install' : snap.price
       )
     ),
-    image: snap.id,
+    iconUrl: snap.iconUrl,
     rating: snap.rating,
     installProgress: (
       snap.status === 'installing'
@@ -76,7 +76,6 @@ class StorePage extends PureComponent {
 
     const {
       brandData,
-      cardImgRootUrl,
       onOpenSnap,
       categories,
       featuredSnaps,
@@ -162,7 +161,6 @@ class StorePage extends PureComponent {
         >
           <CardsList 
             cards={featuredSnapCards}
-            cardImgRootUrl={cardImgRootUrl}
             header={header}
           >
             {featuredSnapCards.map((card, i) => (
@@ -170,7 +168,7 @@ class StorePage extends PureComponent {
                 key={card.id + i}
                 card={card}
                 action={card.installed? 'open' : ''}
-                image={`${cardImgRootUrl}${card.image}.png`}
+                image={card.iconUrl}
                 onClick={onOpenSnap}
                 onActionClick={this.onActionClick}
                 installProgress={card.installProgress}

@@ -8,7 +8,7 @@ import {
 import SnapsTable from '../SnapsTable/SnapsTable'
 import DeviceBanner from '../DeviceBanner/DeviceBanner'
 
-const publicUrl = process.env.PUBLIC_URL
+const pub = process.env.PUBLIC_URL
 
 function snapToCard(snap) {
   return {
@@ -24,6 +24,7 @@ function snapToCard(snap) {
         : -1
     ),
     snap: snap,
+    iconUrl: snap.iconUrl,
   }
 }
 
@@ -34,7 +35,6 @@ export default class HomePage extends PureComponent {
     const {
       brandData,
       snaps,
-      cardImgRootUrl,
       onOpenSnap,
       onOpenSettings,
     } = this.props
@@ -44,11 +44,11 @@ export default class HomePage extends PureComponent {
       name: 'Add new snaps to this device',
       action: 'Store',
       image: 'add-snap',
+      iconUrl: `${pub}/icons/cards/add-snap.png`,
     }
 
-
     const photo = brandData.id? (
-      `${publicUrl}/brands/${brandData.id}/banner-photo.jpg`
+      `${pub}/brands/${brandData.id}/banner-photo.jpg`
     ) : ''
 
     const SYSTEM_SNAP_TYPES = ['OS snap', 'Kernel snap', 'Device manager']
@@ -89,7 +89,6 @@ export default class HomePage extends PureComponent {
           <CardsList
             title='Installed'
             cards={cards}
-            cardImgRootUrl={cardImgRootUrl}
             onCardClick={onOpenSnap}
           />
 
@@ -100,8 +99,8 @@ export default class HomePage extends PureComponent {
                 id: snap.id,
                 name: snap.name,
                 author: snap.author,
-                category: snap.type,
-                icon: `${publicUrl}/icons/cards/${snap.id}.png`,
+                category: snap.category,
+                icon: `${pub}/icons/cards/${snap.id}.png`,
               }))}
               onOpenSnap={onOpenSnap}
             />

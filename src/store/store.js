@@ -1,6 +1,6 @@
 import Papa from 'papaparse'
 import { renameKeys } from '../utils'
-import ALL_SNAPS from './snaps-index'
+import PREINSTALLED_SNAPS from './preinstalled-snaps'
 
 const pub = process.env.PUBLIC_URL
 
@@ -27,11 +27,22 @@ function parseIds(ids) {
   ))
 }
 
-function createAllSnaps(snapsData) {
+function createAllSnaps(customSnapsData) {
   const installedIds = parseIds(localStorage.getItem('installed-snaps'))
-  return ALL_SNAPS
+  return PREINSTALLED_SNAPS
     .filter(snap => snap.preinstalled)
-    .concat(snapsData)
+    .map(snap => {
+      snap.iconUrl = `${pub}/icons/cards/${snap.id}.png`
+      return snap
+    })
+    .concat(
+      customSnapsData.map((snap, i) => {
+        snap.iconUrl = `${pub}/brand-settings/snaps-icons/${snap.image}`
+        snap.preinstalled = i === 0
+        snap.type = i === 0? 'Gadget Snap' : ''
+        return snap
+      })
+    )
     .map(snap => Object.assign({}, snap, {
       status: (
         installedIds.includes(snap.id) || snap.preinstalled
@@ -61,7 +72,6 @@ function getSnaps(url) {
     rows.data
       .map(row => {
         const snap = renameKeys(row, CSV_TAGS)
-        console.log(snap.category)
         snap.price = snap.price === '0'? 'free' : `$${snap.price}`
         snap.size = `${snap.size}MB`
         snap.interfaces = snap.interfaces.split(',')

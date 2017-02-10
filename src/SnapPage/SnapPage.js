@@ -34,7 +34,6 @@ class SnapPage extends Component {
   render() {
 
     const {
-      cardImgRootUrl,
       snap,
       onRequestInstall,
       onRequestRemove,
@@ -50,8 +49,6 @@ class SnapPage extends Component {
       snap.status === 'installing'? snap.installProgress : 0
     )
 
-    const icon = `${cardImgRootUrl}${snap.id}.png`
-
     return (
       <div className='SnapPage'>
 
@@ -61,7 +58,7 @@ class SnapPage extends Component {
             <div className='SnapPage-headerParts'>
               <div>
                 <Summary
-                  icon={icon}
+                  icon={snap.iconUrl}
                   name={snap.name}
                   author={snap.author}
                   rating={3}

@@ -23,11 +23,9 @@ export default class MyUbuntu extends Component {
 
     const {
       snap={},
-      cardImgRootUrl,
     } = this.props
 
     const name = (snap && snap.name) || 'Cassandra'
-    const icon = `${cardImgRootUrl}${snap.id}.png`
 
     const content = {
       title: `Purchasing`,
@@ -63,7 +61,7 @@ export default class MyUbuntu extends Component {
 
                     <div className='MyUbuntuBlock-app'>
                       <Summary
-                        icon={icon}
+                        icon={snap.iconUrl}
                         name={snap.name}
                         author={snap.author}
                         rating={-1}

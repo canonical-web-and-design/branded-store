@@ -223,8 +223,6 @@ class App extends Component {
       )
     )
 
-    const cardImgRootUrl = `${pub}/icons/cards/`
-
     const brandData = brands.find(br => br.id === brand) || {}
 
     const themeChanger = brands.length < 2? null : (
@@ -291,7 +289,6 @@ class App extends Component {
             <main className='App-content'>
               <If cond={section === 'home'}>
                 <HomePage
-                  cardImgRootUrl={cardImgRootUrl}
                   snaps={homeSnaps}
                   onOpenSnap={this.handleOpenSnap}
                   onOpenSettings={this.handleOpenSettings}
@@ -300,7 +297,6 @@ class App extends Component {
               </If>
               <If cond={section === 'store'}>
                 <StorePage
-                  cardImgRootUrl={cardImgRootUrl}
                   featuredSnaps={this.getFeaturedSnaps()}
                   onOpenSnap={this.handleOpenSnap}
                   onTagClick={this.handleTagClick}
@@ -314,7 +310,6 @@ class App extends Component {
               <If cond={section === 'snap'}>
                 <div className='App-SnapPage'>
                   <SnapPage
-                    cardImgRootUrl={cardImgRootUrl}
                     snap={allSnaps.find(snap => (
                       snap.id === route.params[route.params.length - 1]
                     ))}
@@ -350,7 +345,6 @@ class App extends Component {
             onPurchase={this.requestConfirm}
             onCancel={this.requestCancel}
             snap={currSnap}
-            cardImgRootUrl={cardImgRootUrl}
           />
         </If>
 
