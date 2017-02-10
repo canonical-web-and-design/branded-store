@@ -186,6 +186,10 @@ class App extends Component {
     }
   }
 
+  handleOpenStore = () => {
+    this.goto('store')
+  }
+
   handleOpenSettings = () => {
     this.goto('settings')
   }
@@ -324,6 +328,7 @@ class App extends Component {
                     onRequestAuthorize={this.requestAuthorize}
                     onRequestConfirm={this.requestConfirm}
                     onRequestCancel={this.requestCancel}
+                    onRequestStore={this.handleOpenStore}
                   />
                 </div>
               </If>

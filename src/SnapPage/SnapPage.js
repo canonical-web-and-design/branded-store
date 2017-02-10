@@ -42,6 +42,7 @@ class SnapPage extends Component {
       onRequestAuthorize,
       onRequestConfirm,
       onRequestCancel,
+      onRequestStore,
     } = this.props
 
     if (!snap) return null
@@ -68,6 +69,7 @@ class SnapPage extends Component {
                 />
                 <Tags
                   tags={['databases', 'cassandra', 'app-deployment']}
+                  onStoreClick={onRequestStore}
                 />
               </div>
               <If cond={!snap.preinstalled}>
