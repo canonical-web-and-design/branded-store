@@ -277,10 +277,10 @@ class App extends Component {
 
         <If cond={!waitingPayment}>
           <div className='App-main'>
-            <div className={section === 'settings'? 'App-header App-header-static' : 'App-header'}>
+            <div className='App-header'>
               <Header 
                 hasBack={section !== 'home'}
-                hasSignIn={section === 'home' || section === 'settings'}
+                hasSignIn={section === 'home'}
                 signedIn={true}
                 currentSection={section}
                 onMenuItemClick={this.handleMenuItemClick}
