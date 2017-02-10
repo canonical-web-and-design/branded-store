@@ -13,7 +13,7 @@ const snaps = [
   {
     id: 'connected-grid-router',
     name: 'LimeNET',
-    type: 'Gadget',
+    type: 'Gadget app',
     author: 'Lime Microsystems',
     price: 'free',
     rating: -1,
@@ -24,7 +24,7 @@ const snaps = [
   {
     id: 'canonical-pc-linux',
     name: 'Canonical-pc-linux',
-    type: 'Kernel',
+    type: 'Kernel app',
     author: 'Canonical Ltd',
     price: 'free',
     rating: -1,
@@ -35,7 +35,7 @@ const snaps = [
   {
     id: 'ubuntu-core',
     name: 'Ubuntu-core',
-    type: 'OS',
+    type: 'OS app',
     author: 'Canonical Ltd',
     price: 'free',
     rating: -1,
