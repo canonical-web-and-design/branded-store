@@ -1,13 +1,15 @@
 import React from 'react'
 import './Loader.css'
-import spinner from './spinner.png';
+import { classes } from 'toolkit'
+import spinner from './spinner.png'
 
 export default function Loader({ visible, label, label2 }) {
   return (
-    <div className='Loader' style={{
-      top: visible? 0 : '100%',
-      opacity: visible? 1 : 0,
-    }}>
+    <div className={classes({
+      'Loader': true,
+      'Loader-visible': visible,
+    })}
+    >
     <p className='Loader-label'>
       <img
         src={spinner}

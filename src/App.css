@@ -17,13 +17,9 @@
   min-height: calc(100vh - 50px - 89px);
   flex-grow: 1;
 }
-.App-footer {
-  height: 50px;
-}
 .App-SnapPage {
   padding-bottom: 50px;
 }
-
 @media (max-width: 1200px) {
   .App-header {
     position: static;
