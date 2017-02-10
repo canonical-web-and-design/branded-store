@@ -13,10 +13,6 @@
   padding-top: 25px;
   padding-bottom: 25px;
 }
-.App-header-static {
-  position: static;
-  border-bottom: 1px dotted #D2D2D2;
-}
 .App-content {
   min-height: calc(100vh - 50px - 89px);
   flex-grow: 1;

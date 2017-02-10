@@ -41,7 +41,7 @@ export default class HomePage extends PureComponent {
 
     const addCard = {
       id: 'add',
-      name: 'Add new snaps to this device',
+      name: 'Add new apps to this device',
       action: 'Store',
       image: 'add-snap',
       iconUrl: `${pub}/icons/cards/add-snap.png`,
@@ -51,7 +51,7 @@ export default class HomePage extends PureComponent {
       `${pub}/brands/${brandData.id}/banner-photo.jpg`
     ) : ''
 
-    const SYSTEM_SNAP_TYPES = ['OS snap', 'Kernel snap', 'Device manager']
+    const SYSTEM_SNAP_TYPES = ['OS app', 'Kernel app', 'Device manager']
 
     const installedSnaps = snaps.filter(snap => !SYSTEM_SNAP_TYPES.includes(snap.type))
     const systemSnaps = snaps.filter(snap => SYSTEM_SNAP_TYPES.includes(snap.type))
