@@ -1,7 +1,7 @@
 import Papa from 'papaparse'
 import { renameKeys } from './utils'
 
-const pub = process.env.SNAPCOMMON_URL || process.env.PUBLIC_URL
+const pub = process.env.PUBLIC_URL
 
 const CSV_TAGS = {
   'Brand Name': 'brandName',
