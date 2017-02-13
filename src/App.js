@@ -348,6 +348,7 @@ class App extends Component {
                 copyright={`© ${(new Date()).getFullYear()} ${brandData.brandName}`}
                 logo={`${pub}/brand-settings/brand/logo.png`}
                 link={brandData.website}
+                termsUrl={brandData.termsUrl}
               />
             </div>
           </div>
