@@ -12,6 +12,7 @@
   right: 0;
   padding-top: 25px;
   padding-bottom: 25px;
+  pointer-events: none;
 }
 .App-content {
   min-height: calc(100vh - 50px - 89px);
