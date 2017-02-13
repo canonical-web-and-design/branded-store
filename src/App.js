@@ -61,6 +61,10 @@ class App extends Component {
     }
   }
 
+  getBrandData = () => {
+    return this.state.brands.find(br => br.id === this.state.brand) || {}
+  }
+
   componentDidMount() {
     this.state.store.listen(this.handleStoreEvents)
     this.state.api.listen(this.handleApiMessage)
@@ -171,10 +175,6 @@ class App extends Component {
     this.goto('')
   }
 
-  handleLogoClick = () => {
-    window.open('http://www.limemicro.com/')
-  }
-
   handleOpenSnap = (id) => {
     if (id === 'add') {
       return this.goto('store')
@@ -192,6 +192,13 @@ class App extends Component {
 
   handleOpenSettings = () => {
     this.goto('settings')
+  }
+
+  handleOpenDocumentation = () => {
+    const brandData = this.getBrandData()
+    if (brandData.docUrl) {
+      window.open(brandData.docUrl)
+    }
   }
 
   handleSettingsNavChange = (id) => {
@@ -215,7 +222,6 @@ class App extends Component {
 
     const {
       allSnaps,
-      brand,
       brands,
       route,
     } = this.state
@@ -227,7 +233,7 @@ class App extends Component {
       )
     )
 
-    const brandData = brands.find(br => br.id === brand) || {}
+    const brandData = this.getBrandData()
 
     const themeChanger = brands.length < 2? null : (
       <ThemeChanger
@@ -294,9 +300,10 @@ class App extends Component {
               <If cond={section === 'home'}>
                 <HomePage
                   snaps={homeSnaps}
+                  brandData={brandData}
                   onOpenSnap={this.handleOpenSnap}
                   onOpenSettings={this.handleOpenSettings}
-                  brandData={brandData}
+                  onOpenDocumentation={this.handleOpenDocumentation}
                 />
               </If>
               <If cond={section === 'store'}>

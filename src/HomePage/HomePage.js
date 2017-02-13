@@ -37,6 +37,7 @@ export default class HomePage extends PureComponent {
       snaps,
       onOpenSnap,
       onOpenSettings,
+      onOpenDocumentation,
     } = this.props
 
     const addCard = {
@@ -79,6 +80,7 @@ export default class HomePage extends PureComponent {
             deviceId={brandData.systemName}
             color={brandData.color}
             onSettingsClick={onOpenSettings}
+            onDocumentationClick={onOpenDocumentation}
           />
         </ContentWrapper>
 

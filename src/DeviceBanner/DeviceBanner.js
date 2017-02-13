@@ -9,7 +9,13 @@ import {
 
 class DeviceBanner extends PureComponent {
 
-  handleSettingsClick = () => {
+  handleDocumentationClick = (event) => {
+    event.currentTarget.blur()
+    this.props.onDocumentationClick()
+  }
+
+  handleSettingsClick = (event) => {
+    event.currentTarget.blur()
     this.props.onSettingsClick()
   }
 
@@ -42,6 +48,7 @@ class DeviceBanner extends PureComponent {
               style={{
                 marginRight: '10px',
               }}
+              onClick={this.handleDocumentationClick}
             >
               <span>
                 Documentation
