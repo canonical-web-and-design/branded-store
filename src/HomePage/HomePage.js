@@ -77,7 +77,7 @@ export default class HomePage extends PureComponent {
             brandName={brandData.brandName}
             deviceName={brandData.deviceName}
             deviceId={brandData.systemName}
-            color={brandData.color2 || brandData.color}
+            color={brandData.color}
             onSettingsClick={onOpenSettings}
           />
         </ContentWrapper>

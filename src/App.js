@@ -268,7 +268,7 @@ class App extends Component {
     return (
       <div className='App'>
         <style>{`
-          a, .SnapPageTags { color: ${brandData.color2 || '#333'} }
+          a, .SnapPageTags { color: ${brandData.color || '#333'} }
           .external, .external-branded {
             background-image: url(${pub}/external-${brandData.id}.svg);
           }

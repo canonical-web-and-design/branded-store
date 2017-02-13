@@ -109,7 +109,7 @@ class StorePage extends PureComponent {
                   <Tag
                     name={tag}
                     onClick={this.handleTagClick}
-                    color={brandData.color2}
+                    color={brandData.color}
                   />
                 </span>
               ))}
