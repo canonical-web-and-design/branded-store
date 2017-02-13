@@ -56,7 +56,7 @@
     "react-dom": "^15.4.1",
     "snapweb-toolkit": "git://github.com/ubuntudesign/snapweb-toolkit.git#master"
   },
-  "homepage": "http://pierre.demo.haus/store",
+  "homepage": "http://pierre.demo.haus",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
