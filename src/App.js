@@ -11,6 +11,7 @@ import {
 import ThemeChanger from './ThemeChanger/ThemeChanger'
 import Loader from './Loader/Loader'
 
+import ConfigurePage from './ConfigurePage/ConfigurePage'
 import HomePage from './HomePage/HomePage'
 import StorePage from './StorePage/StorePage'
 import SnapPage from './SnapPage/SnapPage'
@@ -39,13 +40,25 @@ const categories = [
 
 const getBrands = createBrands(`${pub}/brands`)
 
+// Save the API URL using localStorage
+const saveApiUrl = (value) => {
+  localStorage.setItem('api-url', value)
+  return value
+}
+
+// Read the API URL using localStorage
+const readApiUrl = (defaultValue) => {
+  const value = (localStorage.getItem('api-url') || '').trim()
+  return value || defaultValue
+}
+
 class App extends Component {
 
   constructor(props) {
     super(props)
 
     const store = createStore()
-    const api = createApi(DEFAULT_API_BASE_URL)
+    const api = createApi(readApiUrl(DEFAULT_API_BASE_URL))
 
     this.state = {
       route: { name: '', params: [], value: '' },
@@ -72,6 +85,27 @@ class App extends Component {
     this.setState({
       routing: createRouting(this.handleRouteUpdate)
     })
+  }
+
+  handleConfigureSave = (data) => {
+    if (data.apiBaseUrl !== this.state.api.getBaseUrl()) {
+      this.updateApiUrl(data.apiBaseUrl)
+    }
+  }
+
+
+
+  updateApiUrl = (baseUrl) => {
+    this.state.api.removeListeners()
+    this.setState({
+      api: createApi(saveApiUrl(baseUrl))
+    }, () => {
+      this.state.api.listen(this.handleApiMessage)
+    })
+  }
+
+  resetApiUrl = () => {
+    this.updateApiUrl(DEFAULT_API_BASE_URL)
   }
 
   handleApiMessage = (message) => {
@@ -297,6 +331,13 @@ class App extends Component {
               />
             </div>
             <main className='App-content'>
+              <If cond={section === 'configure'}>
+                <ConfigurePage
+                  apiBaseUrl={this.state.api.getBaseUrl()}
+                  apiBaseUrlDefault={DEFAULT_API_BASE_URL}
+                  onSave={this.handleConfigureSave}
+                />
+              </If>
               <If cond={section === 'home'}>
                 <HomePage
                   snaps={homeSnaps}

@@ -2,6 +2,7 @@ import miniroutes from 'miniroutes'
 import createHistory from 'history/createHashHistory'
 
 const ROUTES = [
+  ['configure', /^configure/],
   ['store', /^store$/],
   ['store-category', /^store\/category\/(.+)?/],
   ['settings', /^settings(?:\/(.+))?$/],
@@ -14,6 +15,7 @@ const ROUTES = [
 // Mapping of section => route name.
 // All the names defined in ROUTES should be in an array defined here.
 const SECTIONS = {
+  'configure': ['configure'],
   'store': ['store', 'store-category'],
   'settings': ['settings'],
   'snap': ['snap', 'snap-store', 'snap-category'],
