@@ -45,23 +45,28 @@ function createAllSnaps(customSnapsData) {
         return snap
       })
     )
-    .map(snap => Object.assign({}, snap, {
-      status: (
-        installedIds.includes(snap.id) || snap.preinstalled
+    .map(snap => {
+      const id = snap.id || snap.name.toLowerCase().split(' ').join('-')
+      const type = snap.type || 'Snap'
+      const interfaces = snap.interfaces.split(',')
+      const preinstalled = snap.preinstalled || false
+      const status = (
+        installedIds.includes(id) || snap.preinstalled
           ? 'installed'
           : 'uninstalled'
-      ),
-      installStart: -1,
-      installProgress: -1,
-
-      interfaces: snap.interfaces.split(','),
-
-      // add
-      id: snap.id || snap.name.toLowerCase().split(' ').join('-'),
-      preinstalled: snap.preinstalled || false,
-      type: snap.type || 'Snap',
-      rating: -1,
-    }))
+      )
+      return {
+        ...snap,
+        id,
+        type,
+        interfaces,
+        preinstalled,
+        status,
+        rating: -1,
+        installStart: -1,
+        installProgress: -1,
+      }
+    })
 }
 
 function getSnaps(url) {
