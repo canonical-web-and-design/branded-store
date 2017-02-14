@@ -49,7 +49,7 @@ export default class HomePage extends PureComponent {
     }
 
     const photo = brandData.id? (
-      `${pub}/brand-settings/brand/product.jpg`
+      `${pub}/brand-settings/brand/product.png`
     ) : ''
 
     const installedSnaps = snaps.filter(snap => !snap.systemSnap)
