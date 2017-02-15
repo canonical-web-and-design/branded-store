@@ -16,6 +16,10 @@
 .MyUbuntuBlock-leftspace {
   padding-left: 68px;
 }
+.MyUbuntuBlock-smallpadding {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
 .MyUbuntuBlock-noborder {
   border: 0;
 }
@@ -37,17 +41,13 @@
 .MyUbuntuBlock-app {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: top;
 }
 .MyUbuntuBlock-app-price {
   font-size: 22px;
 }
 .MyUbuntuBlock-app .SnapPageSummary {
   margin-bottom: 0;
-}
-.MyUbuntuBlock-app .SnapPageSummary-icon {
-  width: 65px;
-  height: 65px;
 }
 .MyUbuntuBlock-app .SnapPageSummary-author {
   margin-top: 0;
@@ -56,7 +56,6 @@
   font-size: 36px;
   margin-bottom: 0;
 }
-
 .MyUbuntuBlock-title-check {
   font-size: 24px;
   margin-bottom: 20px;
@@ -70,14 +69,19 @@
 }
 .MyUbuntuBlock-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-end;
   margin: 0;
 }
 .MyUbuntuBlock-row div {
-  margin-right: 30px;
+  margin-right: 5px;
 }
-
+.MyUbuntuBlock-row .p-large {
+  line-height: 200%;
+}
+.MyUbuntuBlock-row .p-xlarge {
+  line-height: 350%;
+}
 .PurchaseSummary-input {
   width: 100%;
   border: 1px solid #CDCDCD;

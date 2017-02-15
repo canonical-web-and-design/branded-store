@@ -35,10 +35,10 @@ export default class MyUbuntu extends Component {
         `Provide us your payment details`,
       ],
       par1: `Once you authorize the payment you’ll be returned to the store.`,
-      welcome: `Welcome, Lola Chang`,
-      youAreSignedIn: `You are signed in with the email address`,
+      welcome: `Welcome back, Lola Chang`,
+      youAreSignedIn: `You are signed in as`,
       email: `lola.chang@canonical.com`,
-      notYou: `Not Lola? `,
+      notYou: `Not Lola?`,
       manage: `Sign in with a different account`,
     }
 
@@ -56,15 +56,14 @@ export default class MyUbuntu extends Component {
             <ContentWrapper background>
               <div className='MyUbuntu-content'>
                 <div className='MyUbuntu-content-in'>
-                  <Block>
+                  <Block smallpadding>
                     <h1>{content.title}</h1>
-
                     <div className='MyUbuntuBlock-app'>
                       <Summary
                         icon={snap.iconUrl}
                         name={snap.name}
                         author={snap.author}
-                        rating={-1}
+                        rating={4}
                       />                    
                       <span className='MyUbuntuBlock-app-price'>
                         <span>Price: </span>
@@ -83,58 +82,51 @@ export default class MyUbuntu extends Component {
                   </Block>
                   <Block>
                     <div className='MyUbuntuBlock-row'>
-                      <div>
-                        <div className='MyUbuntuBlock-title'>
+                      <div> 
+                        <p className='p-large'>
                           {content.welcome}
-                        </div>
-                        <p>
+                        </p>
+                        <p className='p-large'>
                           <span>{content.youAreSignedIn}</span>
                           <span>{' '}</span>
                           <span>{content.email}</span>
-                          <span>{'.'}</span>
+                          <span>{' ('}</span>
+                          <span>
+                            <Link
+                              color={linkColor}
+                              label={content.notYou}
+                            />
+                          </span>
+                          <span>{')'}</span>
                         </p>
                       </div>
-                      <p>
-                        <strong style={{ marginRight: '5px' }}>
-                          {content.notYou}
-                        </strong>
-
-                        <Link
-                          color={linkColor}
-                          label={content.manage}
-                          external
-                        />
-                      </p>
                     </div>
-                  </Block>
-                  <Block>
                     <div className='MyUbuntuBlock-row'>
-                      <div>
-                        <div className='MyUbuntuBlock-title'>
-                          {'Stored payment details'}
-                          <img
-                            style={{ marginLeft: '11px' }}
-                            src={`${pub}/128bits.png`}
-                            width={442/2}
-                            height={34/2}
-                            alt=''
+                      <p className='p-xlarge'>
+                        <span>{'Your payment method is'}</span>
+                        <span>{' '}</span>
+                        <span>{'Mastercard - xxxx-xxx-xxxx-xxxx-4567'}</span>
+                        <span>{' '}</span>
+                        <span>{'Expires: 09/2020'}</span>
+                        <span>{' ('}</span>
+                        <span>
+                          <Link
+                            color={linkColor}
+                            label={'Edit'}
                           />
-                        </div>
-                        <p>
-                          <strong>Mastercard - xxxx-xxx-xxxx-xxxx-4567</strong>
-                        </p>
-                        <p>
-                          Expires: 09/2020
-                        </p>
-                      </div>
-                      <p>
-                        <Link
-                          color={linkColor}
-                          label={'Edit payment details'}
-                          external
-                        />
+                        </span>
+                        <span>{')'}</span>
+                        
                       </p>
                     </div>
+                      <img
+                        style={{ marginLeft: '5px' }}
+                        src={`${pub}/128bits.png`}
+                        width={442/2}
+                        height={34/2}
+                        alt=''
+                      />
+
                   </Block>
 
                   <Block noborder>
@@ -281,12 +273,13 @@ class PurchaseSummary extends React.Component {
     // </table>
 }
 
-function Block({ noborder, leftspace, children }) {
+function Block({ noborder, leftspace, smallpadding, children }) {
   return (
     <div className={classes({
       'MyUbuntuBlock': true,
       'MyUbuntuBlock-leftspace': leftspace,
       'MyUbuntuBlock-noborder': noborder,
+      'MyUbuntuBlock-smallpadding': smallpadding,
     })}>
       {children}
     </div>
