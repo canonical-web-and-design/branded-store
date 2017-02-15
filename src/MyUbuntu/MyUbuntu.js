@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import './MyUbuntu.css'
 
+import Header from '../Header/Header'
+
 import {
   Link,
   classes,
   Button,
-  Header,
   Footer,
   ContentWrapper,
   SnapPageSummary as Summary,
@@ -47,10 +48,15 @@ export default class MyUbuntu extends Component {
 
     return (
       <div>
-        <Header
-          menuitems={[]}
-          onMenuItemClick={() => {}}
-        />
+        <div className='MyUbuntu-header'>
+          <Header
+            menuitems={[]}
+            onMenuItemClick={() => {}}
+            hasSignIn={true}
+            signedIn={true}
+            hasBack={false}
+          />
+        </div>
         <main className='App-content'>
           <div className='App-payment'>
             <ContentWrapper background>

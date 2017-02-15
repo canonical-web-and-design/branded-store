@@ -1,3 +1,8 @@
+.MyUbuntu-header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  pointer-events: none;
+}
 .MyUbuntu-content {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -92,4 +97,7 @@
 .PurchaseSummary-input[disabled] {
   color: rgba(51, 51, 51, 0.3);
   background: #FFF;
+}
+.Footer-MyUbuntu {
+  padding: 20px 0;
 }

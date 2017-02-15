@@ -18,8 +18,8 @@ class Header extends Component {
     }
   }
   handleProfileClick = (event) => {
+    event.currentTarget.blur()
     if (this.props.onProfileClick) {
-      event.currentTarget.blur()
       this.props.onProfileClick()
     }
   }
