@@ -40,7 +40,7 @@ function createAllSnaps(customSnapsData) {
       customSnapsData.map((snap, i) => {
         snap.iconUrl = `${pub}/brand-settings/snaps-icons/${snap.image}`
         snap.preinstalled = i === 0
-        snap.type = i === 0? 'Gadget Snap' : ''
+        snap.type = i === 0? 'Gadget app' : ''
         snap.systemSnap = false
         return snap
       })
