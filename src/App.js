@@ -262,8 +262,7 @@ class App extends Component {
 
     const homeSnaps = allSnaps.filter(
       snap => (
-        snap.status === 'installed'
-        // || snap.status === 'installing'
+        snap.status === 'installed' || snap.status === 'installing'
       )
     )
 
