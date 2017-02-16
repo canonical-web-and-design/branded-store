@@ -53,7 +53,7 @@ class DeviceBanner extends PureComponent {
             >
               <span>
                 Documentation
-                <span className='Link-external-icon'>
+                <span style={{ marginLeft: '5px' }}>
                   <Icon name='external' />
                 </span>
               </span>

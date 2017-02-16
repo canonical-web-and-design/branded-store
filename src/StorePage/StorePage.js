@@ -121,7 +121,7 @@ class StorePage extends PureComponent {
               height: '0',
               marginTop: '20px',
               borderBottom: '1px dotted #D2D2D2',
-            }} 
+            }}
           />
         </div>
         {category? (
@@ -135,11 +135,11 @@ class StorePage extends PureComponent {
     )
 
     return (
-      <div 
+      <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          minHeight: 'calc(100vh - 50px)' 
+          minHeight: 'calc(100vh - 50px)'
         }}
       >
         <ContentWrapper>
@@ -155,14 +155,14 @@ class StorePage extends PureComponent {
             alt='Search Field placeholder'
           />
         </ContentWrapper>
-        <ContentWrapper 
+        <ContentWrapper
           background
           bordered
           style={{
           flexGrow: '1',
         }}
         >
-          <CardsList 
+          <CardsList
             cards={featuredSnapCards}
             header={header}
           >

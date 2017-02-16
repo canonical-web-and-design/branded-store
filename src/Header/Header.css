@@ -42,10 +42,12 @@
   background: rgba(0,0,0,0.05);
 }
 .Header-profile {
+  position: relative;
   display: flex;
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
+  margin: 0 0 0 auto;
   white-space: nowrap;
   outline: 0;
   pointer-events: auto;
