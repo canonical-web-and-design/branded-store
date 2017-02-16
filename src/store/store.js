@@ -6,6 +6,7 @@ const pub = process.env.PUBLIC_URL
 
 const CSV_TAGS = {
   'Name': 'name',
+  'Snap ID': 'snapId',
   'Price (USD)': 'price',
   'Icon Name': 'image',
   'Author': 'author',
@@ -46,7 +47,7 @@ function createAllSnaps(customSnapsData) {
       })
     )
     .map(snap => {
-      const id = snap.id || snap.name.toLowerCase().split(' ').join('-')
+      const id = snap.id || (snap.snapId || '').trim() || snap.name.toLowerCase().split(' ').join('-')
       const type = snap.type || 'Snap'
       const interfaces = snap.interfaces.split(',')
       const preinstalled = snap.preinstalled || false
