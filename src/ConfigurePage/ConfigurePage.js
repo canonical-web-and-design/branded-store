@@ -71,7 +71,6 @@ export default class ConfigurePage extends PureComponent {
                   <Button
                     onClick={this.handleApiBaseUrlReset}
                     label='Default API Base URL'
-                    variableWidth={true}
                   />
                 </div>
               </div>
@@ -84,7 +83,6 @@ export default class ConfigurePage extends PureComponent {
               <div>
                 <Button
                   label='Save'
-                  variableWidth={true}
                   type='positive'
                   disabled={!readyToSave}
                   onClick={this.handleSave}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './SnapPage.css'
-
+import formatDate from 'date-fns/format'
+import { seedRandom } from '../utils'
 import {
   If,
   ContentWrapper,
@@ -15,6 +16,23 @@ import {
 } from 'toolkit'
 
 const defaultDesc = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+
+// Get a last updated time based on the ID, between 1 and 10 days ago
+function lastUpdatedFromId(idNum) {
+  const lastUpdated = new Date()
+  lastUpdated.setDate(lastUpdated.getDate() - 1 - Math.floor(idNum * 10))
+  lastUpdated.setHours(0, 0, 0, 0)
+  lastUpdated.setTime(lastUpdated.valueOf() + 1000 * 60 * 60 * 24 * idNum)
+  return lastUpdated
+}
+
+// Return a number between 0 and 1 based on the ID
+function numFromId(id) {
+  const idHash = [...id].reduce((
+    (total, char) => total + char.charCodeAt()
+  ) , 0)
+  return seedRandom(idHash)()
+}
 
 class SnapPage extends Component {
 
@@ -48,6 +66,12 @@ class SnapPage extends Component {
 
     const installProgress = (
       snap.status === 'installing'? snap.installProgress : 0
+    )
+
+    const idNum = numFromId(snap.id)
+    const lastUpdated = formatDate(
+      lastUpdatedFromId(idNum),
+      'DD MMMM YYYY HH:mm:ss'
     )
 
     return (
@@ -116,7 +140,7 @@ class SnapPage extends Component {
                   ['Size', snap.size],
                   ['Version', snap.version],
                   ['Channel', 'Stable'],
-                  ['Updated', '12 August 2016 12:37:06'],
+                  ['Updated', lastUpdated],
                 ]}
               />
               <div className='SnapPage-SnapPageAbout'>

@@ -47,6 +47,7 @@ class DeviceBanner extends PureComponent {
             <Button
               style={{
                 marginRight: '10px',
+                minWidth: '220px',
               }}
               onClick={this.handleDocumentationClick}
             >
@@ -58,6 +59,9 @@ class DeviceBanner extends PureComponent {
               </span>
             </Button>
             <Button
+              style={{
+                minWidth: '220px',
+              }}
               label={'Settings'}
               onClick={this.handleSettingsClick}
             />

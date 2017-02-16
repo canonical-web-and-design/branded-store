@@ -272,7 +272,6 @@ class PurchaseSummary extends React.Component {
                 !this.state.checked
               }
               onClick={onPurchase}
-              variableWidth={true}
             />
           </div>
         </div>
