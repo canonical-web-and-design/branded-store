@@ -98,6 +98,9 @@
   color: rgba(51, 51, 51, 0.3);
   background: #FFF;
 }
-.Footer-MyUbuntu {
-  padding: 20px 0;
+.MyUbuntuFooter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: 'center';
+  padding: 15px 0;
 }

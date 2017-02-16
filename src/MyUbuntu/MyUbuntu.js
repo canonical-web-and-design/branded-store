@@ -12,6 +12,8 @@ import {
   SnapPageSummary as Summary,
 } from 'toolkit'
 
+import ubuntuLogo from './assets/logo.png'
+
 const linkColor = '#007AA6'
 
 const pub = process.env.PUBLIC_URL
@@ -151,14 +153,25 @@ export default class MyUbuntu extends Component {
         <Footer>
           <div className='Footer-MyUbuntu'>
             <ContentWrapper>
-              <p>
-                {`© ${(new Date()).getFullYear()} Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.`}
-              </p>
-              <p>
-                <a className='link'>Terms of Service</a>
-                <span>{' · '}</span>
-                <a className='link'>Report a bug on this site</a>
-              </p>
+              <div className='MyUbuntuFooter-container'>
+                <div>
+                  <p>
+                    {`© ${(new Date()).getFullYear()} Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.`}
+                  </p>
+                  <p>
+                    <a className='link'>Terms of Service</a>
+                    <span>{' · '}</span>
+                    <a className='link'>Report a bug on this site</a>
+                  </p>
+                </div>
+                <div>
+                  <img
+                    src={ubuntuLogo}
+                    alt={'alt name'}
+                    height='48'
+                  />
+                </div>
+              </div>
             </ContentWrapper>
           </div>
         </Footer>
