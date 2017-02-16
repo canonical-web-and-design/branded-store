@@ -57,6 +57,7 @@ export default class MyUbuntu extends Component {
             hasSignIn={true}
             signedIn={true}
             hasBack={false}
+            logo={ubuntuLogo}
           />
         </div>
         <main className='App-content'>
