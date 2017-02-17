@@ -80,7 +80,6 @@ class StorePage extends PureComponent {
       categories,
       featuredSnaps,
       category = '',
-      section = '',
     } = this.props
 
     const featuredSnapCards = featuredSnaps.map(snapToStoreCard)
@@ -98,7 +97,7 @@ class StorePage extends PureComponent {
             }}
           >
             <h1 style={{ fontSize: '24px' }}>
-              {category? capitalize(category) : 'Apps available'}
+              {category? capitalize(category) : 'App store'}
             </h1>
             <p style={{ fontSize: '16px' }}>
               {categories.map(tag => (
@@ -131,9 +130,6 @@ class StorePage extends PureComponent {
             <Highlight />
           </div>
         ) : null}
-      <h2 style={{ fontSize: '20px', margin: '20px 0 10px'}}>
-        {section? capitalize(section) : 'Featured'}
-      </h2>
       </div>
     )
 
