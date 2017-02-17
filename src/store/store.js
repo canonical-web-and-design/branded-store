@@ -240,6 +240,7 @@ export default function createStore(brand) {
       authTimer = setTimeout(() => {
         window.scrollTo(0, 0)
         install(snapId)
+        emit('GO_HOME')
       }, 1500)
     }, 1500)
   }

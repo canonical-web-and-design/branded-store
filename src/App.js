@@ -126,13 +126,16 @@ class App extends Component {
   }
 
   handleStoreEvents = (event) => {
-    // console.log('[STORE EVENT]', event.type, event)
+    //console.log('[STORE EVENT]', event.type, event)
     if (event.type === 'ALL_SNAPS') {
       return this.setState({ allSnaps: event.snaps })
     }
     if (event.type === 'FEATURED_SNAPS') {
       return this.setState({ featuredSnapIds: event.ids })
     }
+    if (event.type === 'GO_HOME') {
+      return this.goto('')
+    } 
   }
 
   reloadBrands = () => {
