@@ -38,7 +38,7 @@ class Header extends Component {
     const styles = props.customColor? {
       borderColor: props.customColor,
     } : {}
-    const signedInText=props.signedIn? 'Sign out' : 'Sign in'
+    const signedInText=props.signedIn? 'Logout' : 'Log in'
 
     const img = (
       <img className='Header-logo'
