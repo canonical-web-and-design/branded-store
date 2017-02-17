@@ -266,8 +266,7 @@ class App extends Component {
       )
     )
 
-    const cardImgRootUrl = `${pub}/icons/cards/`
-    const brandData = brands.find(br => br.id === brand) || {}
+    const brandData = this.getBrandData()
 
     const themeChanger = brands.length < 2? null : (
       <ThemeChanger
