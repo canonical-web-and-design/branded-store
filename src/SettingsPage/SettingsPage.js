@@ -16,7 +16,7 @@ export default function SettingsPage({ screenId, onNavChange }) {
     ['info', 'Device information'],
     ['date-time', 'Date and time'],
     ['updates', 'Updates'],
-    ['users', 'Users'],
+    // ['users', 'Users'],
     // ['profile', 'Profile'],
     // ['customization', 'Customization'],
   ]

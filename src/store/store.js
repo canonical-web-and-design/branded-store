@@ -1,11 +1,12 @@
 import Papa from 'papaparse'
 import { renameKeys } from '../utils'
-import ALL_SNAPS from './snaps-index'
+import PREINSTALLED_SNAPS from './preinstalled-snaps'
 
 const pub = process.env.PUBLIC_URL
 
 const CSV_TAGS = {
   'Name': 'name',
+  'Snap ID': 'snapId',
   'Price (USD)': 'price',
   'Icon Name': 'image',
   'Author': 'author',
@@ -27,26 +28,46 @@ function parseIds(ids) {
   ))
 }
 
-function createAllSnaps(snapsData) {
+function createAllSnaps(customSnapsData) {
   const installedIds = parseIds(localStorage.getItem('installed-snaps'))
-  return ALL_SNAPS
+  return PREINSTALLED_SNAPS
     .filter(snap => snap.preinstalled)
-    .concat(snapsData)
-    .map(snap => Object.assign({}, snap, {
-      status: (
-        installedIds.includes(snap.id) || snap.preinstalled
+    .map(snap => {
+      snap.iconUrl = `${pub}/icons/cards/${snap.id}.png`
+      snap.systemSnap = true
+      return snap
+    })
+    .concat(
+      customSnapsData.map((snap, i) => {
+        snap.iconUrl = `${pub}/brand-settings/snaps-icons/${snap.image}`
+        snap.preinstalled = i === 0
+        snap.type = i === 0? 'Gadget app' : ''
+        snap.systemSnap = false
+        return snap
+      })
+    )
+    .map(snap => {
+      const id = snap.id || (snap.snapId || '').trim() || snap.name.toLowerCase().split(' ').join('-')
+      const type = snap.type || 'Snap'
+      const interfaces = snap.interfaces.split(',')
+      const preinstalled = snap.preinstalled || false
+      const status = (
+        installedIds.includes(id) || snap.preinstalled
           ? 'installed'
           : 'uninstalled'
-      ),
-      installStart: -1,
-      installProgress: -1,
-
-      // add
-      id: snap.id || snap.name.toLowerCase().split(' ').join('-'),
-      preinstalled: snap.preinstalled || false,
-      type: snap.type || 'Snap',
-      rating: -1,
-    }))
+      )
+      return {
+        ...snap,
+        id,
+        type,
+        interfaces,
+        preinstalled,
+        status,
+        rating: -1,
+        installStart: -1,
+        installProgress: -1,
+      }
+    })
 }
 
 function getSnaps(url) {
@@ -61,10 +82,8 @@ function getSnaps(url) {
     rows.data
       .map(row => {
         const snap = renameKeys(row, CSV_TAGS)
-        console.log(snap.category)
         snap.price = snap.price === '0'? 'free' : `$${snap.price}`
         snap.size = `${snap.size}MB`
-        snap.interfaces = snap.interfaces.split(',')
         return snap
       })
   ))

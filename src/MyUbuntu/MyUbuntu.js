@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import './MyUbuntu.css'
 
+import Header from '../Header/Header'
+
 import {
   Link,
   classes,
   Button,
-  Header,
   Footer,
   ContentWrapper,
   SnapPageSummary as Summary,
 } from 'toolkit'
+
+import ubuntuLogo from './assets/logo.png'
 
 const linkColor = '#007AA6'
 
@@ -23,11 +26,9 @@ export default class MyUbuntu extends Component {
 
     const {
       snap={},
-      cardImgRootUrl,
     } = this.props
 
     const name = (snap && snap.name) || 'Cassandra'
-    const icon = `${cardImgRootUrl}${snap.id}.png`
 
     const content = {
       title: `Purchasing`,
@@ -37,10 +38,10 @@ export default class MyUbuntu extends Component {
         `Provide us your payment details`,
       ],
       par1: `Once you authorize the payment you’ll be returned to the store.`,
-      welcome: `Welcome, Lola Chang`,
-      youAreSignedIn: `You are signed in with the email address`,
+      welcome: `Welcome back, Lola Chang`,
+      youAreSignedIn: `You are signed in as`,
       email: `lola.chang@canonical.com`,
-      notYou: `Not Lola? `,
+      notYou: `Not Lola?`,
       manage: `Sign in with a different account`,
     }
 
@@ -49,27 +50,32 @@ export default class MyUbuntu extends Component {
 
     return (
       <div>
-        <Header
-          menuitems={[]}
-          onMenuItemClick={() => {}}
-        />
+        <div className='MyUbuntu-header'>
+          <Header
+            menuitems={[]}
+            onMenuItemClick={() => {}}
+            hasSignIn={true}
+            signedIn={true}
+            hasBack={false}
+            logo={ubuntuLogo}
+          />
+        </div>
         <main className='App-content'>
           <div className='App-payment'>
             <ContentWrapper background>
               <div className='MyUbuntu-content'>
                 <div className='MyUbuntu-content-in'>
-                  <Block>
+                  <Block smallpadding>
                     <h1>{content.title}</h1>
-
                     <div className='MyUbuntuBlock-app'>
                       <Summary
-                        icon={icon}
+                        icon={snap.iconUrl}
                         name={snap.name}
                         author={snap.author}
-                        rating={-1}
+                        rating={4}
                       />                    
                       <span className='MyUbuntuBlock-app-price'>
-                        <span>Snap Price: </span>
+                        <span>Price: </span>
                         {snap.price}
                       </span>
                     </div>
@@ -85,58 +91,51 @@ export default class MyUbuntu extends Component {
                   </Block>
                   <Block>
                     <div className='MyUbuntuBlock-row'>
-                      <div>
-                        <div className='MyUbuntuBlock-title'>
+                      <div> 
+                        <p className='p-large'>
                           {content.welcome}
-                        </div>
-                        <p>
+                        </p>
+                        <p className='p-large'>
                           <span>{content.youAreSignedIn}</span>
                           <span>{' '}</span>
                           <span>{content.email}</span>
-                          <span>{'.'}</span>
+                          <span>{' ('}</span>
+                          <span>
+                            <Link
+                              color={linkColor}
+                              label={content.notYou}
+                            />
+                          </span>
+                          <span>{')'}</span>
                         </p>
                       </div>
-                      <p>
-                        <strong style={{ marginRight: '5px' }}>
-                          {content.notYou}
-                        </strong>
-
-                        <Link
-                          color={linkColor}
-                          label={content.manage}
-                          external
-                        />
-                      </p>
                     </div>
-                  </Block>
-                  <Block>
                     <div className='MyUbuntuBlock-row'>
-                      <div>
-                        <div className='MyUbuntuBlock-title'>
-                          {'Stored payment details'}
-                          <img
-                            style={{ marginLeft: '11px' }}
-                            src={`${pub}/128bits.png`}
-                            width={442/2}
-                            height={34/2}
-                            alt=''
+                      <p className='p-xlarge'>
+                        <span>{'Your payment method is'}</span>
+                        <span>{' '}</span>
+                        <span>{'Mastercard - xxxx-xxx-xxxx-xxxx-4567'}</span>
+                        <span>{' '}</span>
+                        <span>{'Expires: 09/2020'}</span>
+                        <span>{' ('}</span>
+                        <span>
+                          <Link
+                            color={linkColor}
+                            label={'Edit'}
                           />
-                        </div>
-                        <p>
-                          <strong>Mastercard - xxxx-xxx-xxxx-xxxx-4567</strong>
-                        </p>
-                        <p>
-                          Expires: 09/2020
-                        </p>
-                      </div>
-                      <p>
-                        <Link
-                          color={linkColor}
-                          label={'Edit payment details'}
-                          external
-                        />
+                        </span>
+                        <span>{')'}</span>
+                        
                       </p>
                     </div>
+                      <img
+                        style={{ marginLeft: '5px' }}
+                        src={`${pub}/128bits.png`}
+                        width={442/2}
+                        height={34/2}
+                        alt=''
+                      />
+
                   </Block>
 
                   <Block noborder>
@@ -155,14 +154,25 @@ export default class MyUbuntu extends Component {
         <Footer>
           <div className='Footer-MyUbuntu'>
             <ContentWrapper>
-              <p>
-                {`© ${(new Date()).getFullYear()} Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.`}
-              </p>
-              <p>
-                <a className='link'>Terms of Service</a>
-                <span>{' · '}</span>
-                <a className='link'>Report a bug on this site</a>
-              </p>
+              <div className='MyUbuntuFooter-container'>
+                <div>
+                  <p>
+                    {`© ${(new Date()).getFullYear()} Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.`}
+                  </p>
+                  <p>
+                    <a className='link'>Terms of Service</a>
+                    <span>{' · '}</span>
+                    <a className='link'>Report a bug on this site</a>
+                  </p>
+                </div>
+                <div>
+                  <img
+                    src={ubuntuLogo}
+                    alt={'alt name'}
+                    height='48'
+                  />
+                </div>
+              </div>
             </ContentWrapper>
           </div>
         </Footer>
@@ -263,7 +273,6 @@ class PurchaseSummary extends React.Component {
                 !this.state.checked
               }
               onClick={onPurchase}
-              variableWidth={true}
             />
           </div>
         </div>
@@ -283,12 +292,13 @@ class PurchaseSummary extends React.Component {
     // </table>
 }
 
-function Block({ noborder, leftspace, children }) {
+function Block({ noborder, leftspace, smallpadding, children }) {
   return (
     <div className={classes({
       'MyUbuntuBlock': true,
       'MyUbuntuBlock-leftspace': leftspace,
       'MyUbuntuBlock-noborder': noborder,
+      'MyUbuntuBlock-smallpadding': smallpadding,
     })}>
       {children}
     </div>

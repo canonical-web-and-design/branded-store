@@ -38,26 +38,36 @@ export default function createApi(baseUrl) {
 
   const callbacks = []
 
-  // let cancel = () => {}
-
   const listen = (cb) => {
     callbacks.push(cb)
   }
 
-  // const broadcast = (message) => {
-  //   callbacks.forEach(cb => cb(message))
-  // }
+  // - pass a callback to remove only one listener
+  // - call without parameters to remove all listeners
+  const removeListeners = (cb) => {
+    if (cb) {
+      callbacks.splice(callbacks.indexOf(cb), 1)
+    } else {
+      callbacks.splice(0)
+    }
+  }
 
   const request = (action, data) => {
-
     const url = actionUrl(baseUrl, action, data)
-    if (!url) return
-
+    if (!url) {
+      return
+    }
     axios.get(url, axiosParams())
+  }
+
+  const getBaseUrl = () => {
+    return baseUrl
   }
 
   return {
     listen,
+    removeListeners,
     request,
+    getBaseUrl,
   }
 }

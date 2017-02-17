@@ -9,7 +9,13 @@ import {
 
 class DeviceBanner extends PureComponent {
 
-  handleSettingsClick = () => {
+  handleDocumentationClick = (event) => {
+    event.currentTarget.blur()
+    this.props.onDocumentationClick()
+  }
+
+  handleSettingsClick = (event) => {
+    event.currentTarget.blur()
     this.props.onSettingsClick()
   }
 
@@ -41,16 +47,21 @@ class DeviceBanner extends PureComponent {
             <Button
               style={{
                 marginRight: '10px',
+                minWidth: '220px',
               }}
+              onClick={this.handleDocumentationClick}
             >
               <span>
                 Documentation
-                <span className='Link-external-icon'>
+                <span style={{ marginLeft: '5px' }}>
                   <Icon name='external' />
                 </span>
               </span>
             </Button>
             <Button
+              style={{
+                minWidth: '220px',
+              }}
               label={'Settings'}
               onClick={this.handleSettingsClick}
             />

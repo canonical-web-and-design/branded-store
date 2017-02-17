@@ -11,6 +11,7 @@ import {
 import ThemeChanger from './ThemeChanger/ThemeChanger'
 import Loader from './Loader/Loader'
 
+import ConfigurePage from './ConfigurePage/ConfigurePage'
 import HomePage from './HomePage/HomePage'
 import StorePage from './StorePage/StorePage'
 import SnapPage from './SnapPage/SnapPage'
@@ -39,13 +40,25 @@ const categories = [
 
 const getBrands = createBrands(`${pub}/brands`)
 
+// Save the API URL using localStorage
+const saveApiUrl = (value) => {
+  localStorage.setItem('api-url', value)
+  return value
+}
+
+// Read the API URL using localStorage
+const readApiUrl = (defaultValue) => {
+  const value = (localStorage.getItem('api-url') || '').trim()
+  return value || defaultValue
+}
+
 class App extends Component {
 
   constructor(props) {
     super(props)
 
     const store = createStore()
-    const api = createApi(DEFAULT_API_BASE_URL)
+    const api = createApi(readApiUrl(DEFAULT_API_BASE_URL))
 
     this.state = {
       route: { name: '', params: [], value: '' },
@@ -61,6 +74,10 @@ class App extends Component {
     }
   }
 
+  getBrandData = () => {
+    return this.state.brands.find(br => br.id === this.state.brand) || {}
+  }
+
   componentDidMount() {
     this.state.store.listen(this.handleStoreEvents)
     this.state.api.listen(this.handleApiMessage)
@@ -68,6 +85,27 @@ class App extends Component {
     this.setState({
       routing: createRouting(this.handleRouteUpdate)
     })
+  }
+
+  handleConfigureSave = (data) => {
+    if (data.apiBaseUrl !== this.state.api.getBaseUrl()) {
+      this.updateApiUrl(data.apiBaseUrl)
+    }
+  }
+
+
+
+  updateApiUrl = (baseUrl) => {
+    this.state.api.removeListeners()
+    this.setState({
+      api: createApi(saveApiUrl(baseUrl))
+    }, () => {
+      this.state.api.listen(this.handleApiMessage)
+    })
+  }
+
+  resetApiUrl = () => {
+    this.updateApiUrl(DEFAULT_API_BASE_URL)
   }
 
   handleApiMessage = (message) => {
@@ -171,10 +209,6 @@ class App extends Component {
     this.goto('')
   }
 
-  handleLogoClick = () => {
-    window.open('http://www.limemicro.com/')
-  }
-
   handleOpenSnap = (id) => {
     if (id === 'add') {
       return this.goto('store')
@@ -186,8 +220,19 @@ class App extends Component {
     }
   }
 
+  handleOpenStore = () => {
+    this.goto('store')
+  }
+
   handleOpenSettings = () => {
     this.goto('settings')
+  }
+
+  handleOpenDocumentation = () => {
+    const brandData = this.getBrandData()
+    if (brandData.docUrl) {
+      window.open(brandData.docUrl)
+    }
   }
 
   handleSettingsNavChange = (id) => {
@@ -211,15 +256,13 @@ class App extends Component {
 
     const {
       allSnaps,
-      brand,
       brands,
       route,
     } = this.state
 
     const homeSnaps = allSnaps.filter(
       snap => (
-        snap.status === 'installed'
-        // || snap.status === 'installing'
+        snap.status === 'installed' || snap.status === 'installing'
       )
     )
 
@@ -265,7 +308,7 @@ class App extends Component {
     return (
       <div className='App'>
         <style>{`
-          a, .SnapPageTags { color: ${brandData.color2 || '#333'} }
+          a, .SnapPageTags { color: ${brandData.color || '#333'} }
           .external, .external-branded {
             background-image: url(${pub}/external-${brandData.id}.svg);
           }
@@ -276,10 +319,10 @@ class App extends Component {
 
         <If cond={!waitingPayment}>
           <div className='App-main'>
-            <div className={section === 'settings'? 'App-header App-header-static' : 'App-header'}>
+            <div className='App-header'>
               <Header 
                 hasBack={section !== 'home'}
-                hasSignIn={section === 'home' || section === 'settings'}
+                hasSignIn={section === 'home'}
                 signedIn={true}
                 currentSection={section}
                 onMenuItemClick={this.handleMenuItemClick}
@@ -288,18 +331,24 @@ class App extends Component {
               />
             </div>
             <main className='App-content'>
+              <If cond={section === 'configure'}>
+                <ConfigurePage
+                  apiBaseUrl={this.state.api.getBaseUrl()}
+                  apiBaseUrlDefault={DEFAULT_API_BASE_URL}
+                  onSave={this.handleConfigureSave}
+                />
+              </If>
               <If cond={section === 'home'}>
                 <HomePage
-                  cardImgRootUrl={cardImgRootUrl}
                   snaps={homeSnaps}
+                  brandData={brandData}
                   onOpenSnap={this.handleOpenSnap}
                   onOpenSettings={this.handleOpenSettings}
-                  brandData={brandData}
+                  onOpenDocumentation={this.handleOpenDocumentation}
                 />
               </If>
               <If cond={section === 'store'}>
                 <StorePage
-                  cardImgRootUrl={cardImgRootUrl}
                   featuredSnaps={this.getFeaturedSnaps()}
                   onOpenSnap={this.handleOpenSnap}
                   onTagClick={this.handleTagClick}
@@ -313,7 +362,6 @@ class App extends Component {
               <If cond={section === 'snap'}>
                 <div className='App-SnapPage'>
                   <SnapPage
-                    cardImgRootUrl={cardImgRootUrl}
                     snap={allSnaps.find(snap => (
                       snap.id === route.params[route.params.length - 1]
                     ))}
@@ -323,6 +371,7 @@ class App extends Component {
                     onRequestAuthorize={this.requestAuthorize}
                     onRequestConfirm={this.requestConfirm}
                     onRequestCancel={this.requestCancel}
+                    onRequestStore={this.handleOpenStore}
                   />
                 </div>
               </If>
@@ -335,10 +384,12 @@ class App extends Component {
             </main>
             <div className='App-footer'>
               <Footer 
+                name={brandData.brandName}
                 firstLine={themeChanger}
                 copyright={`© ${(new Date()).getFullYear()} ${brandData.brandName}`}
-                logo={`${pub}/brands/${brandData.id || DEFAULT_BRAND}/logo.png`}
+                logo={`${pub}/brand-settings/brand/logo.png`}
                 link={brandData.website}
+                termsUrl={brandData.termsUrl}
               />
             </div>
           </div>
@@ -349,7 +400,6 @@ class App extends Component {
             onPurchase={this.requestConfirm}
             onCancel={this.requestCancel}
             snap={currSnap}
-            cardImgRootUrl={cardImgRootUrl}
           />
         </If>
 

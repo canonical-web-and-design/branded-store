@@ -19,7 +19,7 @@ function snapToStoreCard(snap) {
         snap.price === 'free'? 'Install' : snap.price
       )
     ),
-    image: snap.id,
+    iconUrl: snap.iconUrl,
     rating: snap.rating,
     installProgress: (
       snap.status === 'installing'
@@ -76,7 +76,6 @@ class StorePage extends PureComponent {
 
     const {
       brandData,
-      cardImgRootUrl,
       onOpenSnap,
       categories,
       featuredSnaps,
@@ -102,13 +101,16 @@ class StorePage extends PureComponent {
             </h1>
             <p style={{ fontSize: '16px' }}>
               {categories.map(tag => (
-                <span key={tag}>
+                <span key={tag}
+                  style={{
+                    marginLeft: '20px',
+                  }}
+                >
                   <Tag
                     name={tag}
                     onClick={this.handleTagClick}
-                    color={brandData.color2}
+                    color={brandData.color}
                   />
-                  <span>{' '}</span>
                 </span>
               ))}
             </p>
@@ -119,7 +121,7 @@ class StorePage extends PureComponent {
               height: '0',
               marginTop: '20px',
               borderBottom: '1px dotted #D2D2D2',
-            }} 
+            }}
           />
         </div>
         {category? (
@@ -133,11 +135,11 @@ class StorePage extends PureComponent {
     )
 
     return (
-      <div 
+      <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          minHeight: 'calc(100vh - 50px)' 
+          minHeight: 'calc(100vh - 50px)'
         }}
       >
         <ContentWrapper>
@@ -153,16 +155,15 @@ class StorePage extends PureComponent {
             alt='Search Field placeholder'
           />
         </ContentWrapper>
-        <ContentWrapper 
+        <ContentWrapper
           background
           bordered
           style={{
           flexGrow: '1',
         }}
         >
-          <CardsList 
+          <CardsList
             cards={featuredSnapCards}
-            cardImgRootUrl={cardImgRootUrl}
             header={header}
           >
             {featuredSnapCards.map((card, i) => (
@@ -170,7 +171,7 @@ class StorePage extends PureComponent {
                 key={card.id + i}
                 card={card}
                 action={card.installed? 'open' : ''}
-                image={`${cardImgRootUrl}${card.image}.png`}
+                image={card.iconUrl}
                 onClick={onOpenSnap}
                 onActionClick={this.onActionClick}
                 installProgress={card.installProgress}

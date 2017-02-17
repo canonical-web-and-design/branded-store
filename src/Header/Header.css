@@ -16,6 +16,12 @@
   left: 0;
   bottom: 0;
 }
+.Header-logo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 0;
+}
 .Header-back {
   position: relative;
   display: flex;
@@ -26,6 +32,7 @@
   margin-left: 30px;
   white-space: nowrap;
   outline: 0;
+  pointer-events: auto;
 }
 .Header-back span:first-child {
   margin-right: 10px;
@@ -35,15 +42,19 @@
   background: rgba(0,0,0,0.05);
 }
 .Header-profile {
+  position: relative;
   display: flex;
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
+  margin: 0 0 0 auto;
   white-space: nowrap;
   outline: 0;
+  pointer-events: auto;
 }
 .Header-profile img {
   margin-right: 15px;
+  pointer-events: auto;
 }
 .Header-profile:focus .Header-activeOverlay,
 .Header-profile:active .Header-activeOverlay {
@@ -59,6 +70,7 @@
   border-left: 1px solid #CDCDCD;
   white-space: nowrap;
   outline: 0;
+  pointer-events: auto;
 }
 
 .Header-signIn:focus .Header-activeOverlay,
