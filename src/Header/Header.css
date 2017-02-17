@@ -35,7 +35,7 @@
   pointer-events: auto;
 }
 .Header-back span:first-child {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 .Header-back:focus .Header-activeOverlay,
 .Header-back:active .Header-activeOverlay {

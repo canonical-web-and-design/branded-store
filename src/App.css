@@ -21,7 +21,7 @@
 .App-SnapPage {
   padding-bottom: 50px;
 }
-@media (max-width: 1200px) {
+@media (max-width: 1260px) {
   .App-header {
     position: static;
     padding-top: 5px;
