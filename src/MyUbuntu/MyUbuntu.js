@@ -249,7 +249,7 @@ class PurchaseSummary extends React.Component {
               </span>
             </label>
           </p>
-          <div className='SnapPageLogin-validateGroup'
+          <div className='MyUbuntu-validateGroup'
             style={{
               display: 'flex',
               width: '50%',
@@ -257,7 +257,7 @@ class PurchaseSummary extends React.Component {
           >
             <a
               role='button'
-              className='SnapPageLogin-validateGroup-cancel'
+              className='MyUbuntu-validateGroupCancel'
               style={{
                 color: '#333',
               }}
