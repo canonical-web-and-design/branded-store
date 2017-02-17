@@ -1,4 +1,0 @@
-Name: BOSCH
-Color: #FE000C
-Device Name: Smart Home Controller
-Device ID: Bosch 8750000001 4057749314475

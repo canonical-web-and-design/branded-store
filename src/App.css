@@ -12,22 +12,15 @@
   right: 0;
   padding-top: 25px;
   padding-bottom: 25px;
-}
-.App-header-static {
-  position: static;
-  border-bottom: 1px dotted #D2D2D2;
+  pointer-events: none;
 }
 .App-content {
   min-height: calc(100vh - 50px - 89px);
   flex-grow: 1;
 }
-.App-footer {
-  height: 50px;
-}
 .App-SnapPage {
   padding-bottom: 50px;
 }
-
 @media (max-width: 1200px) {
   .App-header {
     position: static;

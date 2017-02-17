@@ -1,5 +1,4 @@
 .Loader {
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -10,6 +9,10 @@
   bottom: 0;
   background: #FFF;
   transition: opacity 150ms ease-in-out;
+  display: none;
+}
+.Loader-visible {
+  display: flex;
 }
 .Loader-label {
   display: flex;
@@ -20,8 +23,7 @@
 .Loader img {
   margin-right: 20px;
 }
-
-.Loader img {
+.Loader-visible img {
   animation: Loader-spin 1.5s linear infinite;
 }
 @keyframes Loader-spin {
@@ -29,4 +31,3 @@
     transform: rotate(360deg);
   }
 }
-

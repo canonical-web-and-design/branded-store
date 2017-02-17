@@ -3,12 +3,15 @@ import './Header.css'
 
 import avatar from './assets/avatar.png'
 
-import { 
+import {
+  ContentWrapper,
   Icon,
   If,
  } from 'toolkit'
 
 const defaultProfileName = 'Lola Chang'
+
+
 
 class Header extends Component {
   handleBackClick = (event) => {
@@ -18,8 +21,8 @@ class Header extends Component {
     }
   }
   handleProfileClick = (event) => {
+    event.currentTarget.blur()
     if (this.props.onProfileClick) {
-      event.currentTarget.blur()
       this.props.onProfileClick()
     }
   }
@@ -29,13 +32,22 @@ class Header extends Component {
       this.props.onSignInClick()
     }
   }
-
+  
   render() {
     const { props } = this
     const styles = props.customColor? {
       borderColor: props.customColor,
     } : {}
-    const signedInText=props.signedIn? 'Sign out' : 'Sign in'
+    const signedInText=props.signedIn? 'Logout' : 'Log in'
+
+    const img = (
+      <img className='Header-logo'
+        src={this.props.logo}
+        alt={name}
+        height='48'
+      />
+    )
+
     return (
       <header
         className='Header'
@@ -79,6 +91,11 @@ class Header extends Component {
             </div>
           </If>
         </div>
+        <If cond={this.props.logo}>
+          <ContentWrapper>
+            {img}
+          </ContentWrapper>
+        </If>
       </header>
     )
   }

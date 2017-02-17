@@ -6,8 +6,7 @@ const pub = process.env.SNAPCOMMON_URL || process.env.PUBLIC_URL
 const CSV_TAGS = {
   'Brand Name': 'brandName',
   'Brand URL': 'website',
-  'Color 1': 'color',
-  'Color 2': 'color2',
+  'Color': 'color',
   'Product Name': 'deviceName',
   'Product Serial': 'systemName',
   'Documentation URL': 'docUrl',

@@ -1,0 +1,40 @@
+const snaps = [
+  {
+    id: 'canonical-pc-linux',
+    name: 'Canonical-pc-linux',
+    type: 'Kernel app',
+    author: 'Canonical Ltd',
+    price: 'free',
+    rating: -1,
+    category: 'kernel app',
+    interfaces: 'network,network-bind,mount-observe',
+    description: '',
+    preinstalled: true,
+  },
+  {
+    id: 'snapweb',
+    name: 'snapweb',
+    type: 'device manager',
+    author: 'Canonical Ltd',
+    price: 'free',
+    rating: -1,
+    category: 'device manager',
+    interfaces: 'network,network-bind,mount-observe',
+    description: '',
+    preinstalled: true,
+  },
+  {
+    id: 'ubuntu-core',
+    name: 'Ubuntu Core',
+    type: 'OS app',
+    author: 'Canonical Ltd',
+    price: 'free',
+    rating: -1,
+    category: 'OS app',
+    interfaces: 'network,network-bind,mount-observe',
+    description: '',
+    preinstalled: true,
+  },
+]
+
+export default snaps
