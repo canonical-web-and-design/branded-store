@@ -27,6 +27,7 @@ const DEFAULT_API_BASE_URL = (
 const pub = process.env.PUBLIC_URL
 
 const categories = [
+  'featured',
   'databases',
   'network',
   'robotics',

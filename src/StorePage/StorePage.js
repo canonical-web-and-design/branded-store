@@ -86,42 +86,39 @@ class StorePage extends PureComponent {
 
     const header = (
       <div>
-        <div>
-          <div
-            style={{
-              display: 'flex',
-              paddingTop: '50px',
-              marginBottom: '20px',
-              alignItems: 'center',
-              justifyContent: 'space-between',
+        <div
+          style={{ 
+            fontSize: '24px',
+            margin: '40px 0 45px 0',
             }}
-          >
-            <h1 style={{ fontSize: '24px' }}>
-              {category? capitalize(category) : 'App store'}
-            </h1>
-            <p style={{ fontSize: '16px' }}>
-              {categories.map(tag => (
-                <span key={tag}
-                  style={{
-                    marginLeft: '20px',
-                  }}
-                >
-                  <Tag
-                    name={tag}
-                    onClick={this.handleTagClick}
-                    color={brandData.color}
-                  />
-                </span>
-              ))}
-            </p>
-          </div>
-          <div
-            style={{
-              width: '100%',
-              height: '0',
-              borderBottom: '1px dotted #D2D2D2',
-            }}
-          />
+        >
+          <h1 style={{ fontSize: '24px' }}>
+            {category? capitalize(category) : 'App store'}
+          </h1>
+          <p 
+            style={{ 
+              fontSize: '16px',
+              marginTop: '20px',
+              }}
+            >
+            {categories.map((tag,i) => (
+              <span key={tag}
+                style={{
+                  marginRight: '20px',
+                  paddingBottom: '10px',
+                  borderWidth: '2px',
+                  borderBottomStyle:  i === 0? 'solid' : 'none',
+                  borderBottomColor: brandData.color
+                }}
+              >
+                <Tag
+                  name={tag}
+                  onClick={this.handleTagClick}
+                  color={brandData.color}
+                />
+              </span>
+            ))}
+          </p>
         </div>
         {category? (
           <div style={{
@@ -145,14 +142,14 @@ class StorePage extends PureComponent {
           <img
             style={{
               width: '100%',
-              marginTop: '30px',
-              marginBottom: '30px',
+              marginTop: '30px'
             }}
             width={1968/2}
             height={84/2}
             src={`${publicUrl}/search-field.png`}
             alt='Search Field placeholder'
           />
+          {header}
         </ContentWrapper>
         <ContentWrapper
           background
@@ -163,7 +160,7 @@ class StorePage extends PureComponent {
         >
           <CardsList
             cards={featuredSnapCards}
-            header={header}
+            
           >
             {featuredSnapCards.map((card, i) => (
               <StoreCard
