@@ -38,10 +38,10 @@ export default class MyUbuntu extends Component {
         `Provide us your payment details`,
       ],
       par1: `Once you authorize the payment you’ll be returned to the store.`,
-      welcome: `Welcome back, Lola Chang`,
+      welcome: `Welcome back, John Smith`,
       youAreSignedIn: `You are signed in as`,
-      email: `lola.chang@canonical.com`,
-      notYou: `Not Lola?`,
+      email: `john.smith@canonical.com`,
+      notYou: `Not John?`,
       manage: `Sign in with a different account`,
     }
 

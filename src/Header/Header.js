@@ -9,7 +9,7 @@ import {
   If,
  } from 'toolkit'
 
-const defaultProfileName = 'Lola Chang'
+const defaultProfileName = 'John Smith'
 
 
 
