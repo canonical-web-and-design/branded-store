@@ -41,6 +41,9 @@
 .Header-back:active .Header-activeOverlay {
   background: rgba(0,0,0,0.05);
 }
+.Header-back-text {
+  font-size: 18px;
+}
 .Header-profile {
   position: relative;
   display: flex;
