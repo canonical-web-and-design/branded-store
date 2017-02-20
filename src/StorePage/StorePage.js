@@ -89,7 +89,7 @@ class StorePage extends PureComponent {
         <div
           style={{ 
             fontSize: '24px',
-            margin: '40px 0 45px 0',
+            margin: '45px 0 55px 0',
             }}
         >
           <h1 style={{ fontSize: '24px' }}>
@@ -98,7 +98,7 @@ class StorePage extends PureComponent {
           <p 
             style={{ 
               fontSize: '16px',
-              marginTop: '20px',
+              marginTop: '23px',
               }}
             >
             {categories.map((tag,i) => (
