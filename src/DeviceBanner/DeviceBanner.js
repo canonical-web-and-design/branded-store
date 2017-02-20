@@ -38,7 +38,7 @@ class DeviceBanner extends PureComponent {
         <div>
           <h1 className='DeviceBanner-name'>{deviceName}</h1>
           <p className='DeviceBanner-brandName'>
-            <strong>By {brandName}</strong>
+            <strong>{brandName}</strong>
           </p>
           <p className='DeviceBanner-id'>
             {deviceId}

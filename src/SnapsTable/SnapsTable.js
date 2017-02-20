@@ -18,7 +18,7 @@ class SnapsTableRow extends PureComponent {
           <img alt='' src={icon} width='41' />
           {' ' + name}
         </td>
-        <td  className='SnapsTable-author'>By {author}</td>
+        <td  className='SnapsTable-author'>{author}</td>
         <td className='SnapsTable-category'>{category}</td>
       </tr>
     )

@@ -105,3 +105,10 @@
   align-items: 'center';
   padding: 15px 0;
 }
+.MyUbuntu-validateGroup {
+  display: flex;
+  align-items: center;
+}
+.MyUbuntu-validateGroupCancel {
+  margin-right: 20px;
+}
