@@ -76,6 +76,7 @@ function getSnaps(url) {
       download: true,
       header: true,
       complete: resolve,
+      skipEmptyLines: true,
     })
   })
   .then(rows => (
