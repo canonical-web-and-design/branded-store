@@ -49,7 +49,7 @@ function createAllSnaps(customSnapsData) {
     .map(snap => {
       const id = snap.id || (snap.snapId || '').trim() || snap.name.toLowerCase().split(' ').join('-')
       const type = snap.type || 'Snap'
-      const interfaces = snap.interfaces.split(',')
+      const interfaces = (snap.interfaces || '').split(',')
       const preinstalled = snap.preinstalled || false
       const status = (
         installedIds.includes(id) || snap.preinstalled
@@ -76,6 +76,7 @@ function getSnaps(url) {
       download: true,
       header: true,
       complete: resolve,
+      skipEmptyLines: true,
     })
   })
   .then(rows => (
