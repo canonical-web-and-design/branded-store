@@ -62,9 +62,9 @@ class Header extends Component {
               onClick={this.handleBackClick}
             >
               <span>
-                <Icon name='previous' size='32px' />
+                <Icon name='previous' size='24px' />
               </span>
-              <span>Device</span>
+              <span className='Header-back-text'>Device</span>
               <div className='Header-activeOverlay' />
             </div>
           </If>
