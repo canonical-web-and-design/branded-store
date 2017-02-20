@@ -27,18 +27,6 @@ button, [role=button] {
   user-select: none;
   cursor: pointer;
 }
-.external {
-  padding-right: 20px;
-  color: #335280;
-  background: url(/external.svg) no-repeat 100% 50%;
-}
-.external-branded {
-  padding-right: 20px;
-  background: url(/external.svg) no-repeat 100% 50%;
-}
-.external-noicon {
-  color: #335280;
-}
 .Footer-MyUbuntu a {
   color: #335280;
 }

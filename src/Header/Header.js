@@ -64,6 +64,7 @@ class Header extends Component {
               <span>
                 <Icon name='previous' size='32px' />
               </span>
+              <span>Device</span>
               <div className='Header-activeOverlay' />
             </div>
           </If>

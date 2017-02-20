@@ -42,7 +42,7 @@ export default class HomePage extends PureComponent {
 
     const addCard = {
       id: 'add',
-      name: 'Add new apps to this device',
+      name: 'Get more apps',
       action: 'Store',
       image: 'add-snap',
       iconUrl: `${pub}/icons/cards/add-snap.png`,
@@ -87,7 +87,7 @@ export default class HomePage extends PureComponent {
         <ContentWrapper background bordered>
 
           <CardsList
-            title='Installed'
+            title='Apps installed'
             cards={cards}
             onCardClick={onOpenSnap}
           />

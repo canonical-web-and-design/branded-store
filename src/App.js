@@ -3,11 +3,7 @@ import './App.css'
 
 import 'toolkit/lib/bundle.css'
 
-import {
-  If,
-  Footer,
-} from 'toolkit'
-
+import { If, Footer } from 'toolkit'
 import ThemeChanger from './ThemeChanger/ThemeChanger'
 import Loader from './Loader/Loader'
 
@@ -126,13 +122,16 @@ class App extends Component {
   }
 
   handleStoreEvents = (event) => {
-    // console.log('[STORE EVENT]', event.type, event)
+    //console.log('[STORE EVENT]', event.type, event)
     if (event.type === 'ALL_SNAPS') {
       return this.setState({ allSnaps: event.snaps })
     }
     if (event.type === 'FEATURED_SNAPS') {
       return this.setState({ featuredSnapIds: event.ids })
     }
+    if (event.type === 'GO_HOME') {
+      return this.goto('')
+    } 
   }
 
   reloadBrands = () => {
@@ -306,15 +305,7 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <style>{`
-          a, .SnapPageTags { color: ${brandData.color || '#333'} }
-          .external, .external-branded {
-            background-image: url(${pub}/external-${brandData.id}.svg);
-          }
-          .App-payment .external, .App-payment .external-branded {
-            background-image: url(${pub}/external.svg);
-          }
-        `}</style>
+        <style>{`a { color: ${brandData.color || '#333'} }`}</style>
 
         <If cond={!waitingPayment}>
           <div className='App-main'>

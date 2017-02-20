@@ -97,7 +97,7 @@ class StorePage extends PureComponent {
             }}
           >
             <h1 style={{ fontSize: '24px' }}>
-              {category? capitalize(category) : 'Featured'}
+              {category? capitalize(category) : 'App store'}
             </h1>
             <p style={{ fontSize: '16px' }}>
               {categories.map(tag => (
@@ -119,7 +119,6 @@ class StorePage extends PureComponent {
             style={{
               width: '100%',
               height: '0',
-              marginTop: '20px',
               borderBottom: '1px dotted #D2D2D2',
             }}
           />
