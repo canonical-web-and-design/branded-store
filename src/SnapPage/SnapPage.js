@@ -165,7 +165,10 @@ class SnapPage extends Component {
 
         <If cond={!snap.preinstalled}>
           <ContentWrapper bordered>
-            <ReviewList />
+            <ReviewList 
+              author={snap.reviewAuthor}
+              content={snap.reviewContent}
+            />
           </ContentWrapper>
         </If>
       </div>
